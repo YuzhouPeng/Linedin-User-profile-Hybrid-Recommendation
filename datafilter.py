@@ -2,12 +2,12 @@ import csv
 
 # , open('output.csv','w') as outputfile
 with open('/Users/pengyuzhou/Desktop/LinkedIn_data_lowercase_no_punctuation.csv', 'r') as csvfile:
-    name = 'software engineer'
+    name = 'marketing manager'
     reader = csv.reader(csvfile)
     # writer = csv.DictWriter(outputfile)
     i = 1
-    writer = csv.writer(open('/Users/pengyuzhou/Desktop/software_engineer_lowercase_no_punctuation.csv', 'w'))
-    writer1 = csv.writer(open('/Users/pengyuzhou/Desktop/non_software_engineer_lowercase_no_punctuation.csv', 'w'))
+    writer = csv.writer(open('/Users/pengyuzhou/Desktop/marketing_manager_lowercase_no_punctuation.csv', 'w'))
+    writer1 = csv.writer(open('/Users/pengyuzhou/Desktop/non_marketing_manager_lowercase_no_punctuation.csv', 'w'))
     for row in reader:
         print(i)
         if (row[3].find(name)!=-1):
