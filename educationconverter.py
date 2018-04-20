@@ -13,13 +13,6 @@ def calculatehighestdegree():
         else:
             if degree_index>i:
                 degree_index = i
-            # if i == 0:
-            #     degree_index = 3
-            # elif i >= 1 and i <= 3:
-            #     degree_index = 2
-            # elif i >= 1 and i <= 3:
-            #     degree_index = 1
-        # print(degree_index)
     return degree_index
 
 # , open('output.csv','w') as outputfile
