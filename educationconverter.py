@@ -16,7 +16,7 @@ def calculatehighestdegree():
     return degree_index
 
 # , open('output.csv','w') as outputfile
-with open('/Users/pengyuzhou/Desktop/software_engineer_lowercase_no_punctuation.csv', 'r') as csvfile:
+with open('/Users/pengyuzhou/Google Drive/Linkedin_datafile/software_engineer/software_engineer_lowercase_no_punctuation.csv', 'r') as csvfile:
     name = 'software engineer'
     reader = csv.reader(csvfile)
     # writer = csv.DictWriter(outputfile)
