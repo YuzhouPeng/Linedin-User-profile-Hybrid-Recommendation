@@ -49,13 +49,13 @@ accuracy1 = (float)(related_doc_num - 1) / 500
 print("accuracy: %.30f" % accuracy1)
 
 ## LSA
-lsa = TruncatedSVD(2, algorithm='arpack')
-tfidf1_lsa = lsa.fit_transform(tfidf1)
-tfidf1_lsa = Normalizer(copy=False).fit_transform(tfidf1_lsa)
-dataframe = pd.DataFrame(lsa.components_, index=["component_1", "component_2"], columns=v.get_feature_names())
-print(dataframe)
-
-dataframe1 = pd.DataFrame(tfidf1_lsa, index=docs, columns=["component_1", "component_2"])
-print(dataframe)
+# lsa = TruncatedSVD(2, algorithm='arpack')
+# tfidf1_lsa = lsa.fit_transform(tfidf1)
+# tfidf1_lsa = Normalizer(copy=False).fit_transform(tfidf1_lsa)
+# dataframe = pd.DataFrame(lsa.components_, index=["component_1", "component_2"], columns=v.get_feature_names())
+# print(dataframe)
+#
+# dataframe1 = pd.DataFrame(tfidf1_lsa, index=docs, columns=["component_1", "component_2"])
+# print(dataframe)
 
 

@@ -1,9 +1,14 @@
-import workexperiecetimes, non_calculatedegreeworkyear, calculatedegreeworkyear, datanormalize
+import workexperiecetimes, non_calculatedegreeworkyear, calculatedegreeworkyear, datanormalize, generateweightingfile
 import globalparameter
 import time
+
 if __name__ == '__main__':
     workexperiecetimes.calculate_work_exp_times(globalparameter.path, globalparameter.name_for_search_exp_times,
-                                                globalparameter.job_title_name, globalparameter.job_title_data_path)
+                                                globalparameter.job_title_name, globalparameter.job_title_data_path,
+                                                globalparameter.output_file_header_job_title)
+    workexperiecetimes.calculate_work_exp_times(globalparameter.path, globalparameter.name_for_search_exp_times,
+                                                globalparameter.job_title_name, globalparameter.job_title_data_path,
+                                                globalparameter.output_file_header_non_job_title)
     calculatedegreeworkyear.calculate_highest_degree(globalparameter.path, globalparameter.job_title_name,
                                                      globalparameter.job_title_data_path,
                                                      (globalparameter.extract_number))
@@ -42,6 +47,6 @@ if __name__ == '__main__':
         globalparameter.path + globalparameter.output_file_header_job_title + globalparameter.name_for_search_exp_times + globalparameter.output_file_root,
         globalparameter.output_file_header_job_title, globalparameter.name_for_search_exp_times)
     time.sleep(1)
-
-
+    generateweightingfile.generateweighting()
+    datanormalize.normalize_weighting_highest_degree(globalparameter.path+'/test.csv')
     print(1)

@@ -90,7 +90,7 @@ def non_calculate_work_year(path, job_title_name, job_title_data_path, extract_n
             # print(i)
             work_experience_total_year = 0
             work_experience_total_month = 0
-            if (row[3].find(name) == -1):
+            if (row[3].find(name) != -1):
                 regex_year = re.compile('((\d+)\s+years?)')
                 regex_month = re.compile('((\d+)\smonths?)')
                 print(row[6])
@@ -108,7 +108,7 @@ def non_calculate_work_year(path, job_title_name, job_title_data_path, extract_n
                 work_experience_total_month = work_experience_total_month + str_month_num
                 # print('year num = {} month num = {}'.format(str_year_num, str_month_num))
 
-            if (row[9].find(name) == -1):
+            if (row[9].find(name) != -1):
                 regex_year = re.compile('((\d+)\s+years?)')
                 regex_month = re.compile('((\d+)\smonths?)')
                 print(row[12])
@@ -124,7 +124,7 @@ def non_calculate_work_year(path, job_title_name, job_title_data_path, extract_n
                     str_month_num = int(m_month[0][1])
                 work_experience_total_year = work_experience_total_year + str_year_num
                 work_experience_total_month = work_experience_total_month + str_month_num
-            if (row[15].find(name) == -1):
+            if (row[15].find(name) != -1):
                 regex_year = re.compile('((\d+)\s+years?)')
                 regex_month = re.compile('((\d+)\smonths?)')
                 print(row[18])
@@ -140,7 +140,7 @@ def non_calculate_work_year(path, job_title_name, job_title_data_path, extract_n
                     str_month_num = int(m_month[0][1])
                 work_experience_total_year = work_experience_total_year + str_year_num
                 work_experience_total_month = work_experience_total_month + str_month_num
-            if (row[21].find(name) == -1):
+            if (row[21].find(name) != -1):
                 regex_year = re.compile('((\d+)\s+years?)')
                 regex_month = re.compile('((\d+)\smonths?)')
                 print(row[24])
@@ -156,7 +156,7 @@ def non_calculate_work_year(path, job_title_name, job_title_data_path, extract_n
                     str_month_num = int(m_month[0][1])
                 work_experience_total_year = work_experience_total_year + str_year_num
                 work_experience_total_month = work_experience_total_month + str_month_num
-            if (row[27].find(name) == -1):
+            if (row[27].find(name) != -1):
                 regex_year = re.compile('((\d+)\s+years?)')
                 regex_month = re.compile('((\d+)\smonths?)')
                 print(row[30])
@@ -172,7 +172,7 @@ def non_calculate_work_year(path, job_title_name, job_title_data_path, extract_n
                     str_month_num = int(m_month[0][1])
                 work_experience_total_year = work_experience_total_year + str_year_num
                 work_experience_total_month = work_experience_total_month + str_month_num
-            if (row[33].find(name) == -1):
+            if (row[33].find(name) != -1):
                 regex_year = re.compile('((\d+)\s+years?)')
                 regex_month = re.compile('((\d+)\smonths?)')
                 print(row[36])
@@ -188,7 +188,7 @@ def non_calculate_work_year(path, job_title_name, job_title_data_path, extract_n
                     str_month_num = int(m_month[0][1])
                 work_experience_total_year = work_experience_total_year + str_year_num
                 work_experience_total_month = work_experience_total_month + str_month_num
-            if (row[39].find(name) == -1):
+            if (row[39].find(name) != -1):
                 regex_year = re.compile('((\d+)\s+years?)')
                 regex_month = re.compile('((\d+)\smonths?)')
                 print(row[42])
