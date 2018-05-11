@@ -1,40 +1,43 @@
-import csv
+from sklearn import preprocessing
 import pandas as pd
-def normalize(df):
-    result = df.copy()
-    for row in df.columns:
-        max_value = df[1].max()
-        min_value = df[1].min()
-        result[row] = (df[row] - min_value) / (max_value - min_value)
-    return result
+import globalparameter
 
-with open('/Users/pengyuzhou/Desktop/software_engineer_work_year_lowercase_no_punctuation.csv', 'r') as f:
-    reader = csv.reader(f)
-    writer = csv.writer(open('/Users/pengyuzhou/Desktop/software_engineer_work_year_normalize.csv', 'w'))
+def normalize_highest_degree(input_file_path, output_job_title, name_for_search):
+    colnames = ['id',name_for_search]
+    fields = ['id', name_for_search]
+    df = pd.read_csv(input_file_path,
+                     names=colnames,skipinitialspace=True, usecols=fields,header=None)
+    x = df.values  # returns a numpy array
+    degree = []
+    # iteration of the highest degree
+    for row in df[name_for_search]:
+        if row == 1:
+            degree.append(3)
+        elif row >= 2 and row <= 4:
+            degree.append(2)
+        elif row >= 5 and row <= 7:
+            degree.append(1)
+        else:
+            degree.append(0)
 
-    work_year_list = [float(i[1]) for i in reader]
-    # print(work_year_list)
-    max_work_year = max(work_year_list)
-    min_work_year = min(work_year_list)
-
-    count = 0
-    for row1 in reader:
-        print(row1[0])
-        print(row1[0])
-
-    for row in reader:
-        count = count+1
-        resultlist = []
-        result = (float(row[1]) - min_work_year) / (max_work_year-min_work_year)
-        # row.append(result)
-        print('id = {} result = {}'.format(count, result))
-        resultlist.append(row[0])
-        resultlist.append(row[1])
-        resultlist.append(result)
-        writer.writerow(resultlist)
-f.close()
+    degree = pd.DataFrame(degree, columns=[name_for_search])
+    df[name_for_search] = degree[name_for_search]
+    min_max_scaler = preprocessing.MinMaxScaler()
+    x_scaled = min_max_scaler.fit_transform(df)
+    # x_scaled.to_csv('/Users/pengyuzhou/Desktop/software_engineer_work_year_normalize.csv')
+    normalzied_value = pd.DataFrame(x_scaled, columns=['normalized_id', 'normalized_'+name_for_search]).to_csv(
+       globalparameter.path+output_job_title+name_for_search+'_normalized'+globalparameter.output_file_root )
 
 
-
-
-
+def normalize_workyear_exptime(input_file_path, output_job_title, name_for_search):
+    colnames = ['id', name_for_search]
+    fields = ['id', name_for_search]
+    df = pd.read_csv(input_file_path,
+                     names=colnames,skipinitialspace=True, usecols=fields,header=None)
+    x = df.values  # returns a numpy array
+    # iteration of the highest degree
+    min_max_scaler = preprocessing.MinMaxScaler()
+    x_scaled = min_max_scaler.fit_transform(x)
+    # x_scaled.to_csv('/Users/pengyuzhou/Desktop/software_engineer_work_year_normalize.csv')
+    normalzied_value = pd.DataFrame(x_scaled, columns=['normalized_id', 'normalized_'+name_for_search]).to_csv(
+        globalparameter.path+output_job_title+name_for_search+'_normalized'+globalparameter.output_file_root )

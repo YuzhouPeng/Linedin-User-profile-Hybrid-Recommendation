@@ -1,0 +1,11 @@
+job_title_name = 'software engineer'
+job_title_data_path = '/Users/pengyuzhou/Google Drive/Linkedin_datafile/software_engineer/software_engineer_lowercase_no_punctuation.csv'
+non_job_title_data_path = '/Users/pengyuzhou/Google Drive/Linkedin_datafile/software_engineer/non_software_engineer_lowercase_no_punctuation.csv'
+path = '/Users/pengyuzhou/Google Drive/Linkedin_datafile/software_engineer'
+name_for_search_exp_times = 'suitable_work_experience_times'
+name_for_search_highest_degree = 'highest_degree'
+name_for_search_work_year = 'work_year'
+extract_number = 500
+output_file_header_job_title = '/software_engineer_'
+output_file_header_non_job_title = '/non_software_engineer_'
+output_file_root = '_lowercase_no_punctuation.csv'
