@@ -6,11 +6,12 @@ from sklearn.feature_selection import RFECV
 
 length = 500
 df = pd.read_csv('/Users/pengyuzhou/Desktop/content_based_software_engineer/content_based_software_engineer_weighting.csv',sep = ',')
-id_column = df['id']
-cosine_similarity_column = df['cosine_similarity_value']
-work_year_column = df['work_year_value']
-highest_degree_column = df['highest_degree_value']
-user_data = pd.DataFrame({'id':id_column, 'cosine_similarity':cosine_similarity_column, 'work_year':work_year_column, 'highest_degree':highest_degree_column})
+id_column = df['normalized_id']
+cosine_similarity_column = df['normalized_cosine_similarity']
+work_year_column = df['normalized_work_year']
+highest_degree_column = df['normalized_highest_degree']
+exp_time_column = df['normalized_exp_time']
+user_data = pd.DataFrame({'id':id_column, 'cosine_similarity':cosine_similarity_column, 'work_year':work_year_column, 'highest_degree':highest_degree_column, 'exp_time':exp_time_column})
 
 sorted_id_cosine_similarity = user_data.sort_values('cosine_similarity', ascending = False).groupby('id').head(500)
 sorted_id_work_year = user_data.sort_values('work_year', ascending = False).groupby('id').head(500)

@@ -46,7 +46,7 @@ def normalize_workyear_exptime(input_file_path, output_job_title, name_for_searc
 
 def normalize_weighting_highest_degree(input_file_path):
     # colnames = ['id',name_for_search]
-    fields = ['rowindex','exp_time', 'highest_degree', 'id', 'work_year']
+    fields = ['rowindex','cosine_similarity','exp_time', 'highest_degree', 'id', 'work_year']
     df = pd.read_csv(input_file_path,
                      names=fields,skipinitialspace=True, usecols=fields, skiprows=1)
     x = df.values  # returns a numpy array
@@ -68,7 +68,7 @@ def normalize_weighting_highest_degree(input_file_path):
     x_scaled_highest_degree = min_max_scaler.fit_transform(df)
     # x_scaled.to_csv('/Users/pengyuzhou/Desktop/software_engineer_work_year_normalize.csv')
     normalzied_value = pd.DataFrame(x_scaled_highest_degree,
-                                    columns=['index_normalized','normalized_exp_time', 'normalized_highest_degree', 'normalized_id',
+                                    columns=['index_normalized','normalized_cosine_similarity','normalized_exp_time', 'normalized_highest_degree', 'normalized_id',
                                              'normalized_work_year']).to_csv(
         globalparameter.path + '/test1.csv')
 

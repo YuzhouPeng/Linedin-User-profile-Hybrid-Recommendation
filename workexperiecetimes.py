@@ -3,7 +3,7 @@ import itertools
 import globalparameter
 
 # , open('output.csv','w') as outputfile
-def calculate_work_exp_times(path, name_for_search, job_title_name, input_file_path,output_file_header):
+def calculate_work_exp_times(path, name_for_search, job_title_name, input_file_path,output_file_header,extract_number):
     with open(
             input_file_path,
             'r') as csvfile:
@@ -11,7 +11,7 @@ def calculate_work_exp_times(path, name_for_search, job_title_name, input_file_p
         reader = csv.reader(csvfile)
         counter = 1
         writer = csv.writer(open(path + output_file_header + name_for_search + globalparameter.output_file_root, 'w'))
-        for row in itertools.islice(reader, 501):
+        for row in itertools.islice(reader, extract_number):
             # print(i)
             suitable_work_experience_times = 0
             if (row[3].find(name) != -1):
