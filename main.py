@@ -34,20 +34,30 @@ def contentbased(positivesamplevalue):
     datanormalize.normalize_weighting_highest_degree(globalparameter.path + '/test.csv')
     diagramgenerator.calculateprecisionandrecall(globalparameter.extract_number)
 
-
-if __name__ == '__main__':
-    for i in range(100, 900):
-        contentbased(i)
+def function(index):
+    contentbased(index)
     diagramgenerator.generatediagram(globalparameter.cosine_similarity_column_precision,
                                      globalparameter.cosine_similarity_column_recall,
-                                     globalparameter.name_for_search_cosine_similarity)
+                                     globalparameter.name_for_search_cosine_similarity, index,1)
     diagramgenerator.generatediagram(globalparameter.work_year_column_precision,
                                      globalparameter.work_year_column_recall,
-                                     globalparameter.name_for_search_work_year)
+                                     globalparameter.name_for_search_work_year, index,2)
     diagramgenerator.generatediagram(globalparameter.highest_degree_column_precision,
                                      globalparameter.highest_degree_column_recall,
-                                     globalparameter.name_for_search_highest_degree)
+                                     globalparameter.name_for_search_highest_degree, index,3)
     diagramgenerator.generatediagram(globalparameter.exp_time_column_precision,
                                      globalparameter.exp_time_column_recall,
-                                     globalparameter.name_for_search_exp_times)
+                                     globalparameter.name_for_search_exp_times, index,4)
+    globalparameter.cosine_similarity_column_precision = []
+    globalparameter.cosine_similarity_column_recall = []
+    globalparameter.work_year_column_precision = []
+    globalparameter.work_year_column_recall = []
+    globalparameter.highest_degree_column_precision = []
+    globalparameter.highest_degree_column_recall = []
+    globalparameter.exp_time_column_precision = []
+    globalparameter.exp_time_column_recall = []
+
+if __name__ == '__main__':
+    for i in range(100,900,100):
+        function(i)
     print(1)

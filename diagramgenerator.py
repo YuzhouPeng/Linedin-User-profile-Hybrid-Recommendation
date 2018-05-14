@@ -1,6 +1,7 @@
 import pandas as pd
 import globalparameter
 import matplotlib
+
 matplotlib.use("Agg")
 import numpy as np
 import matplotlib.pyplot as plt
@@ -31,45 +32,45 @@ def calculateprecisionandrecall(extractnumber):
         {'index': index_column, 'id': id_column, 'cosine_similarity': cosine_similarity_column,
          'work_year': work_year_column,
          'highest_degree': highest_degree_column, 'exp_time': exp_time_column})
-
-    sorted_id_cosine_similarity = user_data.sort_values('cosine_similarity', ascending=False).groupby('id').head(500)
-    sorted_id_cosine_similarity_top500 = sorted_id_cosine_similarity['id'][:length].tolist()
-    sorted_id_cosine_similarity_other = sorted_id_cosine_similarity['id'][length:1000].tolist()
-
-    sorted_id_work_year = user_data.sort_values('work_year', ascending=False).groupby('id').head(500)
-    sorted_id_work_year_top500 = sorted_id_work_year['id'][:length].tolist()
-    sorted_id_work_year_other = sorted_id_work_year['id'][length:1000].tolist()
-
-    sorted_id_highest_degree = user_data.sort_values('highest_degree', ascending=False).groupby('id').head(500)
-    sorted_id_highest_degree_top500 = sorted_id_highest_degree['id'][:length].tolist()
-    sorted_id_highest_degree_other = sorted_id_highest_degree['id'][length:1000].tolist()
-
-    sorted_id_exp_time = user_data.sort_values('exp_time', ascending=False).groupby('id').head(500)
-    sorted_id_exp_time_top500 = sorted_id_exp_time['id'][:length].tolist()
-    sorted_id_exp_time_degree_other = sorted_id_exp_time['id'][length:1000].tolist()
-
-    cosine_similarity_top500 = user_data['id'].values[:length].tolist()
-    cosine_similarity_other = user_data['id'].values[length:1000].tolist()
-
-    work_year_top500 = sorted_id_work_year['id'][:length].tolist()
     id_manual_top500 = user_data['id'][:length].tolist()
     id_manual_other = user_data['id'][length:1000].tolist()
+    calculatewiththreshold(user_data, id_manual_top500, id_manual_other)
 
-    calculate(id_manual_top500, id_manual_other, sorted_id_cosine_similarity_top500,
-              sorted_id_cosine_similarity_other, extractnumber, globalparameter.cosine_similarity_column_precision,
-              globalparameter.cosine_similarity_column_recall)
-    calculate(id_manual_top500, id_manual_other, sorted_id_work_year_top500,
-              sorted_id_work_year_other, extractnumber, globalparameter.work_year_column_precision,
-              globalparameter.work_year_column_recall)
-    calculate(id_manual_top500, id_manual_other, sorted_id_highest_degree_top500,
-              sorted_id_highest_degree_other, extractnumber, globalparameter.highest_degree_column_precision,
-              globalparameter.highest_degree_column_recall)
-    calculate(id_manual_top500, id_manual_other, sorted_id_exp_time_top500,
-              sorted_id_exp_time_degree_other, extractnumber, globalparameter.exp_time_column_precision,
-              globalparameter.exp_time_column_recall)
+def calculatewiththreshold(user_data, id_manual_top500, id_manual_other):
+
+    threshold = 0
+    step = 0.001
+    for i in range(1000):
+        positive_test_cosine_similarity = user_data[user_data['cosine_similarity']>=threshold]['id'].tolist()
+        negative_test_cosine_similarity = user_data[user_data['cosine_similarity']<threshold]['id'].tolist()
+
+        positive_test_work_year = user_data[user_data['work_year']>=threshold]['id'].tolist()
+        negative_test_work_year = user_data[user_data['work_year']<threshold]['id'].tolist()
+
+        positive_test_highest_degree = user_data[user_data['highest_degree']>=threshold]['id'].tolist()
+        negative_test_highest_degree = user_data[user_data['highest_degree']<threshold]['id'].tolist()
+
+        positive_test_exp_time = user_data[user_data['exp_time']>=threshold]['id'].tolist()
+        negative_test_exp_time = user_data[user_data['exp_time']<threshold]['id'].tolist()
 
 
-def calculate(positive, negative, positive_test, negative_test, extract_number, precisionlist, recalllist):
+        calculate(id_manual_top500, id_manual_other, positive_test_cosine_similarity,
+                  negative_test_cosine_similarity, globalparameter.cosine_similarity_column_precision,
+                  globalparameter.cosine_similarity_column_recall)
+        calculate(id_manual_top500, id_manual_other, positive_test_work_year,
+                  negative_test_work_year, globalparameter.work_year_column_precision,
+                  globalparameter.work_year_column_recall)
+        calculate(id_manual_top500, id_manual_other, positive_test_highest_degree,
+                  negative_test_highest_degree, globalparameter.highest_degree_column_precision,
+                  globalparameter.highest_degree_column_recall)
+        calculate(id_manual_top500, id_manual_other, positive_test_exp_time,
+                  negative_test_exp_time, globalparameter.exp_time_column_precision,
+                  globalparameter.exp_time_column_recall)
+
+        threshold = threshold + step
+
+
+def calculate(positive, negative, positive_test, negative_test, precisionlist, recalllist):
     id_positive = positive
     id_negative = negative
     sorted_id_test_top500 = positive_test
@@ -79,16 +80,16 @@ def calculate(positive, negative, positive_test, negative_test, extract_number, 
     id_false_positive = []
     id_false_negative = []
 
-    for i in range(1000-extract_number):
+    for i in range(len(sorted_id_test_other)):
         if sorted_id_test_other[i] in id_negative:
             id_true_negative.append(sorted_id_test_other[i])
-    for i in range(extract_number):
+    for i in range(len(sorted_id_test_top500)):
         if sorted_id_test_top500[i] in id_positive:
             id_true_positive.append(sorted_id_test_top500[i])
-    for i in range(extract_number):
+    for i in range(len(sorted_id_test_top500)):
         if sorted_id_test_top500[i] in id_negative:
             id_false_negative.append(sorted_id_test_top500[i])
-    for i in range(1000-extract_number):
+    for i in range(len(sorted_id_test_other)):
         if sorted_id_test_other[i] in id_positive:
             id_false_positive.append(sorted_id_test_other[i])
 
@@ -97,26 +98,24 @@ def calculate(positive, negative, positive_test, negative_test, extract_number, 
     num_false_positive = len(id_false_positive)
     num_false_negative = len(id_false_negative)
 
-    print(len(id_false_positive))
-    print(len(id_false_negative))
-    print(id_false_positive)
-    print(id_false_negative)
-    print('accuracy = {}'.format((num_true_positive + num_true_negative) / 1000))
-    print('recall = {}'.format((num_true_positive) / (num_true_positive + num_false_negative)))
-    print('precision = {}'.format((num_true_positive) / (num_true_positive + num_false_positive)))
-
+    # print(len(id_false_positive))
+    # print(len(id_false_negative))
+    # print(id_false_positive)
+    # print(id_false_negative)
+    # print('accuracy = {}'.format((num_true_positive + num_true_negative) / 1000))
+    # print('recall = {}'.format((num_true_positive) / (num_true_positive + num_false_negative)))
+    # print('precision = {}'.format((num_true_positive) / (num_true_positive + num_false_positive)))
+    # print()
     precisionlist.append((num_true_positive) / (num_true_positive + num_false_positive))
     recalllist.append((num_true_positive) / (num_true_positive + num_false_negative))
 
 
-def generatediagram(precisionlist, recalllist, name_for_search):
-    plt.figure(1)  # 创建图表1
-    plt.title('Precision/Recall Curve')  # give plot a title
+def generatediagram(precisionlist, recalllist, name_for_search, index,figureindex):
+    plt.figure(figureindex)
+    plt.title('Precision/Recall Curve: ' + name_for_search)  # give plot a title
     plt.xlabel('Recall')  # make axis labels
     plt.ylabel('Precision')
 
-    # x、y都是列表，里面存的分别是recall和precision
-    # 传参得到或读取文件得到无所谓
     x = precisionlist
     y = recalllist
     # f = open('eval.txt', 'r')
@@ -125,8 +124,7 @@ def generatediagram(precisionlist, recalllist, name_for_search):
     #     y.append(float(lines[3 * i].strip().split(':')[1]))
     #     x.append(float(lines[3 * i + 1].strip().split(':')[1]))
     # f.close()
-    plt.figure(1)
+    plt.figure(figureindex)
     plt.plot(x, y)
     plt.show()
-    plt.savefig(globalparameter.path+'/p-r_'+name_for_search+'.png')
-
+    plt.savefig(globalparameter.path + '/p-r_' + name_for_search +'-extract'+ str(index) + '.png')

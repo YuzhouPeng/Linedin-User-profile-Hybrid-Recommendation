@@ -7,6 +7,7 @@ name_for_search_highest_degree = 'highest_degree'
 name_for_search_work_year = 'work_year'
 name_for_search_cosine_similarity = 'cosine_similarity'
 extract_number = 500
+total_number = 10000
 output_file_header_job_title = '/software_engineer_'
 output_file_header_non_job_title = '/non_software_engineer_'
 output_file_root = '_lowercase_no_punctuation.csv'
