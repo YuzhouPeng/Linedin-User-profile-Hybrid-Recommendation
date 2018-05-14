@@ -47,14 +47,14 @@ def calculatecosinesililarity():
     i = 0
     cosine_similarity_value = pd.DataFrame(cosine_similarities, columns=['cosine_similarity_value']).to_csv(
         globalparameter.path+globalparameter.output_file_header_job_title+'cosine_similarity_test.csv')
-    related_doc_num = 0;
-    software_num = 501
-    for related_docs in related_docs_indices:
-        i = i + 1
-        print("top data top :", i, " is :", related_docs)
-        if (related_docs) < software_num:
-            related_doc_num = related_doc_num + 1
-
-    result = cosine_similarities[related_docs_indices]
-    accuracy1 = (float)(related_doc_num - 1) / 500
-    print("accuracy: %.30f" % accuracy1)
+    # related_doc_num = 0;
+    # software_num = 501
+    # for related_docs in related_docs_indices:
+    #     i = i + 1
+    #     # print("top data top :", i, " is :", related_docs)
+    #     if (related_docs) < software_num:
+    #         related_doc_num = related_doc_num + 1
+    #
+    # result = cosine_similarities[related_docs_indices]
+    # accuracy1 = (float)(related_doc_num - 1) / 500
+    # print("accuracy: %.30f" % accuracy1)

@@ -5,7 +5,17 @@ path = '/Users/pengyuzhou/Google Drive/Linkedin_datafile/software_engineer'
 name_for_search_exp_times = 'suitable_work_experience_times'
 name_for_search_highest_degree = 'highest_degree'
 name_for_search_work_year = 'work_year'
+name_for_search_cosine_similarity = 'cosine_similarity'
 extract_number = 500
 output_file_header_job_title = '/software_engineer_'
 output_file_header_non_job_title = '/non_software_engineer_'
 output_file_root = '_lowercase_no_punctuation.csv'
+
+cosine_similarity_column_precision = []
+cosine_similarity_column_recall = []
+work_year_column_precision = []
+work_year_column_recall = []
+highest_degree_column_precision = []
+highest_degree_column_recall = []
+exp_time_column_precision = []
+exp_time_column_recall = []
