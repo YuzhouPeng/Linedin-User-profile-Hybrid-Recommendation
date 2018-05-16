@@ -29,7 +29,7 @@ def non_calculate_highest_degree(path, job_title_name, non_job_title_data_path, 
         regex_list = ['(ph ?d ?)', '(ms)', '(master)', '(mba)', '(b ?s)', '(b ?e)', '(bachelor)']
         writer = csv.writer(
             open(path + globalparameter.output_file_header_non_job_title+ globalparameter.name_for_search_highest_degree + globalparameter.output_file_root, 'w'))
-        for row in itertools.islice(reader, 1000-extract_number):
+        for row in itertools.islice(reader, globalparameter.total_number-extract_number):
             # print(i)
             highest_degree = 0
             if (row[3].find(name) == -1):
@@ -86,7 +86,7 @@ def non_calculate_work_year(path, job_title_name, job_title_data_path, extract_n
         i = 1
         writer = csv.writer(
             open(path + globalparameter.output_file_header_non_job_title + globalparameter.name_for_search_work_year + globalparameter.output_file_root, 'w'))
-        for row in itertools.islice(reader, 1000-extract_number):
+        for row in itertools.islice(reader, globalparameter.total_number-extract_number):
             # print(i)
             work_experience_total_year = 0
             work_experience_total_month = 0

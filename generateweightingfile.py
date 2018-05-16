@@ -59,4 +59,4 @@ def generateweighting():
 
     frame = pd.DataFrame({'id':id,'highest_degree':highest_degree,'work_year': work_year,'exp_time': exp_time,'cosine_similarity':cosine_similarity})
 
-    frame.to_csv('/Users/pengyuzhou/Google Drive/Linkedin_datafile/software_engineer/test.csv')
+    frame.to_csv(globalparameter.path+'/test.csv')

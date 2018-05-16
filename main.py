@@ -11,9 +11,9 @@ def contentbased(positivesamplevalue):
                                                 globalparameter.output_file_header_job_title,
                                                 globalparameter.extract_number)
     workexperiecetimes.calculate_work_exp_times(globalparameter.path, globalparameter.name_for_search_exp_times,
-                                                globalparameter.job_title_name, globalparameter.job_title_data_path,
+                                                globalparameter.job_title_name, globalparameter.non_job_title_data_path,
                                                 globalparameter.output_file_header_non_job_title,
-                                                (1000 - globalparameter.extract_number))
+                                                (globalparameter.total_number - globalparameter.extract_number))
     calculatedegreeworkyear.calculate_highest_degree(globalparameter.path, globalparameter.job_title_name,
                                                      globalparameter.job_title_data_path,
                                                      (globalparameter.extract_number))
@@ -58,6 +58,6 @@ def function(index):
     globalparameter.exp_time_column_recall = []
 
 if __name__ == '__main__':
-    for i in range(100,900,100):
+    for i in range(1,10,1):
         function(i)
     print(1)

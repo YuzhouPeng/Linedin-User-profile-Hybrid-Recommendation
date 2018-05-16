@@ -22,7 +22,7 @@ def content_based_doc_generator(extract_number):
                 writer.writerow([new_row])
         with open(globalparameter.non_job_title_data_path) as f1:
             reader1 = csv.reader(f1)
-            for row in itertools.islice(reader1, 1000-extract_number):
+            for row in itertools.islice(reader1, globalparameter.total_number-extract_number):
                 new_row = ' '.join(row[3:66])
                 writer.writerow([new_row])
 
@@ -43,7 +43,7 @@ def calculatecosinesililarity():
 
     # print (cosine_similarities)
     # give top n results
-    related_docs_indices = cosine_similarities.argsort()[:-500:-1]
+    # related_docs_indices = cosine_similarities.argsort()[:-500:-1]
     i = 0
     cosine_similarity_value = pd.DataFrame(cosine_similarities, columns=['cosine_similarity_value']).to_csv(
         globalparameter.path+globalparameter.output_file_header_job_title+'cosine_similarity_test.csv')

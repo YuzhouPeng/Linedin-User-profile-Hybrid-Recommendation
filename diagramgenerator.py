@@ -33,7 +33,7 @@ def calculateprecisionandrecall(extractnumber):
          'work_year': work_year_column,
          'highest_degree': highest_degree_column, 'exp_time': exp_time_column})
     id_manual_top500 = user_data['id'][:length].tolist()
-    id_manual_other = user_data['id'][length:1000].tolist()
+    id_manual_other = user_data['id'][length:globalparameter.total_number].tolist()
     calculatewiththreshold(user_data, id_manual_top500, id_manual_other)
 
 def calculatewiththreshold(user_data, id_manual_top500, id_manual_other):
