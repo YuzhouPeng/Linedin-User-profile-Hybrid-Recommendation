@@ -58,6 +58,7 @@ def function(index):
     globalparameter.exp_time_column_recall = []
 
 if __name__ == '__main__':
-    for i in range(1,10,1):
-        function(i)
     print(1)
+    # for i in range(1,10,1):
+    #     function(i)
+    # print(1)

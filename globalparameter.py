@@ -34,3 +34,11 @@ highest_degree_column_precision = []
 highest_degree_column_recall = []
 exp_time_column_precision = []
 exp_time_column_recall = []
+
+folderpath = ['/Users/pengyuzhou/Google Drive/Linkedin_datafile/software_engineer',
+              '/Users/pengyuzhou/Google Drive/Linkedin_datafile/secretary',
+              '/Users/pengyuzhou/Google Drive/Linkedin_datafile/project_manager',
+              '/Users/pengyuzhou/Google Drive/Linkedin_datafile/mechanical_engineer',
+              '/Users/pengyuzhou/Google Drive/Linkedin_datafile/marketing_manager',
+              '/Users/pengyuzhou/Google Drive/Linkedin_datafile/financial_advisor',
+              '/Users/pengyuzhou/Google Drive/Linkedin_datafile/data_scientist']
