@@ -19,17 +19,17 @@ def calculatehighestdegree(regex_list,row):
 
 
 # , open('output.csv','w') as outputfile
-def calculate_highest_degree(path, job_title_name, job_title_data_path, extract_number):
+def calculate_highest_degree(folderpath, name_for_search, job_title_data_path,jobtitle_path_list, extract_number):
     with open(
             job_title_data_path,
             'r') as csvfile:
-        name = job_title_name
+        name = name_for_search
         reader = csv.reader(csvfile)
         # writer = csv.DictWriter(outputfile)
         counter = 1
         regex_list = ['(ph ?d ?)', '(ms)', '(master)', '(mba)', '(b ?s)', '(b ?e)', '(bachelor)']
         writer = csv.writer(
-            open(path + globalparameter.output_file_header_job_title+ globalparameter.name_for_search_highest_degree + globalparameter.output_file_root, 'w'))
+            open(folderpath +'/'+ jobtitle_path_list+'_'+ globalparameter.name_for_search_highest_degree + globalparameter.output_file_root, 'w'))
         for row in itertools.islice(reader, extract_number):
             # print(i)
             highest_degree = 0

@@ -17,19 +17,19 @@ def calculatehighestdegree(regex_list,row):
                 degree_index = i + 1
     return degree_index
 
-# , open('output.csv','w') as outputfile
-def non_calculate_highest_degree(path, job_title_name, non_job_title_data_path, extract_number):
+
+def non_calculate_highest_degree(folderpath, name_for_search, non_job_title_data_path,jobtitle_path_list, extract_number):
     with open(
             non_job_title_data_path,
             'r') as csvfile:
-        name = job_title_name
+        name = name_for_search
         reader = csv.reader(csvfile)
         # writer = csv.DictWriter(outputfile)
         counter = 1
         regex_list = ['(ph ?d ?)', '(ms)', '(master)', '(mba)', '(b ?s)', '(b ?e)', '(bachelor)']
         writer = csv.writer(
-            open(path + globalparameter.output_file_header_non_job_title+ globalparameter.name_for_search_highest_degree + globalparameter.output_file_root, 'w'))
-        for row in itertools.islice(reader, globalparameter.total_number-extract_number):
+            open(folderpath +'/'+ jobtitle_path_list+'_'+ globalparameter.name_for_search_highest_degree + globalparameter.output_file_root, 'w'))
+        for row in itertools.islice(reader, extract_number):
             # print(i)
             highest_degree = 0
             if (row[3].find(name) == -1):
@@ -66,10 +66,7 @@ def non_calculate_highest_degree(path, job_title_name, non_job_title_data_path, 
             result.append(highest_degree)
             writer.writerow(result)
             counter = counter + 1
-
-
     csvfile.close()
-
 
 # outputfile.close()
 

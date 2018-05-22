@@ -1,5 +1,5 @@
 import workexperiecetimes, non_calculatedegreeworkyear, calculatedegreeworkyear, datanormalize, generateweightingfile, \
-    calculatecosinesimilarity, diagramgenerator
+    calculatecosinesimilarity, diagramgenerator, datafilter, calculate_data_job_now,alg_logestic_regression
 import globalparameter
 import time
 
@@ -34,20 +34,21 @@ def contentbased(positivesamplevalue):
     datanormalize.normalize_weighting_highest_degree(globalparameter.path + '/test.csv')
     diagramgenerator.calculateprecisionandrecall(globalparameter.extract_number)
 
+
 def function(index):
     contentbased(index)
     diagramgenerator.generatediagram(globalparameter.cosine_similarity_column_precision,
                                      globalparameter.cosine_similarity_column_recall,
-                                     globalparameter.name_for_search_cosine_similarity, index,1)
+                                     globalparameter.name_for_search_cosine_similarity, index, 1)
     diagramgenerator.generatediagram(globalparameter.work_year_column_precision,
                                      globalparameter.work_year_column_recall,
-                                     globalparameter.name_for_search_work_year, index,2)
+                                     globalparameter.name_for_search_work_year, index, 2)
     diagramgenerator.generatediagram(globalparameter.highest_degree_column_precision,
                                      globalparameter.highest_degree_column_recall,
-                                     globalparameter.name_for_search_highest_degree, index,3)
+                                     globalparameter.name_for_search_highest_degree, index, 3)
     diagramgenerator.generatediagram(globalparameter.exp_time_column_precision,
                                      globalparameter.exp_time_column_recall,
-                                     globalparameter.name_for_search_exp_times, index,4)
+                                     globalparameter.name_for_search_exp_times, index, 4)
     globalparameter.cosine_similarity_column_precision = []
     globalparameter.cosine_similarity_column_recall = []
     globalparameter.work_year_column_precision = []
@@ -57,7 +58,60 @@ def function(index):
     globalparameter.exp_time_column_precision = []
     globalparameter.exp_time_column_recall = []
 
+
 if __name__ == '__main__':
+    # for i in range(2):
+    #     datafilter.filter_alluser_with_newest_jobtitle(globalparameter.raw_data_path, globalparameter.folderpath[i],
+    #                                                    globalparameter.jobtitle_path_list[i],
+    #                                                    globalparameter.jobtitle_list[i])
+    # for i in range(2):
+    #     calculate_data_job_now.calculate_work_year_except_newest(globalparameter.folderpath[i],
+    #                                                              globalparameter.folderpath[
+    #                                                                  i] + '/' + globalparameter.jobtitle_path_list[
+    #                                                                  i] + globalparameter.output_file_root,
+    #                                                              globalparameter.jobtitle_path_list[i],
+    #                                                              globalparameter.jobtitle_list[i],
+    #                                                              globalparameter.extract_number)
+    #     calculate_data_job_now.calculate_work_year_except_newest(globalparameter.folderpath[i],
+    #                                                              globalparameter.folderpath[
+    #                                                                  i] + '/non_' + globalparameter.jobtitle_path_list[
+    #                                                                  i] + globalparameter.output_file_root,
+    #                                                              '/non_'+globalparameter.jobtitle_path_list[i],
+    #                                                              globalparameter.jobtitle_list[i],
+    #                                                              globalparameter.total_number-globalparameter.extract_number)
+    # for i in range(2):
+    #     calculatedegreeworkyear.calculate_highest_degree(globalparameter.folderpath[i],
+    #                                                      globalparameter.jobtitle_list[i],
+    #                                                      globalparameter.folderpath[i] + '/' +
+    #                                                      globalparameter.jobtitle_path_list[
+    #                                                          i] + globalparameter.output_file_root,globalparameter.jobtitle_path_list[i],
+    #                                                      globalparameter.extract_number)
+    #     non_calculatedegreeworkyear.non_calculate_highest_degree(globalparameter.folderpath[i],
+    #                                                      globalparameter.jobtitle_list[i],
+    #                                                      globalparameter.folderpath[i] + '/' +
+    #                                                      'non_'+globalparameter.jobtitle_path_list[
+    #                                                          i] + globalparameter.output_file_root,
+    #                                                      'non_'+globalparameter.jobtitle_path_list[i],
+    #                                                      globalparameter.total_number-globalparameter.extract_number)
+    #     workexperiecetimes.calculate_work_exp_times(globalparameter.folderpath[i],
+    #                                                 globalparameter.name_for_search_exp_times,
+    #                                                 globalparameter.jobtitle_list[i], globalparameter.folderpath[
+    #                                                     i] + '/' + globalparameter.jobtitle_path_list[
+    #                                                     i] + globalparameter.output_file_root,
+    #                                                 '/' + globalparameter.jobtitle_path_list[i] + '_',
+    #                                                 globalparameter.extract_number)
+    #     workexperiecetimes.calculate_work_exp_times(globalparameter.folderpath[i],
+    #                                                 globalparameter.name_for_search_exp_times,
+    #                                                 globalparameter.jobtitle_list[i], globalparameter.folderpath[
+    #                                                     i] + '/non_' + globalparameter.jobtitle_path_list[
+    #                                                     i] + globalparameter.output_file_root,
+    #                                                 '/non_' + globalparameter.jobtitle_path_list[i] + '_',
+    #                                                 globalparameter.total_number-globalparameter.extract_number)
+    #
+    #     calculate_data_job_now.generateweighting_expect_newest(globalparameter.extract_number,globalparameter.folderpath[i],globalparameter.jobtitle_path_list[i])
+    #     datanormalize.normalize_weighting_highest_degree(globalparameter.folderpath[i] + '/test.csv',globalparameter.folderpath[i])
+
+    alg_logestic_regression.logestic_regression()
     print(1)
     # for i in range(1,10,1):
     #     function(i)

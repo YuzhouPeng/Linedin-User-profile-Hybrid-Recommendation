@@ -17,8 +17,8 @@ name_for_search_work_year = 'work_year'
 name_for_search_cosine_similarity = 'cosine_similarity'
 
 # number for extraction of numbers
-extract_number = 500
-total_number = 10
+extract_number = 400
+total_number = 1000
 
 # format for output file
 output_file_header_job_title = '/financial_accountant_'
@@ -36,9 +36,9 @@ exp_time_column_precision = []
 exp_time_column_recall = []
 
 folderpath = ['/Users/pengyuzhou/Google Drive/Linkedin_datafile/software_engineer',
-              '/Users/pengyuzhou/Google Drive/Linkedin_datafile/secretary',
-              '/Users/pengyuzhou/Google Drive/Linkedin_datafile/project_manager',
-              '/Users/pengyuzhou/Google Drive/Linkedin_datafile/mechanical_engineer',
-              '/Users/pengyuzhou/Google Drive/Linkedin_datafile/marketing_manager',
-              '/Users/pengyuzhou/Google Drive/Linkedin_datafile/financial_advisor',
-              '/Users/pengyuzhou/Google Drive/Linkedin_datafile/data_scientist']
+              '/Users/pengyuzhou/Google Drive/Linkedin_datafile/project_manager']
+
+jobtitle_list = ['software engineer','project manager']
+jobtitle_path_list = ['software_engineer','project_manager']
+
+raw_data_path = '/Users/pengyuzhou/Google Drive/Linkedin_datafile/LinkedIn_data_lowercase_no_punctuation.csv'

@@ -1,10 +1,8 @@
-import csv
+import csv, globalparameter
 
 
 # , open('output.csv','w') as outputfile
-def filter_alluser_with_jobtitle(filepath,outputfilepath,name_for_search):
-
-
+def filter_alluser_with_jobtitle(filepath, outputfilepath, name_for_search):
     with open('/Users/pengyuzhou/Desktop/LinkedIn_data_lowercase_no_punctuation.csv', 'r') as csvfile:
         name = 'marketing manager'
         reader = csv.reader(csvfile)
@@ -33,20 +31,27 @@ def filter_alluser_with_jobtitle(filepath,outputfilepath,name_for_search):
             i = i + 1
 
     csvfile.close()
+
+
 # outputfile.close()
-def filter_alluser_with_newest_jobtitle(filepath,outputfilepath,name_for_search):
-
-
-    with open('/Users/pengyuzhou/Desktop/LinkedIn_data_lowercase_no_punctuation.csv', 'r') as csvfile:
-        name = 'marketing manager'
+def filter_alluser_with_newest_jobtitle(rawdatapath, folderpath,outputjobtitlepath, name_for_search):
+    with open(rawdatapath, 'r') as csvfile:
+        name = name_for_search
         reader = csv.reader(csvfile)
         # writer = csv.DictWriter(outputfile)
         i = 1
-        writer = csv.writer(open('/Users/pengyuzhou/Desktop/marketing_manager_lowercase_no_punctuation.csv', 'w'))
+        writer = csv.writer(
+            open(folderpath + '/' + outputjobtitlepath + globalparameter.output_file_root,
+                 'w'))
+        writer1 = csv.writer(
+            open(folderpath + '/' +'non_'+ outputjobtitlepath + globalparameter.output_file_root,
+                 'w'))
         for row in reader:
             print(i)
             if (row[3].find(name) != -1):
                 writer.writerow(row)
+            else:
+                writer1.writerow(row)
             i = i + 1
 
     csvfile.close()
