@@ -1,5 +1,6 @@
 import workexperiecetimes, non_calculatedegreeworkyear, calculatedegreeworkyear, datanormalize, generateweightingfile, \
-    calculatecosinesimilarity, diagramgenerator, datafilter, calculate_data_job_now,alg_logestic_regression, alg_svm
+    calculatecosinesimilarity, diagramgenerator, datafilter, calculate_data_job_now, alg_logestic_regression, alg_svm, \
+    alg_bayes, alg_decision_tree, alg_ramdom_forest
 import globalparameter
 import time
 
@@ -113,6 +114,9 @@ if __name__ == '__main__':
 
     alg_logestic_regression.logestic_regression()
     alg_svm.svm_classification()
+    alg_bayes.naive_bayes()
+    alg_decision_tree.decision_tree()
+    alg_ramdom_forest.random_forest()
     print(1)
     # for i in range(1,10,1):
     #     function(i)

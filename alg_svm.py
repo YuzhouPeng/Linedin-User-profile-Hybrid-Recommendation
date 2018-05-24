@@ -4,8 +4,6 @@ import globalparameter, csv, itertools
 from sklearn import preprocessing
 import matplotlib.pyplot as plt
 from numpy import genfromtxt
-from sklearn.metrics import average_precision_score
-plt.rc("font", size=14)
 from sklearn import svm
 from sklearn import linear_model, datasets
 from sklearn.model_selection import train_test_split
@@ -31,7 +29,7 @@ def svm_classification():
     X_train_std = sc.transform(X_train)
     X_test_std = sc.transform(X_test)
 
-    # train logestic regression
+    # train SVM
     svm_classifier = svm.LinearSVC()
     svm_classifier.fit(X_train, Y_train)
     Y_score = svm_classifier.decision_function(X_test_std)
@@ -42,9 +40,9 @@ def svm_classification():
     acc = svm_classifier.score(X_test_std, Y_test)
     avg_precesion = average_precision_score(Y_test,Y_score)
 
-    print('prediction is : {}'.format(prediction))
+    # print('prediction is : {}'.format(prediction))
     print('-------')
-    print('SVM classification')
+    print('SVM linear svc classification')
     # print('prepro is : {}'.format(prepro))
     print('acc is predict proba is {}'.format(acc))
     print('average precision and recall is {}'.format(avg_precesion))
@@ -80,9 +78,9 @@ def svm_classification():
     acc = svm_classifier.score(X_test_std, Y_test)
     avg_precesion = average_precision_score(Y_test, Y_score)
 
-    print('prediction is : {}'.format(prediction))
+    # print('prediction is : {}'.format(prediction))
     print('-------')
-    print('SVM classification')
+    print('SVM NuSVC classification')
     # print('prepro is : {}'.format(prepro))
     print('acc is predict proba is {}'.format(acc))
     print('average precision and recall is {}'.format(avg_precesion))
@@ -119,9 +117,9 @@ def svm_classification():
     acc = svm_classifier.score(X_test_std, Y_test)
     avg_precesion = average_precision_score(Y_test, Y_score)
 
-    print('prediction is : {}'.format(prediction))
+    # print('prediction is : {}'.format(prediction))
     print('-------')
-    print('SVM classification')
+    print('SVM SVC classification')
     # print('prepro is : {}'.format(prepro))
     print('acc is predict proba is {}'.format(acc))
     print('average precision and recall is {}'.format(avg_precesion))
@@ -136,6 +134,8 @@ def svm_classification():
     plt.ylabel('Precision')
     plt.ylim([0.0, 1.05])
     plt.xlim([0.0, 1.0])
+    leg = plt.legend(loc='best', ncol=2, mode="expand", shadow=True, fancybox=True)
+    leg.get_frame().set_alpha(0.5)
     plt.title('2-class Precision-Recall curve')
     plt.savefig(globalparameter.folderpath[1] + '/diagram_svm_p-r_' + globalparameter.jobtitle_path_list[
         1] + '-extract' + '.png')

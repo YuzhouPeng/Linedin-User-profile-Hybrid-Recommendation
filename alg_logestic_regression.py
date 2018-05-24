@@ -4,8 +4,6 @@ import globalparameter, csv, itertools
 from sklearn import preprocessing
 import matplotlib.pyplot as plt
 from numpy import genfromtxt
-from sklearn.metrics import average_precision_score
-plt.rc("font", size=14)
 from sklearn.linear_model import LogisticRegression
 from sklearn import linear_model, datasets
 from sklearn.model_selection import train_test_split
@@ -42,10 +40,10 @@ def logestic_regression():
     acc = logreg.score(X_test_std, Y_test)
     avg_precesion = average_precision_score(Y_test,Y_score)
 
-    print('prediction is : {}'.format(prediction))
+    # print('prediction is : {}'.format(prediction))
     print('-------')
     print('Logestic regression')
-    print('prepro is : {}'.format(prepro))
+    # print('prepro is : {}'.format(prepro))
     print('acc is predict proba is {}'.format(acc))
     print('average precision and recall is {}'.format(avg_precesion))
 
@@ -80,10 +78,10 @@ def logestic_regression():
     acc = logreg.score(X_test_std, Y_test)
     avg_precesion = average_precision_score(Y_test, Y_score)
 
-    print('prediction is : {}'.format(prediction))
+    # print('prediction is : {}'.format(prediction))
     print('-------')
-    print('Logestic regression')
-    print('prepro is : {}'.format(prepro))
+    print('Logestic regression CV')
+    # print('prepro is : {}'.format(prepro))
     print('acc is predict proba is {}'.format(acc))
     print('average precision and recall is {}'.format(avg_precesion))
 
