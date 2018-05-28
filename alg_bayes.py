@@ -8,12 +8,12 @@ from sklearn.naive_bayes import GaussianNB
 from sklearn import linear_model, datasets
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import StandardScaler
-from sklearn.metrics import average_precision_score
+from sklearn.metrics import precision_score
 from sklearn.metrics import precision_recall_curve
 import matplotlib.pyplot as plt
 
-def naive_bayes():
-    user_profile = pd.read_csv(globalparameter.folderpath[1]+'/test1.csv')
+def naive_bayes(ratio):
+    user_profile = pd.DataFrame(pd.read_csv(globalparameter.folderpath[1]+'/test1.csv'))
 
     X = user_profile[['normalized_highest_degree', 'normalized_work_year_past1', 'normalized_work_year_past2',
                       'normalized_work_year_past3', 'normalized_work_year_past4', 'normalized_work_year_past5',
@@ -22,7 +22,17 @@ def naive_bayes():
     # np.unique(Y)   # out: array([0, 1, 2])
 
     # split test and train set
-    X_train, X_test, Y_train, Y_test = train_test_split(X, Y, test_size=0.3, random_state=0)
+    X_train = pd.concat(
+        [X.iloc[0:int(globalparameter.extract_number * ratio)], X.iloc[int(globalparameter.extract_number):int(
+            globalparameter.extract_number + (globalparameter.total_number - globalparameter.extract_number) * ratio)]])
+    X_test = pd.concat([X.iloc[int(globalparameter.extract_number * ratio):globalparameter.extract_number], X.iloc[int(
+        globalparameter.extract_number + (
+                globalparameter.total_number - globalparameter.extract_number) * ratio):globalparameter.total_number]])
+    Y_train = pd.concat([Y.iloc[0:int(globalparameter.extract_number * ratio)], Y.iloc[int(globalparameter.extract_number):int(
+            globalparameter.extract_number + (globalparameter.total_number - globalparameter.extract_number) * ratio)]])
+    Y_test = pd.concat([Y.iloc[int(globalparameter.extract_number * ratio):globalparameter.extract_number], Y.iloc[int(
+        globalparameter.extract_number + (
+                globalparameter.total_number - globalparameter.extract_number) * ratio):globalparameter.total_number]])
 
 
     sc = StandardScaler()
@@ -40,14 +50,14 @@ def naive_bayes():
     prepro = naive_bayes_classifier.predict_proba(X_test_std)
     acc = naive_bayes_classifier.score(X_test_std, Y_test)
     # avg_precesion = average_precision_score(Y_test,Y_score)
-
+    precision = precision_score(Y_test,prediction,labels=[0,1],pos_label=1)
     # print('prediction is : {}'.format(prediction))
     print('-------')
     print('naive bayes')
     # print('prepro is : {}'.format(prepro))
     print('acc is predict proba is {}'.format(acc))
     # print('average precision and recall is {}'.format(avg_precesion))
-
+    print('precision is: {}'.format(precision))
     #plot the diagram
     # precision, recall, _ = precision_recall_curve(Y_test,Y_score)
     #

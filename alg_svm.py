@@ -8,12 +8,12 @@ from sklearn import svm
 from sklearn import linear_model, datasets
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import StandardScaler
-from sklearn.metrics import average_precision_score
 from sklearn.metrics import precision_recall_curve
+from sklearn.metrics import precision_score
 import matplotlib.pyplot as plt
 
-def svm_classification():
-    user_profile = pd.read_csv(globalparameter.folderpath[1]+'/test1.csv')
+def svm_classification(ratio):
+    user_profile = pd.DataFrame(pd.read_csv(globalparameter.folderpath[1]+'/test1.csv'))
 
     X = user_profile[['normalized_highest_degree', 'normalized_work_year_past1', 'normalized_work_year_past2',
                       'normalized_work_year_past3', 'normalized_work_year_past4', 'normalized_work_year_past5',
@@ -22,7 +22,18 @@ def svm_classification():
     # np.unique(Y)   # out: array([0, 1, 2])
 
     # split test and train set
-    X_train, X_test, Y_train, Y_test = train_test_split(X, Y, test_size=0.3, random_state=0)
+    X_train = pd.concat(
+        [X.iloc[0:int(globalparameter.extract_number * ratio)], X.iloc[int(globalparameter.extract_number):int(
+            globalparameter.extract_number + (globalparameter.total_number - globalparameter.extract_number) * ratio)]])
+    X_test = pd.concat([X.iloc[int(globalparameter.extract_number * ratio):globalparameter.extract_number], X.iloc[int(
+        globalparameter.extract_number + (
+                globalparameter.total_number - globalparameter.extract_number) * ratio):globalparameter.total_number]])
+    Y_train = pd.concat([Y.iloc[0:int(globalparameter.extract_number * ratio)], Y.iloc[int(globalparameter.extract_number):int(
+            globalparameter.extract_number + (globalparameter.total_number - globalparameter.extract_number) * ratio)]])
+    Y_test = pd.concat([Y.iloc[int(globalparameter.extract_number * ratio):globalparameter.extract_number], Y.iloc[int(
+        globalparameter.extract_number + (
+                globalparameter.total_number - globalparameter.extract_number) * ratio):globalparameter.total_number]])
+
 
     sc = StandardScaler()
     sc.fit(X_train)
@@ -38,29 +49,14 @@ def svm_classification():
     prediction = svm_classifier.predict((X_test_std))
     # prepro = svm_classifier.predict_proba(X_test_std)
     acc = svm_classifier.score(X_test_std, Y_test)
-    avg_precesion = average_precision_score(Y_test,Y_score)
-
+    precision = precision_score(Y_test,prediction,labels=[0,1],pos_label=1)
     # print('prediction is : {}'.format(prediction))
     print('-------')
     print('SVM linear svc classification')
     # print('prepro is : {}'.format(prepro))
     print('acc is predict proba is {}'.format(acc))
-    print('average precision and recall is {}'.format(avg_precesion))
+    print('precision is {}'.format(precision))
 
-    #plot the diagram
-    precision, recall, _ = precision_recall_curve(Y_test,Y_score)
-
-    # plt.step(recall, precision, color='red', alpha=0.2,where='post')
-    plt.plot(recall,precision,label = 'SVM LinearSVC')
-
-    plt.xlabel('Recall')
-    plt.ylabel('Precision')
-    plt.ylim([0.0, 1.05])
-    plt.xlim([0.0, 1.0])
-    plt.title('2-class Precision-Recall curve')
-    plt.savefig(globalparameter.folderpath[1] + '/diagram_svm_p-r_' + globalparameter.jobtitle_path_list[1] + '-extract' + '.png')
-
-    X_train, X_test, Y_train, Y_test = train_test_split(X, Y, test_size=0.3, random_state=0)
 
     sc = StandardScaler()
     sc.fit(X_train)
@@ -70,36 +66,34 @@ def svm_classification():
     # train logestic regression
     svm_classifier = svm.NuSVC()
     svm_classifier.fit(X_train, Y_train)
-    Y_score = svm_classifier.decision_function(X_test_std)
 
     # predict
     prediction = svm_classifier.predict((X_test_std))
     # prepro = svm_classifier.predict_proba(X_test_std)
     acc = svm_classifier.score(X_test_std, Y_test)
-    avg_precesion = average_precision_score(Y_test, Y_score)
+    precision = precision_score(Y_test,prediction,labels=[0,1],pos_label=1)
 
     # print('prediction is : {}'.format(prediction))
     print('-------')
     print('SVM NuSVC classification')
     # print('prepro is : {}'.format(prepro))
     print('acc is predict proba is {}'.format(acc))
-    print('average precision and recall is {}'.format(avg_precesion))
+    print('precision is {}'.format(precision))
 
-    # plot the diagram
-    precision, recall, _ = precision_recall_curve(Y_test, Y_score)
 
-    # plt.step(recall, precision, color='green', alpha=0.2, where='post')
-    plt.plot(recall,precision,label = 'SVM NuSVC')
 
-    plt.xlabel('Recall')
-    plt.ylabel('Precision')
-    plt.ylim([0.0, 1.05])
-    plt.xlim([0.0, 1.0])
-    plt.title('2-class Precision-Recall curve')
-    plt.savefig(globalparameter.folderpath[1] + '/diagram_svm_p-r_' + globalparameter.jobtitle_path_list[
-        1] + '-extract' + '.png')
+    X_train = pd.concat(
+        [X.iloc[0:int(globalparameter.extract_number * ratio)], X.iloc[int(globalparameter.extract_number):int(
+            globalparameter.extract_number + (globalparameter.total_number - globalparameter.extract_number) * ratio)]])
+    X_test = pd.concat([X.iloc[int(globalparameter.extract_number * ratio):globalparameter.extract_number], X.iloc[int(
+        globalparameter.extract_number + (
+                globalparameter.total_number - globalparameter.extract_number) * ratio):globalparameter.total_number]])
+    Y_train = pd.concat([Y.iloc[0:int(globalparameter.extract_number * ratio)], Y.iloc[int(globalparameter.extract_number):int(
+            globalparameter.extract_number + (globalparameter.total_number - globalparameter.extract_number) * ratio)]])
+    Y_test = pd.concat([Y.iloc[int(globalparameter.extract_number * ratio):globalparameter.extract_number], Y.iloc[int(
+        globalparameter.extract_number + (
+                globalparameter.total_number - globalparameter.extract_number) * ratio):globalparameter.total_number]])
 
-    X_train, X_test, Y_train, Y_test = train_test_split(X, Y, test_size=0.3, random_state=0)
 
     sc = StandardScaler()
     sc.fit(X_train)
@@ -109,33 +103,32 @@ def svm_classification():
     # train logestic regression
     svm_classifier = svm.SVC()
     svm_classifier.fit(X_train, Y_train)
-    Y_score = svm_classifier.decision_function(X_test_std)
 
     # predict
     prediction = svm_classifier.predict((X_test_std))
     # prepro = svm_classifier.predict_proba(X_test_std)
     acc = svm_classifier.score(X_test_std, Y_test)
-    avg_precesion = average_precision_score(Y_test, Y_score)
+    precision = precision_score(Y_test,prediction,labels=[0,1],pos_label=1)
 
     # print('prediction is : {}'.format(prediction))
     print('-------')
     print('SVM SVC classification')
     # print('prepro is : {}'.format(prepro))
     print('acc is predict proba is {}'.format(acc))
-    print('average precision and recall is {}'.format(avg_precesion))
+    print('precision is {}'.format(precision))
 
-    # plot the diagram
-    precision, recall, _ = precision_recall_curve(Y_test, Y_score)
-
-    # plt.step(recall, precision, color='black', alpha=0.2, where='post')
-    plt.plot(recall,precision,label = 'SVM SVC')
-
-    plt.xlabel('Recall')
-    plt.ylabel('Precision')
-    plt.ylim([0.0, 1.05])
-    plt.xlim([0.0, 1.0])
-    leg = plt.legend(loc='best', ncol=2, mode="expand", shadow=True, fancybox=True)
-    leg.get_frame().set_alpha(0.5)
-    plt.title('2-class Precision-Recall curve')
-    plt.savefig(globalparameter.folderpath[1] + '/diagram_svm_p-r_' + globalparameter.jobtitle_path_list[
-        1] + '-extract' + '.png')
+    # # plot the diagram
+    # precision, recall, _ = precision_recall_curve(Y_test, Y_score)
+    #
+    # # plt.step(recall, precision, color='black', alpha=0.2, where='post')
+    # plt.plot(recall,precision,label = 'SVM SVC')
+    #
+    # plt.xlabel('Recall')
+    # plt.ylabel('Precision')
+    # plt.ylim([0.0, 1.05])
+    # plt.xlim([0.0, 1.0])
+    # leg = plt.legend(loc='best', ncol=2, mode="expand", shadow=True, fancybox=True)
+    # leg.get_frame().set_alpha(0.5)
+    # plt.title('2-class Precision-Recall curve')
+    # plt.savefig(globalparameter.folderpath[1] + '/diagram_svm_p-r_' + globalparameter.jobtitle_path_list[
+    #     1] + '-extract' + '.png')
