@@ -10,7 +10,7 @@ from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import StandardScaler
 from sklearn.metrics import average_precision_score
 from sklearn.metrics import precision_recall_curve
-from sklearn.metrics import precision_score
+from sklearn.metrics import precision_score, accuracy_score
 import matplotlib.pyplot as plt
 
 
@@ -45,12 +45,12 @@ def logestic_regression(ratio):
     # train logestic regression
     logreg = linear_model.LogisticRegression()
     logreg.fit(X_train, Y_train)
-
+    Y_test_array = np.array(Y_test)
     # predict
     prediction = logreg.predict((X_test))
     prepro = logreg.predict_proba(X_test_std)
-    acc = logreg.score(X_test_std, Y_test)
-    precision = precision_score(Y_test,prediction,labels=[0,1],pos_label=1)
+    acc = logreg.score(X_test, Y_test)
+    precision = precision_score(Y_test_array,prediction,average='micro')
 
     # print('prediction is : {}'.format(prediction))
     print('-------')
@@ -81,11 +81,13 @@ def logestic_regression(ratio):
     logreg = linear_model.LogisticRegressionCV()
     logreg.fit(X_train, Y_train)
 
+    Y_test_array = np.array(Y_test)
     # predict
     prediction = logreg.predict((X_test))
     prepro = logreg.predict_proba(X_test_std)
-    acc = logreg.score(X_test_std, Y_test)
-    precision = precision_score(Y_test,prediction,labels=[0,1],pos_label=1)
+    acc = logreg.score(X_test, Y_test)
+    acc_score = accuracy_score(Y_test,prediction)
+    precision = precision_score(Y_test_array,prediction,average='micro')
 
     # print('prediction is : {}'.format(prediction))
     print('-------')
