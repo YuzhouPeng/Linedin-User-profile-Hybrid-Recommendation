@@ -21,9 +21,9 @@ def generate_X_train(folderpath, jobtitle,X, ratio):
     skill_dummy = len(skill_dummy_array)
     X_train.index = range(int(globalparameter.total_number*ratio))
     skill_dummy_array.index = range(int(globalparameter.total_number*ratio))
-    new_X_train = X_train
+    # new_X_train = X_train
 
-    # new_X_train = pd.concat([X_train, skill_dummy_array],axis=1,join_axes=[X_train.index])
+    new_X_train = pd.concat([X_train, skill_dummy_array],axis=1,join_axes=[X_train.index])
     shape1 = (skill_dummy_array.shape)
     shape2 = new_X_train.shape
     return new_X_train
@@ -48,9 +48,9 @@ def generate_X_test(folderpath, jobtitle,X, ratio):
     skill_dummy = len(skill_dummy_array)
     X_test.index = range(int(globalparameter.total_number*(1-ratio)))
     skill_dummy_array.index = range(int(globalparameter.total_number*(1-ratio)))
-    new_X_test = X_test
+    # new_X_test = X_test
 
-    # new_X_test = pd.concat([X_test, skill_dummy_array], axis=1, join_axes=[X_test.index])
+    new_X_test = pd.concat([X_test, skill_dummy_array], axis=1, join_axes=[X_test.index])
     shape1 = (skill_dummy_array.shape)
     shape2 = new_X_test.shape
     return new_X_test
