@@ -33,8 +33,8 @@ def logestic_regression(folderpath,ratio):
     Y_test = pd.concat([Y.iloc[int(globalparameter.extract_number * ratio):globalparameter.extract_number], Y.iloc[int(
         globalparameter.extract_number + (
                 globalparameter.total_number - globalparameter.extract_number) * ratio):globalparameter.total_number]])
-    X_train = generate_train_test_set.generate_X_train(globalparameter.folderpath[1],globalparameter.jobtitle_path_list[1],X,0.6)
-    X_test = generate_train_test_set.generate_X_test(globalparameter.folderpath[1],globalparameter.jobtitle_path_list[1],X,0.6)
+    X_train = generate_train_test_set.generate_X_train(globalparameter.folderpath[1],globalparameter.jobtitle_path_list[1],X,ratio)
+    X_test = generate_train_test_set.generate_X_test(globalparameter.folderpath[1],globalparameter.jobtitle_path_list[1],X,ratio)
 
 
     len_xtrain = len(X_train)
@@ -87,9 +87,9 @@ def logestic_regression(folderpath,ratio):
                 globalparameter.total_number - globalparameter.extract_number) * ratio):globalparameter.total_number]])
 
     X_train = generate_train_test_set.generate_X_train(globalparameter.folderpath[1],
-                                                       globalparameter.jobtitle_path_list[1],X, 0.6)
+                                                       globalparameter.jobtitle_path_list[1],X, ratio)
     X_test = generate_train_test_set.generate_X_test(globalparameter.folderpath[1],
-                                                     globalparameter.jobtitle_path_list[1],X, 0.6)
+                                                     globalparameter.jobtitle_path_list[1],X, ratio)
 
     sc = StandardScaler()
     sc.fit(X_train)

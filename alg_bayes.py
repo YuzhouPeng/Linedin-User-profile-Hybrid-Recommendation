@@ -1,6 +1,6 @@
 import pandas as pd
 import numpy as np
-import globalparameter, csv, itertools
+import globalparameter, csv, itertools,generate_train_test_set
 from sklearn import preprocessing
 import matplotlib.pyplot as plt
 plt.rc("font", size=14)
@@ -22,18 +22,21 @@ def naive_bayes(ratio):
     # np.unique(Y)   # out: array([0, 1, 2])
 
     # split test and train set
-    X_train = pd.concat(
-        [X.iloc[0:int(globalparameter.extract_number * ratio)], X.iloc[int(globalparameter.extract_number):int(
-            globalparameter.extract_number + (globalparameter.total_number - globalparameter.extract_number) * ratio)]])
-    X_test = pd.concat([X.iloc[int(globalparameter.extract_number * ratio):globalparameter.extract_number], X.iloc[int(
-        globalparameter.extract_number + (
-                globalparameter.total_number - globalparameter.extract_number) * ratio):globalparameter.total_number]])
+    # X_train = pd.concat(
+    #     [X.iloc[0:int(globalparameter.extract_number * ratio)], X.iloc[int(globalparameter.extract_number):int(
+    #         globalparameter.extract_number + (globalparameter.total_number - globalparameter.extract_number) * ratio)]])
+    # X_test = pd.concat([X.iloc[int(globalparameter.extract_number * ratio):globalparameter.extract_number], X.iloc[int(
+    #     globalparameter.extract_number + (
+    #             globalparameter.total_number - globalparameter.extract_number) * ratio):globalparameter.total_number]])
     Y_train = pd.concat([Y.iloc[0:int(globalparameter.extract_number * ratio)], Y.iloc[int(globalparameter.extract_number):int(
             globalparameter.extract_number + (globalparameter.total_number - globalparameter.extract_number) * ratio)]])
     Y_test = pd.concat([Y.iloc[int(globalparameter.extract_number * ratio):globalparameter.extract_number], Y.iloc[int(
         globalparameter.extract_number + (
                 globalparameter.total_number - globalparameter.extract_number) * ratio):globalparameter.total_number]])
-
+    X_train = generate_train_test_set.generate_X_train(globalparameter.folderpath[1],
+                                                       globalparameter.jobtitle_path_list[1],X, ratio)
+    X_test = generate_train_test_set.generate_X_test(globalparameter.folderpath[1],
+                                                     globalparameter.jobtitle_path_list[1],X, ratio)
 
     sc = StandardScaler()
     sc.fit(X_train)
@@ -47,6 +50,7 @@ def naive_bayes(ratio):
 
     # predict
     prediction = naive_bayes_classifier.predict((X_test_std))
+    Y_test.index = range(int(globalparameter.total_number * (1 - ratio)))
     prepro = naive_bayes_classifier.predict_proba(X_test_std)
     acc = naive_bayes_classifier.score(X_test_std, Y_test)
     # avg_precesion = average_precision_score(Y_test,Y_score)

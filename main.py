@@ -61,59 +61,59 @@ def function(index):
 
 
 if __name__ == '__main__':
-    # for i in range(2):
-    #     datafilter.filter_alluser_with_newest_jobtitle(globalparameter.raw_data_path, globalparameter.folderpath[i],
-    #                                                    globalparameter.jobtitle_path_list[i],
-    #                                                    globalparameter.jobtitle_list[i])
-    # for i in range(2):
-    #     calculate_data_job_now.calculate_work_year_except_newest(globalparameter.folderpath[i],
-    #                                                              globalparameter.folderpath[
-    #                                                                  i] + '/' + globalparameter.jobtitle_path_list[
-    #                                                                  i] + globalparameter.output_file_root,
-    #                                                              globalparameter.jobtitle_path_list[i],
-    #                                                              globalparameter.jobtitle_list[i],
-    #                                                              globalparameter.extract_number)
-    #     calculate_data_job_now.calculate_work_year_except_newest(globalparameter.folderpath[i],
-    #                                                              globalparameter.folderpath[
-    #                                                                  i] + '/non_' + globalparameter.jobtitle_path_list[
-    #                                                                  i] + globalparameter.output_file_root,
-    #                                                              '/non_'+globalparameter.jobtitle_path_list[i],
-    #                                                              globalparameter.jobtitle_list[i],
-    #                                                              globalparameter.total_number-globalparameter.extract_number)
-    # for i in range(2):
-    #     calculatedegreeworkyear.calculate_highest_degree(globalparameter.folderpath[i],
-    #                                                      globalparameter.jobtitle_list[i],
-    #                                                      globalparameter.folderpath[i] + '/' +
-    #                                                      globalparameter.jobtitle_path_list[
-    #                                                          i] + globalparameter.output_file_root,globalparameter.jobtitle_path_list[i],
-    #                                                      globalparameter.extract_number)
-    #     non_calculatedegreeworkyear.non_calculate_highest_degree(globalparameter.folderpath[i],
-    #                                                      globalparameter.jobtitle_list[i],
-    #                                                      globalparameter.folderpath[i] + '/' +
-    #                                                      'non_'+globalparameter.jobtitle_path_list[
-    #                                                          i] + globalparameter.output_file_root,
-    #                                                      'non_'+globalparameter.jobtitle_path_list[i],
-    #                                                      globalparameter.total_number-globalparameter.extract_number)
-    #     workexperiecetimes.calculate_work_exp_times(globalparameter.folderpath[i],
-    #                                                 globalparameter.name_for_search_exp_times,
-    #                                                 globalparameter.jobtitle_list[i], globalparameter.folderpath[
-    #                                                     i] + '/' + globalparameter.jobtitle_path_list[
-    #                                                     i] + globalparameter.output_file_root,
-    #                                                 '/' + globalparameter.jobtitle_path_list[i] + '_',
-    #                                                 globalparameter.extract_number)
-    #     workexperiecetimes.calculate_work_exp_times(globalparameter.folderpath[i],
-    #                                                 globalparameter.name_for_search_exp_times,
-    #                                                 globalparameter.jobtitle_list[i], globalparameter.folderpath[
-    #                                                     i] + '/non_' + globalparameter.jobtitle_path_list[
-    #                                                     i] + globalparameter.output_file_root,
-    #                                                 '/non_' + globalparameter.jobtitle_path_list[i] + '_',
-    #                                                 globalparameter.total_number-globalparameter.extract_number)
-    #
-    #     calculate_data_job_now.generateweighting_expect_newest(globalparameter.extract_number,globalparameter.folderpath[i],globalparameter.jobtitle_path_list[i])
-    #     datanormalize.normalize_weighting_highest_degree(globalparameter.folderpath[i] + '/test.csv',globalparameter.folderpath[i])
+    for i in range(2):
+        datafilter.filter_alluser_with_newest_jobtitle(globalparameter.raw_data_path, globalparameter.folderpath[i],
+                                                       globalparameter.jobtitle_path_list[i],
+                                                       globalparameter.jobtitle_list[i])
+    for i in range(2):
+        calculate_data_job_now.calculate_work_year_except_newest(globalparameter.folderpath[i],
+                                                                 globalparameter.folderpath[
+                                                                     i] + '/' + globalparameter.jobtitle_path_list[
+                                                                     i] + globalparameter.output_file_root,
+                                                                 globalparameter.jobtitle_path_list[i],
+                                                                 globalparameter.jobtitle_list[i],
+                                                                 globalparameter.extract_number)
+        calculate_data_job_now.calculate_work_year_except_newest(globalparameter.folderpath[i],
+                                                                 globalparameter.folderpath[
+                                                                     i] + '/non_' + globalparameter.jobtitle_path_list[
+                                                                     i] + globalparameter.output_file_root,
+                                                                 '/non_'+globalparameter.jobtitle_path_list[i],
+                                                                 globalparameter.jobtitle_list[i],
+                                                                 globalparameter.total_number*2)
+    for i in range(2):
+        calculatedegreeworkyear.calculate_highest_degree(globalparameter.folderpath[i],
+                                                         globalparameter.jobtitle_list[i],
+                                                         globalparameter.folderpath[i] + '/' +
+                                                         globalparameter.jobtitle_path_list[
+                                                             i] + globalparameter.output_file_root,globalparameter.jobtitle_path_list[i],
+                                                         globalparameter.extract_number)
+        non_calculatedegreeworkyear.non_calculate_highest_degree(globalparameter.folderpath[i],
+                                                         globalparameter.jobtitle_list[i],
+                                                         globalparameter.folderpath[i] + '/' +
+                                                         'non_'+globalparameter.jobtitle_path_list[
+                                                             i] + globalparameter.output_file_root,
+                                                         'non_'+globalparameter.jobtitle_path_list[i],
+                                                         globalparameter.total_number*2)
+        workexperiecetimes.calculate_work_exp_times(globalparameter.folderpath[i],
+                                                    globalparameter.name_for_search_exp_times,
+                                                    globalparameter.jobtitle_list[i], globalparameter.folderpath[
+                                                        i] + '/' + globalparameter.jobtitle_path_list[
+                                                        i] + globalparameter.output_file_root,
+                                                    '/' + globalparameter.jobtitle_path_list[i] + '_',
+                                                    globalparameter.extract_number)
+        workexperiecetimes.calculate_work_exp_times(globalparameter.folderpath[i],
+                                                    globalparameter.name_for_search_exp_times,
+                                                    globalparameter.jobtitle_list[i], globalparameter.folderpath[
+                                                        i] + '/non_' + globalparameter.jobtitle_path_list[
+                                                        i] + globalparameter.output_file_root,
+                                                    '/non_' + globalparameter.jobtitle_path_list[i] + '_',
+                                                    globalparameter.total_number*2)
 
-    alg_logestic_regression.logestic_regression(globalparameter.folderpath[1],0.6)
-    # alg_svm.svm_classification(0.6)
+        calculate_data_job_now.generateweighting_expect_newest(globalparameter.extract_number,globalparameter.folderpath[i],globalparameter.jobtitle_path_list[i])
+        datanormalize.normalize_weighting_highest_degree(globalparameter.folderpath[i] + '/test.csv',globalparameter.folderpath[i])
+
+    alg_logestic_regression.logestic_regression(globalparameter.folderpath[1],0.5)
+    alg_svm.svm_classification(0.5)
     # alg_bayes.naive_bayes(0.6)
     # alg_decision_tree.decision_tree(0.6)
     # alg_ramdom_forest.random_forest(0.6)

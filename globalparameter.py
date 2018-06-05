@@ -17,7 +17,7 @@ name_for_search_work_year = 'work_year'
 name_for_search_cosine_similarity = 'cosine_similarity'
 
 # number for extraction of numbers
-extract_number = 400
+extract_number = 500
 total_number = 1000
 
 # format for output file
