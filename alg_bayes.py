@@ -12,8 +12,8 @@ from sklearn.metrics import precision_score
 from sklearn.metrics import precision_recall_curve
 import matplotlib.pyplot as plt
 
-def naive_bayes(ratio):
-    user_profile = pd.DataFrame(pd.read_csv(globalparameter.folderpath[1]+'/test1.csv'))
+def naive_bayes(folderpath,ratio):
+    user_profile = pd.DataFrame(pd.read_csv(folderpath+'/test1.csv'))
 
     X = user_profile[['normalized_highest_degree', 'normalized_work_year_past1', 'normalized_work_year_past2',
                       'normalized_work_year_past3', 'normalized_work_year_past4', 'normalized_work_year_past5',
