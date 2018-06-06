@@ -3,7 +3,12 @@ import numpy as np
 import globalparameter
 
 
+
+# def dummy_filter(dummy_array, threshold, name):
+
+
 def extractskill(datapath, non_datapath, ratio, pos_start_index, pos_end_index, neg_start_index, neg_end_index):
+    name = 'skills'
     user_data = pd.DataFrame(pd.read_csv(datapath))
     non_user_data = pd.DataFrame(pd.read_csv(non_datapath))
     # create df data same as train set
@@ -29,6 +34,19 @@ def extractskill(datapath, non_datapath, ratio, pos_start_index, pos_end_index, 
     for row in user_skill_data1.iterrows():
         user_skill_data_for_dummy['user_skill' + str(i)] = row[1]
         i = i + 1
+
+    # filtered_skill_variable_array = dummy_filter(pd.DataFrame(user_skill_data1.skills.values.tolist()),0.8,name)
+
+    # dummy_col = pd.DataFrame(user_skill_data1.skills.values.tolist()).copy()
+    # count_test = pd.value_counts(dummy_col)
+    # count = pd.value_counts(dummy_col)/len(dummy_col)
+    # mask = dummy_col.isin(count[count>0.8].index)
+    # dummy_col[~mask] = "others"
+    # filtered_skill_variable_array = pd.get_dummies(dummy_col,prefix=name)
+
+
+
+    # test_skill_array = filtered_skill_variable_array
 
     # print(user_skill_data_for_dummy)
     skill_variable_array = pd.get_dummies(pd.DataFrame(user_skill_data1.skills.values.tolist()))

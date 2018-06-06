@@ -36,9 +36,15 @@ exp_time_column_precision = []
 exp_time_column_recall = []
 
 folderpath = ['/Users/pengyuzhou/Google Drive/Linkedin_datafile/software_engineer',
-              '/Users/pengyuzhou/Google Drive/Linkedin_datafile/project_manager']
+              '/Users/pengyuzhou/Google Drive/Linkedin_datafile/project_manager',
+              '/Users/pengyuzhou/Google Drive/Linkedin_datafile/research_assistant',
+              '/Users/pengyuzhou/Google Drive/Linkedin_datafile/process_engineer',
+              '/Users/pengyuzhou/Google Drive/Linkedin_datafile/consultant',
+              '/Users/pengyuzhou/Google Drive/Linkedin_datafile/account_manager']
 
-jobtitle_list = ['software engineer','project manager']
-jobtitle_path_list = ['software_engineer','project_manager']
+jobtitle_list = ['software engineer', 'project manager', 'research assistant', 'process engineer', 'consultant',
+                 'account manager']
+jobtitle_path_list = ['software_engineer', 'project_manager', 'research_assistant', 'process_engineer', 'consultant',
+                      'account_manager']
 
 raw_data_path = '/Users/pengyuzhou/Google Drive/Linkedin_datafile/LinkedIn_data_lowercase_no_punctuation.csv'

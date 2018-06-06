@@ -12,7 +12,7 @@ from sklearn.metrics import precision_recall_curve
 from sklearn.metrics import precision_score
 import matplotlib.pyplot as plt
 
-def svm_classification(folderpath,ratio):
+def svm_classification(folderpath,jobtitle_path_list,ratio):
     user_profile = pd.DataFrame(pd.read_csv(folderpath+'/test1.csv'))
 
     X = user_profile[['normalized_highest_degree', 'normalized_work_year_past1', 'normalized_work_year_past2',
@@ -28,8 +28,8 @@ def svm_classification(folderpath,ratio):
     # X_test = pd.concat([X.iloc[int(globalparameter.extract_number * ratio):globalparameter.extract_number], X.iloc[int(
     #     globalparameter.extract_number + (
     #             globalparameter.total_number - globalparameter.extract_number) * ratio):globalparameter.total_number]])
-    X_train = generate_train_test_set.generate_X_train(globalparameter.folderpath[1],globalparameter.jobtitle_path_list[1],X,ratio)
-    X_test = generate_train_test_set.generate_X_test(globalparameter.folderpath[1],globalparameter.jobtitle_path_list[1],X,ratio)
+    X_train = generate_train_test_set.generate_X_train(folderpath,jobtitle_path_list,X,ratio)
+    X_test = generate_train_test_set.generate_X_test(folderpath,jobtitle_path_list,X,ratio)
     Y_train = pd.concat([Y.iloc[0:int(globalparameter.extract_number * ratio)], Y.iloc[int(globalparameter.extract_number):int(
             globalparameter.extract_number + (globalparameter.total_number - globalparameter.extract_number) * ratio)]])
     Y_test = pd.concat([Y.iloc[int(globalparameter.extract_number * ratio):globalparameter.extract_number], Y.iloc[int(
@@ -92,8 +92,8 @@ def svm_classification(folderpath,ratio):
     # X_test = pd.concat([X.iloc[int(globalparameter.extract_number * ratio):globalparameter.extract_number], X.iloc[int(
     #     globalparameter.extract_number + (
     #             globalparameter.total_number - globalparameter.extract_number) * ratio):globalparameter.total_number]])
-    X_train = generate_train_test_set.generate_X_train(globalparameter.folderpath[1],globalparameter.jobtitle_path_list[1],X,ratio)
-    X_test = generate_train_test_set.generate_X_test(globalparameter.folderpath[1],globalparameter.jobtitle_path_list[1],X,ratio)
+    X_train = generate_train_test_set.generate_X_train(folderpath,jobtitle_path_list,X,ratio)
+    X_test = generate_train_test_set.generate_X_test(folderpath,jobtitle_path_list,X,ratio)
     Y_train = pd.concat([Y.iloc[0:int(globalparameter.extract_number * ratio)], Y.iloc[int(globalparameter.extract_number):int(
             globalparameter.extract_number + (globalparameter.total_number - globalparameter.extract_number) * ratio)]])
     Y_test = pd.concat([Y.iloc[int(globalparameter.extract_number * ratio):globalparameter.extract_number], Y.iloc[int(

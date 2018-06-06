@@ -227,12 +227,12 @@ def generateweighting_expect_newest(number_of_extract, folderpath, jobtitle_path
         folderpath + '/non_' + jobtitle_path_list + '_' + globalparameter.name_for_search_work_year + globalparameter.output_file_root,
         names=colnames2, skipinitialspace=True, usecols=fields2)
     for i in range(len(random_index_list)):
-        work_year_past1 = work_year_past1 + [(df['work_year_past1'].tolist())[i]]
-        work_year_past2 = work_year_past2 + [(df['work_year_past2'].tolist())[i]]
-        work_year_past3 = work_year_past3 + [(df['work_year_past3'].tolist())[i]]
-        work_year_past4 = work_year_past4 + [(df['work_year_past4'].tolist())[i]]
-        work_year_past5 = work_year_past5 + [(df['work_year_past5'].tolist())[i]]
-        work_year_past6 = work_year_past6 + [(df['work_year_past6'].tolist())[i]]
+        work_year_past1 = work_year_past1 + [(df['work_year_past1'].tolist())[random_index_list[i]]]
+        work_year_past2 = work_year_past2 + [(df['work_year_past2'].tolist())[random_index_list[i]]]
+        work_year_past3 = work_year_past3 + [(df['work_year_past3'].tolist())[random_index_list[i]]]
+        work_year_past4 = work_year_past4 + [(df['work_year_past4'].tolist())[random_index_list[i]]]
+        work_year_past5 = work_year_past5 + [(df['work_year_past5'].tolist())[random_index_list[i]]]
+        work_year_past6 = work_year_past6 + [(df['work_year_past6'].tolist())[random_index_list[i]]]
 
     df = pd.read_csv(
         folderpath + '/non_' + jobtitle_path_list + '_' + globalparameter.name_for_search_exp_times + globalparameter.output_file_root,
