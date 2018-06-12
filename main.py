@@ -81,41 +81,46 @@ if __name__ == '__main__':
     #                                                              '/non_' + globalparameter.jobtitle_path_list[i],
     #                                                              globalparameter.jobtitle_list[i],
     #                                                              globalparameter.total_number * 2)
-    # for i in range(6):
-    #     calculatedegreeworkyear.calculate_highest_degree(globalparameter.folderpath[i],
-    #                                                      globalparameter.jobtitle_list[i],
-    #                                                      globalparameter.folderpath[i] + '/' +
-    #                                                      globalparameter.jobtitle_path_list[
-    #                                                          i] + globalparameter.output_file_root,
-    #                                                      globalparameter.jobtitle_path_list[i],
-    #                                                      globalparameter.extract_number)
-    #     non_calculatedegreeworkyear.non_calculate_highest_degree(globalparameter.folderpath[i],
-    #                                                              globalparameter.jobtitle_list[i],
-    #                                                              globalparameter.folderpath[i] + '/' +
-    #                                                              'non_' + globalparameter.jobtitle_path_list[
-    #                                                                  i] + globalparameter.output_file_root,
-    #                                                              'non_' + globalparameter.jobtitle_path_list[i],
-    #                                                              globalparameter.total_number * 2)
-    #     workexperiecetimes.calculate_work_exp_times(globalparameter.folderpath[i],
-    #                                                 globalparameter.name_for_search_exp_times,
-    #                                                 globalparameter.jobtitle_list[i], globalparameter.folderpath[
-    #                                                     i] + '/' + globalparameter.jobtitle_path_list[
-    #                                                     i] + globalparameter.output_file_root,
-    #                                                 '/' + globalparameter.jobtitle_path_list[i] + '_',
-    #                                                 globalparameter.extract_number)
-    #     workexperiecetimes.calculate_work_exp_times(globalparameter.folderpath[i],
-    #                                                 globalparameter.name_for_search_exp_times,
-    #                                                 globalparameter.jobtitle_list[i], globalparameter.folderpath[
-    #                                                     i] + '/non_' + globalparameter.jobtitle_path_list[
-    #                                                     i] + globalparameter.output_file_root,
-    #                                                 '/non_' + globalparameter.jobtitle_path_list[i] + '_',
-    #                                                 globalparameter.total_number * 2)
-    #
-    #     calculate_data_job_now.generateweighting_expect_newest(globalparameter.extract_number,
-    #                                                            globalparameter.folderpath[i],
-    #                                                            globalparameter.jobtitle_path_list[i])
-    #     datanormalize.normalize_weighting_highest_degree(globalparameter.folderpath[i] + '/test.csv',
-    #                                                      globalparameter.folderpath[i])
+    for i in range(6):
+        print('generating highest degree of user: '+str(globalparameter.job_title_data_path[i]))
+        calculatedegreeworkyear.calculate_highest_degree(globalparameter.folderpath[i],
+                                                         globalparameter.jobtitle_list[i],
+                                                         globalparameter.folderpath[i] + '/' +
+                                                         globalparameter.jobtitle_path_list[
+                                                             i] + globalparameter.output_file_root,
+                                                         globalparameter.jobtitle_path_list[i],
+                                                         globalparameter.extract_number)
+        print('generating non relevant highest degree of user: '+str(globalparameter.job_title_data_path[i]))
+        non_calculatedegreeworkyear.non_calculate_highest_degree(globalparameter.folderpath[i],
+                                                                 globalparameter.jobtitle_list[i],
+                                                                 globalparameter.folderpath[i] + '/' +
+                                                                 'non_' + globalparameter.jobtitle_path_list[
+                                                                     i] + globalparameter.output_file_root,
+                                                                 'non_' + globalparameter.jobtitle_path_list[i],
+                                                                 globalparameter.total_number * 2)
+        print('calculate work experience times: '+str(globalparameter.job_title_data_path[i]))
+        workexperiecetimes.calculate_work_exp_times(globalparameter.folderpath[i],
+                                                    globalparameter.name_for_search_exp_times,
+                                                    globalparameter.jobtitle_list[i], globalparameter.folderpath[
+                                                        i] + '/' + globalparameter.jobtitle_path_list[
+                                                        i] + globalparameter.output_file_root,
+                                                    '/' + globalparameter.jobtitle_path_list[i] + '_',
+                                                    globalparameter.extract_number)
+        print('calculate work experience times: '+str(globalparameter.job_title_data_path[i]))
+        workexperiecetimes.calculate_work_exp_times(globalparameter.folderpath[i],
+                                                    globalparameter.name_for_search_exp_times,
+                                                    globalparameter.jobtitle_list[i], globalparameter.folderpath[
+                                                        i] + '/non_' + globalparameter.jobtitle_path_list[
+                                                        i] + globalparameter.output_file_root,
+                                                    '/non_' + globalparameter.jobtitle_path_list[i] + '_',
+                                                    globalparameter.total_number * 2)
+        print('generating weighting file of: '+str(globalparameter.job_title_data_path[i]))
+        calculate_data_job_now.generateweighting_expect_newest(globalparameter.extract_number,
+                                                               globalparameter.folderpath[i],
+                                                               globalparameter.jobtitle_path_list[i])
+        print('normalizing weighting of '+str(globalparameter.job_title_data_path[i]))
+        datanormalize.normalize_weighting_highest_degree(globalparameter.folderpath[i] + '/test.csv',
+                                                         globalparameter.folderpath[i])
     for i in range(6):
         print('------job title is:------')
         print(globalparameter.jobtitle_path_list[i])

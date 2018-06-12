@@ -61,7 +61,7 @@ def calculate_highest_degree(folderpath, name_for_search, job_title_data_path,jo
                 degree_num = calculatehighestdegree(regex_list,row)
                 if highest_degree < degree_num:
                     highest_degree = degree_num
-            print('user num = {}. highest degree = {}'.format(counter, highest_degree))
+            # print('user num = {}. highest degree = {}'.format(counter, highest_degree))
             result = []
             result.append(row[0])
             result.append(highest_degree)

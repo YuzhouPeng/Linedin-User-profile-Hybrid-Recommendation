@@ -28,7 +28,7 @@ def calculate_work_exp_times(path, name_for_search, job_title_name, input_file_p
                 suitable_work_experience_times = suitable_work_experience_times + 1
             if (row[39].find(name) != -1):
                 suitable_work_experience_times = suitable_work_experience_times + 1
-            print('user num = {}. suitable work experience time = {}'.format(counter, suitable_work_experience_times))
+            # print('user num = {}. suitable work experience time = {}'.format(counter, suitable_work_experience_times))
             result = []
             result.append(row[0])
             result.append(suitable_work_experience_times)

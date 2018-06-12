@@ -60,7 +60,7 @@ def non_calculate_highest_degree(folderpath, name_for_search, non_job_title_data
                 degree_num = calculatehighestdegree(regex_list,row)
                 if highest_degree < degree_num:
                     highest_degree = degree_num
-            print('user num = {}. highest degree = {}'.format(counter, highest_degree))
+            # print('user num = {}. highest degree = {}'.format(counter, highest_degree))
             result = []
             result.append(row[0])
             result.append(highest_degree)
@@ -203,7 +203,7 @@ def non_calculate_work_year(path, job_title_name, job_title_data_path, extract_n
                 work_experience_total_month = work_experience_total_month + str_month_num
             work_year = float(work_experience_total_year) + (float(work_experience_total_month) / 12.00)
 
-            print('user num = {}. work year: {:10.4f}'.format(i, work_year))
+            # print('user num = {}. work year: {:10.4f}'.format(i, work_year))
             result = []
             result.append(row[0])
             result.append(work_year)
