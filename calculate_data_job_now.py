@@ -222,8 +222,6 @@ def generateweighting_expect_newest(number_of_extract, folderpath, jobtitle_path
     id_list_test = df['id'].tolist()
     for i in range(len(random_id_list)):
         for j in range(len(df['id'].tolist())):
-            # test1 = random_id_list[i]
-            # test2 = (df['id'].tolist())[j]
             if random_id_list[i] == (df['id'].tolist())[j]:
                 random_index_list.append(j)
     for i in range(len(random_index_list)):

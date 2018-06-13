@@ -94,9 +94,10 @@ def generate_X_train(folderpath, jobtitle, X, ratio):
 
     # new_X_train = X_train
     # new_X_train = pd.concat([X_train, major_dummy_array, school_dummy_array], axis=1, join_axes=[X_train.index])
-    new_X_train = pd.concat([X_train, workcompany_dummy_array1, workcompany_dummy_array2, workcompany_dummy_array3,
-                             workcompany_dummy_array4, workcompany_dummy_array5, workcompany_dummy_array6], axis=1,
-                            join_axes=[X_train.index])
+    # new_X_train = pd.concat([X_train, workcompany_dummy_array1, workcompany_dummy_array2, workcompany_dummy_array3,
+    #                          workcompany_dummy_array4, workcompany_dummy_array5, workcompany_dummy_array6], axis=1,
+    #                         join_axes=[X_train.index])
+    new_X_train = skill_dummy_array
 
     shape1 = (skill_dummy_array.shape)
     shape2 = new_X_train.shape
@@ -207,10 +208,10 @@ def generate_X_test(folderpath, jobtitle, X, ratio):
 
     # new_X_test = X_test
     # new_X_test = pd.concat([X_test, major_dummy_array, school_dummy_array], axis=1, join_axes=[X_test.index])
-    new_X_test = pd.concat(
-        [X_test, workcompany_dummy_array1, workcompany_dummy_array2, workcompany_dummy_array3, workcompany_dummy_array4,
-         workcompany_dummy_array5, workcompany_dummy_array6], axis=1, join_axes=[X_test.index])
-
+    # new_X_test = pd.concat(
+    #     [X_test, workcompany_dummy_array1, workcompany_dummy_array2, workcompany_dummy_array3, workcompany_dummy_array4,
+    #      workcompany_dummy_array5, workcompany_dummy_array6], axis=1, join_axes=[X_test.index])
+    new_X_test = skill_dummy_array
     shape1 = (skill_dummy_array.shape)
     shape2 = new_X_test.shape
     return new_X_test
