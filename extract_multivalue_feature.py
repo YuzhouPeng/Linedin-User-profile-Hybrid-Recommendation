@@ -167,3 +167,5 @@ def extractworkcompany(datapath, non_datapath, pos_start_index, pos_end_index, n
     new_length = len(new_company_variable_array)
     print(company_variable_array.shape)
     return new_company_variable_array
+
+
