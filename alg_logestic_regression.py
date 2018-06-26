@@ -12,6 +12,8 @@ from sklearn.preprocessing import StandardScaler
 from sklearn.metrics import confusion_matrix
 from sklearn.metrics import precision_recall_fscore_support
 from sklearn.metrics import precision_score, accuracy_score
+from sklearn.decomposition import TruncatedSVD
+import bag_of_words
 import matplotlib.pyplot as plt
 
 
@@ -33,8 +35,9 @@ def logestic_regression(folderpath,jobtitle_path_list,ratio):
     Y_test = pd.concat([Y.iloc[int(globalparameter.extract_number * ratio):globalparameter.extract_number], Y.iloc[int(
         globalparameter.extract_number + (
                 globalparameter.total_number - globalparameter.extract_number) * ratio):globalparameter.total_number]])
-    X_train = generate_train_test_set.generate_X_train(folderpath,jobtitle_path_list,X,ratio)
-    X_test = generate_train_test_set.generate_X_test(folderpath,jobtitle_path_list,X,ratio)
+    X_train = bag_of_words.bag_of_words_generate_X_train(folderpath,jobtitle_path_list,X,ratio)
+    X_test = bag_of_words.bag_of_words_generate_X_test(folderpath,jobtitle_path_list,X,ratio)
+
 
 
     len_xtrain = len(X_train)

@@ -1,7 +1,7 @@
 import workexperiecetimes, non_calculatedegreeworkyear, calculatedegreeworkyear, datanormalize, generateweightingfile, \
     calculatecosinesimilarity, diagramgenerator, datafilter, calculate_data_job_now, alg_logestic_regression, alg_svm, \
     alg_bayes, alg_decision_tree, alg_ramdom_forest, extract_multivalue_feature, generate_train_test_set, \
-    calculate_baseline
+    calculate_baseline, bag_of_words
 import globalparameter
 import time
 
@@ -124,16 +124,19 @@ if __name__ == '__main__':
     for i in range(6):
         print('------job title is:------')
         print(globalparameter.jobtitle_path_list[i])
-        print('baseline precision value of job title is: ')
-        calculate_baseline.baseline_full_text(globalparameter.jobtitle_list[i])
-        calculate_baseline.baseline_work_exp(globalparameter.jobtitle_list[i])
+        # print('baseline precision value of job title is: ')
+        # calculate_baseline.baseline_full_text(globalparameter.jobtitle_list[i])
+        # calculate_baseline.baseline_work_exp(globalparameter.jobtitle_list[i])
         alg_logestic_regression.logestic_regression(globalparameter.folderpath[i],
                                                     globalparameter.jobtitle_path_list[i], 0.5)
-        alg_svm.svm_classification(globalparameter.folderpath[i], globalparameter.jobtitle_path_list[i], 0.5)
-        alg_bayes.naive_bayes(globalparameter.folderpath[i], globalparameter.jobtitle_path_list[i], 0.5)
-        alg_decision_tree.decision_tree(globalparameter.folderpath[i], globalparameter.jobtitle_path_list[i], 0.5)
-        alg_ramdom_forest.random_forest(globalparameter.folderpath[i], globalparameter.jobtitle_path_list[i], 0.5)
+        # alg_svm.svm_classification(globalparameter.folderpath[i], globalparameter.jobtitle_path_list[i], 0.5)
+        # alg_bayes.naive_bayes(globalparameter.folderpath[i], globalparameter.jobtitle_path_list[i], 0.5)
+        # alg_decision_tree.decision_tree(globalparameter.folderpath[i], globalparameter.jobtitle_path_list[i], 0.5)
+        # alg_ramdom_forest.random_forest(globalparameter.folderpath[i], globalparameter.jobtitle_path_list[i], 0.5)
         print('------------')
+    # words_list = bag_of_words.extractall_information(globalparameter.folderpath[0]+'/'+globalparameter.jobtitle_path_list[0]+globalparameter.output_file_root,globalparameter.folderpath[0]+'/non_'+globalparameter.jobtitle_path_list[0]+globalparameter.output_file_root,0,
+    #     int(globalparameter.extract_number * 0.5), globalparameter.extract_number,
+    #     globalparameter.extract_number + int((globalparameter.total_number - globalparameter.extract_number) * 0.5),globalparameter.extract_column_list)
     print(1)
     # for i in range(1,10,1):
     #     function(i)
