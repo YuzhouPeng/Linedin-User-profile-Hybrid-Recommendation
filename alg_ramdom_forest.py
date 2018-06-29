@@ -1,4 +1,5 @@
 import pandas as pd
+import bag_of_words
 import numpy as np
 import globalparameter, csv, itertools, generate_train_test_set
 from sklearn import preprocessing
@@ -33,8 +34,18 @@ def random_forest(folderpath,jobtitle_path_list,ratio):
     Y_test = pd.concat([Y.iloc[int(globalparameter.extract_number * ratio):globalparameter.extract_number], Y.iloc[int(
         globalparameter.extract_number + (
                 globalparameter.total_number - globalparameter.extract_number) * ratio):globalparameter.total_number]])
-    X_train = generate_train_test_set.generate_X_train(folderpath,jobtitle_path_list,X,ratio)
-    X_test = generate_train_test_set.generate_X_test(folderpath,jobtitle_path_list,X,ratio)
+    matrix = bag_of_words.extractall_information(folderpath + '/' + 'output_pos_for_dummy.csv',
+                                                 folderpath + '/' + 'output_neg_for_dummy.csv',
+                                                 globalparameter.extract_column_list)
+
+    X_train = bag_of_words.bag_of_words_generate_X_train(matrix, X, ratio, globalparameter.train_pos_start_loc,
+                                                         globalparameter.train_pos_end_loc,
+                                                         globalparameter.train_neg_start_loc,
+                                                         globalparameter.train_neg_end_loc)
+    X_test = bag_of_words.bag_of_words_generate_X_test(matrix, X, ratio, globalparameter.test_pos_start_loc,
+                                                       globalparameter.test_pos_end_loc,
+                                                       globalparameter.test_neg_start_loc,
+                                                       globalparameter.test_neg_end_loc)
 
     sc = StandardScaler()
     sc.fit(X_train)

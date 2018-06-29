@@ -19,7 +19,7 @@ name_for_search_cosine_similarity = 'cosine_similarity'
 # number for extraction of numbers
 extract_number = 500
 total_number = 1000
-
+ratio = 0.5
 # format for output file
 output_file_header_job_title = '/financial_accountant_'
 output_file_header_non_job_title = '/non_financial_accountant_'
@@ -52,3 +52,12 @@ raw_data_path = '/Users/pengyuzhou/Google Drive/Linkedin_datafile/LinkedIn_data_
 # education:[45-65 length5][46-47,49,51-52,54,56-57,59,61-62,64]
 # skill language:[65,66]
 extract_column_list = [3,4,5,9,10,11,15,16,17,21,22,23,27,28,29,33,34,35,39,40,41,46,47,49,51,52,54,56,57,59,61,62,64,65,66]
+
+train_pos_start_loc = 0
+train_neg_start_loc = extract_number
+train_pos_end_loc = int(extract_number * ratio)
+train_neg_end_loc = extract_number + int((total_number - extract_number) * ratio)
+test_pos_start_loc = int(extract_number * ratio)
+test_neg_start_loc = extract_number + int((total_number - extract_number) * ratio)
+test_pos_end_loc = extract_number
+test_neg_end_loc = total_number

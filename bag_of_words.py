@@ -9,8 +9,7 @@ def flatten(l):
         else:
             yield el
 
-def extractall_information(datapath, non_datapath, pos_start_index, pos_end_index, neg_start_index, neg_end_index,
-                       column_index_list):
+def extractall_information(datapath, non_datapath,column_index_list):
     # extract columns:[3-5,9-11,15-17,21-23,27-29,33-35,39-41]
     #education:[45-65 length5][46-47,49,51-52,54,56-57,59,61-62,64]
     #skill language:[65,66]
@@ -67,13 +66,10 @@ def extractall_information(datapath, non_datapath, pos_start_index, pos_end_inde
     total_words_transformed = svd.fit_transform(total_words_variable_array)
     column_names = ['column_' + str(i) for i in range(50)]
     total_words_transformed = pd.DataFrame(total_words_transformed,columns=column_names)
-    new_company_variable_array = pd.concat([total_words_transformed.iloc[pos_start_index:pos_end_index],
-                                            total_words_transformed.iloc[neg_start_index:neg_end_index]])
-    new_length = len(new_company_variable_array)
     print(total_words_transformed.shape)
-    return new_company_variable_array
+    return total_words_transformed
 
-def bag_of_words_generate_X_train(folderpath, jobtitle, X, ratio):
+def bag_of_words_generate_X_train(dummy_matrix, X, ratio, pos_start_index, pos_end_index, neg_start_index, neg_end_index):
     # user_profile = pd.DataFrame(pd.read_csv(folderpath + '/test1.csv'))
 
     # X = user_profile[['normalized_highest_degree', 'normalized_work_year_past1', 'normalized_work_year_past2',
@@ -89,23 +85,16 @@ def bag_of_words_generate_X_train(folderpath, jobtitle, X, ratio):
     X_train = pd.concat(
         [X.iloc[0:int(globalparameter.extract_number * ratio)], X.iloc[int(globalparameter.extract_number):int(
             globalparameter.extract_number + (globalparameter.total_number - globalparameter.extract_number) * ratio)]])
-    bag_of_words_array = extractall_information(folderpath + '/' + 'output_pos_for_dummy.csv',
-        folderpath + '/' + 'output_neg_for_dummy.csv', 0,
-        int(globalparameter.extract_number * ratio), globalparameter.extract_number,
-        globalparameter.extract_number + int((globalparameter.total_number - globalparameter.extract_number) * ratio),globalparameter.extract_column_list)
 
-    var1 = int(globalparameter.extract_number * ratio)
-    var2 = globalparameter.extract_number
-    var3 = globalparameter.extract_number + int((globalparameter.total_number - globalparameter.extract_number) * ratio)
-    xtrain = len(X_train)
-
+    new_dummy_variable_array = pd.concat([dummy_matrix.iloc[pos_start_index:pos_end_index],
+                                          dummy_matrix.iloc[neg_start_index:neg_end_index]])
 
     # Reset the index to make sure the sequence of concat data is right
     X_train.index = range(int(globalparameter.total_number * ratio))
-    bag_of_words_array.index = range(int(globalparameter.total_number * ratio))
+    new_dummy_variable_array.index = range(int(globalparameter.total_number * ratio))
 
     # new_X_train = X_train
-    new_X_train = pd.concat([X_train, bag_of_words_array], axis=1, join_axes=[X_train.index])
+    new_X_train = pd.concat([X_train, new_dummy_variable_array], axis=1, join_axes=[X_train.index])
     # new_X_train = pd.concat([X_train, workcompany_dummy_array1, workcompany_dummy_array2, workcompany_dummy_array3,
     #                          workcompany_dummy_array4, workcompany_dummy_array5, workcompany_dummy_array6], axis=1,
     #                         join_axes=[X_train.index])
@@ -114,7 +103,7 @@ def bag_of_words_generate_X_train(folderpath, jobtitle, X, ratio):
     return new_X_train
 
 
-def bag_of_words_generate_X_test(folderpath, jobtitle, X, ratio):
+def bag_of_words_generate_X_test(dummy_matrix, X, ratio, pos_start_index, pos_end_index, neg_start_index, neg_end_index):
     # user_profile = pd.DataFrame(pd.read_csv(folderpath + '/test1.csv'))
 
     # X = user_profile[['normalized_highest_degree', 'normalized_work_year_past1', 'normalized_work_year_past2',
@@ -130,27 +119,16 @@ def bag_of_words_generate_X_test(folderpath, jobtitle, X, ratio):
     X_test = pd.concat([X.iloc[int(globalparameter.extract_number * ratio):globalparameter.extract_number], X.iloc[int(
         globalparameter.extract_number + (
                 globalparameter.total_number - globalparameter.extract_number) * ratio):globalparameter.total_number]])
-    bag_of_words_array = extractall_information(folderpath + '/' + 'output_pos_for_dummy.csv',
-        folderpath + '/' + 'output_neg_for_dummy.csv', int(globalparameter.extract_number * ratio),
-        globalparameter.extract_number,
-        globalparameter.extract_number + int((globalparameter.total_number - globalparameter.extract_number) * ratio),
-        globalparameter.total_number,globalparameter.extract_column_list)
 
-
-    var1 = int(globalparameter.extract_number * ratio)
-    var2 = globalparameter.extract_number
-    var3 = globalparameter.extract_number + int((globalparameter.total_number - globalparameter.extract_number) * ratio)
-    var4 = globalparameter.total_number
-    xtrain = len(X_test)
-
+    new_dummy_variable_array = pd.concat([dummy_matrix.iloc[pos_start_index:pos_end_index],
+                                          dummy_matrix.iloc[neg_start_index:neg_end_index]])
 
     # Reset the index to make sure the sequence of concat data is right
     X_test.index = range(int(globalparameter.total_number * (1 - ratio)))
 
-
-    bag_of_words_array.index = range(int(globalparameter.total_number * (1 - ratio)))
+    new_dummy_variable_array.index = range(int(globalparameter.total_number * (1 - ratio)))
     # new_X_test = X_test
-    new_X_test = pd.concat([X_test, bag_of_words_array], axis=1, join_axes=[X_test.index])
+    new_X_test = pd.concat([X_test, new_dummy_variable_array], axis=1, join_axes=[X_test.index])
     # new_X_test = pd.concat(
     #     [X_test, workcompany_dummy_array1, workcompany_dummy_array2, workcompany_dummy_array3, workcompany_dummy_array4,
     #      workcompany_dummy_array5, workcompany_dummy_array6], axis=1, join_axes=[X_test.index])
@@ -158,7 +136,3 @@ def bag_of_words_generate_X_test(folderpath, jobtitle, X, ratio):
     return new_X_test
 
 
-
-def bag_of_words():
-
-    return
