@@ -16,7 +16,7 @@ import matplotlib.pyplot as plt
 def decision_tree(folderpath,jobtitle_path_list,ratio):
     user_profile = pd.DataFrame(pd.read_csv(folderpath+'/test1.csv'))
 
-    X = user_profile[['normalized_highest_degree', 'normalized_work_year_past1', 'normalized_work_year_past2',
+    X = user_profile[['normalized_work_year_past1', 'normalized_work_year_past2',
                       'normalized_work_year_past3', 'normalized_work_year_past4', 'normalized_work_year_past5',
                       'normalized_work_year_past6']]  # use highest degree, six past work experience
     Y = user_profile['normalized_now_relevant_job']

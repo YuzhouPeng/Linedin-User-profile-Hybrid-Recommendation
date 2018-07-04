@@ -1,6 +1,6 @@
 import pandas as pd
 import globalparameter, extract_multivalue_feature
-import collections
+import collections, string
 from sklearn.decomposition import TruncatedSVD
 def flatten(l):
     for el in l:
@@ -22,6 +22,8 @@ def extractall_information(datapath, non_datapath,column_index_list):
     user_data = pd.read_csv(datapath, header=None)
     non_user_data = pd.read_csv(non_datapath, header=None)
     all_info_list = []
+    user_data = user_data.fillna("")
+    non_user_data = non_user_data.fillna("")
     for i in range(len(column_index_list)):
         column_index = column_index_list[i]
         df = pd.concat([user_data.iloc[:, [column_index]],
@@ -44,6 +46,10 @@ def extractall_information(datapath, non_datapath,column_index_list):
     for i in range(len(user_data)):
         user_total_info_data.append(' '.join(str(k) for k in user_data[i]))
     # print(user_skill_data)
+
+    # #remove all numerical number
+    for i in range(len(user_total_info_data)):
+        user_total_info_data[i] = ''.join([x for x in user_total_info_data[i] if not x.isdigit()])
 
     for i in range(len(user_total_info_data)):
         user_total_words_info_data1.append(user_total_info_data[i].split())

@@ -5,7 +5,7 @@ import pandas as pd
 import numpy as np
 
 
-def calculate_work_year_except_newest(folderpath, job_title_data_path, jobtitlename, name_for_search, extract_number):
+def calculate_work_year_except_newest(folderpath, job_title_data_path, jobtitlename, name_for_search):
     with open(
             job_title_data_path,
             'r') as csvfile:
@@ -17,7 +17,7 @@ def calculate_work_year_except_newest(folderpath, job_title_data_path, jobtitlen
             open(
                 folderpath + '/' + jobtitlename + '_' + globalparameter.name_for_search_work_year + globalparameter.output_file_root,
                 'w'))
-        for row in itertools.islice(reader, extract_number):
+        for row in reader:
             # print(i)
             # for row in reader:
             work_experience_total_year_past1 = 0
@@ -167,116 +167,116 @@ def calculate_work_year_except_newest(folderpath, job_title_data_path, jobtitlen
     csvfile.close()
 
 
-def generateweighting_expect_newest(number_of_extract, folderpath, jobtitle_path_list):
-    fields1 = ['id', 'highest_degree']
-    fields2 = ['work_year_past1', 'work_year_past2', 'work_year_past3', 'work_year_past4', 'work_year_past5',
-               'work_year_past6']
-    fields3 = ['exp_time']
-    fields4 = ['cosine_similarity_value']
-    colnames1 = ['id', 'highest_degree']
-    colnames2 = ['id', 'work_year_past1', 'work_year_past2', 'work_year_past3', 'work_year_past4', 'work_year_past5',
-                 'work_year_past6']
-    colnames3 = ['id', 'exp_time']
-    # colnames4 = ['id', 'cosine_similarity_value']
-    id = []
-    highest_degree = []
-    work_year_past1 = []
-    work_year_past2 = []
-    work_year_past3 = []
-    work_year_past4 = []
-    work_year_past5 = []
-    work_year_past6 = []
-    exp_time = []
-    now_relevant_job = []
-    now_relevant_job = now_relevant_job + [1] * number_of_extract + [0] * (
-            globalparameter.total_number - number_of_extract)
-    # cosine_similarity = []
-    df = pd.read_csv(
-        folderpath + '/' + jobtitle_path_list + '_' + globalparameter.name_for_search_highest_degree + globalparameter.output_file_root,
-        names=colnames1, skipinitialspace=True, usecols=fields1)
-    id = id + (df['id'].tolist())
-    positive_sample_id = id
-    highest_degree = highest_degree + df['highest_degree'].tolist()
-
-    df = pd.read_csv(
-        folderpath + '/' + jobtitle_path_list + '_' + globalparameter.name_for_search_work_year + globalparameter.output_file_root,
-        names=colnames2, skipinitialspace=True, usecols=fields2)
-    work_year_past1 = work_year_past1 + df['work_year_past1'][:number_of_extract].tolist()
-    work_year_past2 = work_year_past2 + df['work_year_past2'][:number_of_extract].tolist()
-    work_year_past3 = work_year_past3 + df['work_year_past3'][:number_of_extract].tolist()
-    work_year_past4 = work_year_past4 + df['work_year_past4'][:number_of_extract].tolist()
-    work_year_past5 = work_year_past5 + df['work_year_past5'][:number_of_extract].tolist()
-    work_year_past6 = work_year_past6 + df['work_year_past6'][:number_of_extract].tolist()
-
-    df = pd.read_csv(
-        folderpath + '/' + jobtitle_path_list + '_' + globalparameter.name_for_search_exp_times + globalparameter.output_file_root,
-        names=colnames3, skipinitialspace=True, usecols=fields3)
-    exp_time = exp_time + df['exp_time'].tolist()
-
-    df = pd.read_csv(
-        folderpath + '/non_' + jobtitle_path_list +'_'+globalparameter.name_for_search_highest_degree+ globalparameter.output_file_root,
-        names=colnames1, skipinitialspace=True, usecols=fields1,nrows=globalparameter.total_number*2)
-    random_id_list = random.sample(df['id'].tolist(), globalparameter.total_number - globalparameter.extract_number)
-    random_index_list = []
-    id = id + (random_id_list)
-    id_list_test = df['id'].tolist()
-    for i in range(len(random_id_list)):
-        for j in range(len(df['id'].tolist())):
-            if random_id_list[i] == (df['id'].tolist())[j]:
-                random_index_list.append(j)
-    for i in range(len(random_index_list)):
-        highest_degree = highest_degree + [(df['highest_degree'].tolist())[i]]
-
-    df = pd.read_csv(
-        folderpath + '/non_' + jobtitle_path_list + '_' + globalparameter.name_for_search_work_year + globalparameter.output_file_root,
-        names=colnames2, skipinitialspace=True, usecols=fields2)
-    for i in range(len(random_index_list)):
-        work_year_past1 = work_year_past1 + [(df['work_year_past1'].tolist())[random_index_list[i]]]
-        work_year_past2 = work_year_past2 + [(df['work_year_past2'].tolist())[random_index_list[i]]]
-        work_year_past3 = work_year_past3 + [(df['work_year_past3'].tolist())[random_index_list[i]]]
-        work_year_past4 = work_year_past4 + [(df['work_year_past4'].tolist())[random_index_list[i]]]
-        work_year_past5 = work_year_past5 + [(df['work_year_past5'].tolist())[random_index_list[i]]]
-        work_year_past6 = work_year_past6 + [(df['work_year_past6'].tolist())[random_index_list[i]]]
-
-    df = pd.read_csv(
-        folderpath + '/non_' + jobtitle_path_list + '_' + globalparameter.name_for_search_exp_times + globalparameter.output_file_root,
-        names=colnames3, skipinitialspace=True, usecols=fields3)
-    for i in range(len(random_index_list)):
-        exp_time = exp_time + [(df['exp_time'].tolist())[i]]
-
-    length_id = len(id)
-    length_highest_degree = len(highest_degree)
-    length_exp_time = len(exp_time)
-    # length_cosine_similarity = len(cosine_similarity)
-    length_work_year1 = len(work_year_past1)
-    length_work_year2 = len(work_year_past2)
-    length_now_job = len(now_relevant_job)
-
-    list_for_iterate = []
-    writer = csv.writer(open(folderpath + '/' + 'output_neg_for_dummy.csv', 'w'))
-    with open(globalparameter.raw_data_path, 'r') as f:
-        reader = csv.reader(f)
-        for row in reader:
-            list_for_iterate.append(row)
-        for i in range(len(random_id_list)):
-            for j in range(len(list_for_iterate)):
-                if str(random_id_list[i]) == list_for_iterate[j][0]:
-                    writer.writerow(list_for_iterate[j])
-
-    with open(globalparameter.raw_data_path, 'r') as f:
-        reader1 = csv.reader(f)
-        writer1 = csv.writer(open(folderpath + '/' + 'output_pos_for_dummy.csv', 'w'))
-        for row in reader1:
-            for i in range(len(positive_sample_id)):
-                if str(positive_sample_id[i]) == row[0]:
-                    writer1.writerow(row)
-    random_id_list_data = pd.DataFrame({'data_id':random_id_list})
-    random_id_list_data.to_csv(folderpath+'/'+'output_id_data.csv')
-
-    frame = pd.DataFrame({'id': id, 'highest_degree': highest_degree, 'work_year_past1': work_year_past1,
-                          'work_year_past2': work_year_past2, 'work_year_past3': work_year_past3,
-                          'work_year_past4': work_year_past4, 'work_year_past5': work_year_past5,
-                          'work_year_past6': work_year_past6, 'exp_time': exp_time,
-                          'now_relevant_job': now_relevant_job})
-
-    frame.to_csv(folderpath + '/test.csv')
+# def generateweighting_expect_newest(number_of_extract, folderpath, jobtitle_path_list):
+#     fields1 = ['id', 'highest_degree']
+#     fields2 = ['work_year_past1', 'work_year_past2', 'work_year_past3', 'work_year_past4', 'work_year_past5',
+#                'work_year_past6']
+#     fields3 = ['exp_time']
+#     fields4 = ['cosine_similarity_value']
+#     colnames1 = ['id', 'highest_degree']
+#     colnames2 = ['id', 'work_year_past1', 'work_year_past2', 'work_year_past3', 'work_year_past4', 'work_year_past5',
+#                  'work_year_past6']
+#     colnames3 = ['id', 'exp_time']
+#     # colnames4 = ['id', 'cosine_similarity_value']
+#     id = []
+#     highest_degree = []
+#     work_year_past1 = []
+#     work_year_past2 = []
+#     work_year_past3 = []
+#     work_year_past4 = []
+#     work_year_past5 = []
+#     work_year_past6 = []
+#     exp_time = []
+#     now_relevant_job = []
+#     now_relevant_job = now_relevant_job + [1] * number_of_extract + [0] * (
+#             globalparameter.total_number - number_of_extract)
+#     # cosine_similarity = []
+#     df = pd.read_csv(
+#         folderpath + '/' + jobtitle_path_list + '_' + globalparameter.name_for_search_highest_degree + globalparameter.output_file_root,
+#         names=colnames1, skipinitialspace=True, usecols=fields1)
+#     id = id + (df['id'].tolist())
+#     positive_sample_id = id
+#     highest_degree = highest_degree + df['highest_degree'].tolist()
+#
+#     df = pd.read_csv(
+#         folderpath + '/' + jobtitle_path_list + '_' + globalparameter.name_for_search_work_year + globalparameter.output_file_root,
+#         names=colnames2, skipinitialspace=True, usecols=fields2)
+#     work_year_past1 = work_year_past1 + df['work_year_past1'][:number_of_extract].tolist()
+#     work_year_past2 = work_year_past2 + df['work_year_past2'][:number_of_extract].tolist()
+#     work_year_past3 = work_year_past3 + df['work_year_past3'][:number_of_extract].tolist()
+#     work_year_past4 = work_year_past4 + df['work_year_past4'][:number_of_extract].tolist()
+#     work_year_past5 = work_year_past5 + df['work_year_past5'][:number_of_extract].tolist()
+#     work_year_past6 = work_year_past6 + df['work_year_past6'][:number_of_extract].tolist()
+#
+#     # df = pd.read_csv(
+#     #     folderpath + '/' + jobtitle_path_list + '_' + globalparameter.name_for_search_exp_times + globalparameter.output_file_root,
+#     #     names=colnames3, skipinitialspace=True, usecols=fields3)
+#     # exp_time = exp_time + df['exp_time'].tolist()
+#
+#     df = pd.read_csv(
+#         folderpath + '/non_' + jobtitle_path_list +'_'+globalparameter.name_for_search_highest_degree+ globalparameter.output_file_root,
+#         names=colnames1, skipinitialspace=True, usecols=fields1,nrows=globalparameter.total_number*2)
+#     random_id_list = random.sample(df['id'].tolist(), globalparameter.total_number - globalparameter.extract_number)
+#     random_index_list = []
+#     id = id + (random_id_list)
+#     id_list_test = df['id'].tolist()
+#     for i in range(len(random_id_list)):
+#         for j in range(len(df['id'].tolist())):
+#             if random_id_list[i] == (df['id'].tolist())[j]:
+#                 random_index_list.append(j)
+#     for i in range(len(random_index_list)):
+#         highest_degree = highest_degree + [(df['highest_degree'].tolist())[i]]
+#
+#     df = pd.read_csv(
+#         folderpath + '/non_' + jobtitle_path_list + '_' + globalparameter.name_for_search_work_year + globalparameter.output_file_root,
+#         names=colnames2, skipinitialspace=True, usecols=fields2)
+#     for i in range(len(random_index_list)):
+#         work_year_past1 = work_year_past1 + [(df['work_year_past1'].tolist())[random_index_list[i]]]
+#         work_year_past2 = work_year_past2 + [(df['work_year_past2'].tolist())[random_index_list[i]]]
+#         work_year_past3 = work_year_past3 + [(df['work_year_past3'].tolist())[random_index_list[i]]]
+#         work_year_past4 = work_year_past4 + [(df['work_year_past4'].tolist())[random_index_list[i]]]
+#         work_year_past5 = work_year_past5 + [(df['work_year_past5'].tolist())[random_index_list[i]]]
+#         work_year_past6 = work_year_past6 + [(df['work_year_past6'].tolist())[random_index_list[i]]]
+#
+#     # df = pd.read_csv(
+#     #     folderpath + '/non_' + jobtitle_path_list + '_' + globalparameter.name_for_search_exp_times + globalparameter.output_file_root,
+#     #     names=colnames3, skipinitialspace=True, usecols=fields3)
+#     # for i in range(len(random_index_list)):
+#     #     exp_time = exp_time + [(df['exp_time'].tolist())[i]]
+#
+#     length_id = len(id)
+#     length_highest_degree = len(highest_degree)
+#     length_exp_time = len(exp_time)
+#     # length_cosine_similarity = len(cosine_similarity)
+#     length_work_year1 = len(work_year_past1)
+#     length_work_year2 = len(work_year_past2)
+#     length_now_job = len(now_relevant_job)
+#
+#     list_for_iterate = []
+#     writer = csv.writer(open(folderpath + '/' + 'output_neg_for_dummy.csv', 'w'))
+#     with open(globalparameter.raw_data_path, 'r') as f:
+#         reader = csv.reader(f)
+#         for row in reader:
+#             list_for_iterate.append(row)
+#         for i in range(len(random_id_list)):
+#             for j in range(len(list_for_iterate)):
+#                 if str(random_id_list[i]) == list_for_iterate[j][0]:
+#                     writer.writerow(list_for_iterate[j])
+#
+#     with open(globalparameter.raw_data_path, 'r') as f:
+#         reader1 = csv.reader(f)
+#         writer1 = csv.writer(open(folderpath + '/' + 'output_pos_for_dummy.csv', 'w'))
+#         for row in reader1:
+#             for i in range(len(positive_sample_id)):
+#                 if str(positive_sample_id[i]) == row[0]:
+#                     writer1.writerow(row)
+#     random_id_list_data = pd.DataFrame({'data_id':random_id_list})
+#     random_id_list_data.to_csv(folderpath+'/'+'output_id_data.csv')
+#
+#     frame = pd.DataFrame({'id': id, 'highest_degree': highest_degree, 'work_year_past1': work_year_past1,
+#                           'work_year_past2': work_year_past2, 'work_year_past3': work_year_past3,
+#                           'work_year_past4': work_year_past4, 'work_year_past5': work_year_past5,
+#                           'work_year_past6': work_year_past6,
+#                           'now_relevant_job': now_relevant_job})
+#
+#     frame.to_csv(folderpath + '/test.csv')

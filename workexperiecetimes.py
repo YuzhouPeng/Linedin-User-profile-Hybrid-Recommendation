@@ -35,3 +35,19 @@ def calculate_work_exp_times(path, name_for_search, job_title_name, input_file_p
             writer.writerow(result)
             counter = counter + 1
     csvfile.close()
+
+    # workexperiecetimes.calculate_work_exp_times(globalparameter.folderpath[i],
+    #                                             globalparameter.name_for_search_exp_times,
+    #                                             globalparameter.jobtitle_list[i], globalparameter.folderpath[
+    #                                                 i] + '/' + globalparameter.jobtitle_path_list[
+    #                                                 i] + globalparameter.output_file_root,
+    #                                             '/' + globalparameter.jobtitle_path_list[i] + '_',
+    #                                             globalparameter.extract_number)
+    # print('calculate work experience times: '+str(globalparameter.job_title_data_path[i]))
+    # workexperiecetimes.calculate_work_exp_times(globalparameter.folderpath[i],
+    #                                             globalparameter.name_for_search_exp_times,
+    #                                             globalparameter.jobtitle_list[i], globalparameter.folderpath[
+    #                                                 i] + '/non_' + globalparameter.jobtitle_path_list[
+    #                                                 i] + globalparameter.output_file_root,
+    #                                             '/non_' + globalparameter.jobtitle_path_list[i] + '_',
+    #                                             globalparameter.total_number * 2)
