@@ -1,5 +1,5 @@
 import pandas as pd
-import globalparameter, csv, itertools
+import globalparameter, n_grams, csv, itertools
 import numpy as np
 from sklearn import preprocessing
 import matplotlib.pyplot as plt
@@ -36,18 +36,25 @@ def logestic_regression(folderpath, jobtitle_path_list, ratio):
     Y_test = pd.concat([Y.iloc[int(globalparameter.extract_number * ratio):globalparameter.extract_number], Y.iloc[int(
         globalparameter.extract_number + (
                 globalparameter.total_number - globalparameter.extract_number) * ratio):globalparameter.total_number]])
-    matrix = bag_of_words.extractall_information(folderpath + '/' + 'output_pos_for_dummy.csv',
-                                                 folderpath + '/' + 'output_neg_for_dummy.csv',
-                                                 globalparameter.extract_column_list)
 
-    X_train = bag_of_words.bag_of_words_generate_X_train(matrix, X, ratio, globalparameter.train_pos_start_loc,
-                                                         globalparameter.train_pos_end_loc,
-                                                         globalparameter.train_neg_start_loc,
-                                                         globalparameter.train_neg_end_loc)
-    X_test = bag_of_words.bag_of_words_generate_X_test(matrix, X, ratio, globalparameter.test_pos_start_loc,
-                                                       globalparameter.test_pos_end_loc,
-                                                       globalparameter.test_neg_start_loc,
-                                                       globalparameter.test_neg_end_loc)
+    # generate matrix of bag-of-words
+    # matrix = bag_of_words.extractall_information(folderpath + '/' + 'output_pos_for_dummy.csv',
+    #                                              folderpath + '/' + 'output_neg_for_dummy.csv',
+    #                                              globalparameter.extract_column_list)
+
+    # generate matrix of 2-gram
+    matrix = n_grams.extractall_information_n_gram(folderpath + '/' + 'output_pos_for_dummy.csv',
+                                                   folderpath + '/' + 'output_neg_for_dummy.csv',
+                                                   globalparameter.extract_column_list, 2)
+
+    X_train = generate_train_test_set.generate_X_train(matrix, X, ratio, globalparameter.train_pos_start_loc,
+                                                       globalparameter.train_pos_end_loc,
+                                                       globalparameter.train_neg_start_loc,
+                                                       globalparameter.train_neg_end_loc)
+    X_test = generate_train_test_set.generate_X_test(matrix, X, ratio, globalparameter.test_pos_start_loc,
+                                                     globalparameter.test_pos_end_loc,
+                                                     globalparameter.test_neg_start_loc,
+                                                     globalparameter.test_neg_end_loc)
 
     len_xtrain = len(X_train)
     len_xtest = len(X_test)
@@ -85,27 +92,20 @@ def logestic_regression(folderpath, jobtitle_path_list, ratio):
     print('acc is predict proba is {}'.format(acc))
     print('precision is: {}'.format(precision))
 
-    # X_train, X_test, Y_train, Y_test = train_test_split(X, Y, test_size=0.3, random_state=0)
-    # X_train = pd.concat(
-    #     [X.iloc[0:int(globalparameter.extract_number * ratio)], X.iloc[int(globalparameter.extract_number):int(
-    #         globalparameter.extract_number + (globalparameter.total_number - globalparameter.extract_number) * ratio)]])
-    # X_test = pd.concat([X.iloc[int(globalparameter.extract_number * ratio):globalparameter.extract_number], X.iloc[int(
-    #     globalparameter.extract_number + (
-    #             globalparameter.total_number - globalparameter.extract_number) * ratio):globalparameter.total_number]])
     Y_train = pd.concat(
         [Y.iloc[0:int(globalparameter.extract_number * ratio)], Y.iloc[int(globalparameter.extract_number):int(
             globalparameter.extract_number + (globalparameter.total_number - globalparameter.extract_number) * ratio)]])
     Y_test = pd.concat([Y.iloc[int(globalparameter.extract_number * ratio):globalparameter.extract_number], Y.iloc[int(
         globalparameter.extract_number + (
                 globalparameter.total_number - globalparameter.extract_number) * ratio):globalparameter.total_number]])
-    X_train = bag_of_words.bag_of_words_generate_X_train(matrix, X, ratio, globalparameter.train_pos_start_loc,
-                                                         globalparameter.train_pos_end_loc,
-                                                         globalparameter.train_neg_start_loc,
-                                                         globalparameter.train_neg_end_loc)
-    X_test = bag_of_words.bag_of_words_generate_X_test(matrix, X, ratio, globalparameter.test_pos_start_loc,
-                                                       globalparameter.test_pos_end_loc,
-                                                       globalparameter.test_neg_start_loc,
-                                                       globalparameter.test_neg_end_loc)
+    X_train = generate_train_test_set.generate_X_train(matrix, X, ratio, globalparameter.train_pos_start_loc,
+                                                       globalparameter.train_pos_end_loc,
+                                                       globalparameter.train_neg_start_loc,
+                                                       globalparameter.train_neg_end_loc)
+    X_test = generate_train_test_set.generate_X_test(matrix, X, ratio, globalparameter.test_pos_start_loc,
+                                                     globalparameter.test_pos_end_loc,
+                                                     globalparameter.test_neg_start_loc,
+                                                     globalparameter.test_neg_end_loc)
 
     sc = StandardScaler()
     sc.fit(X_train)

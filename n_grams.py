@@ -11,10 +11,10 @@ def flatten(l):
             yield el
 
 
-datapath = globalparameter.folderpath[0]+'/'+'output_pos_for_dummy.csv'
-non_datapath = globalparameter.folderpath[0]+'/'+'output_neg_for_dummy.csv'
-column_index_list = globalparameter.extract_column_list
-def extractall_information_n_gram(datapath,non_datapath,column_index_list,gram_number):
+# datapath = globalparameter.folderpath[0]+'/'+'output_pos_for_dummy.csv'
+# non_datapath = globalparameter.folderpath[0]+'/'+'output_neg_for_dummy.csv'
+# column_index_list = globalparameter.extract_column_list
+def extractall_information_n_gram(datapath, non_datapath, column_index_list, gram_number):
     # extract columns:[3-5,9-11,15-17,21-23,27-29,33-35,39-41]
     #education:[45-65 length5][46-47,49,51-52,54,56-57,59,61-62,64]
     #skill language:[65,66]
@@ -92,4 +92,5 @@ def extractall_information_n_gram(datapath,non_datapath,column_index_list,gram_n
     total_words_transformed = pd.DataFrame(total_words_variable_array,columns=column_names)
     shape_of_words = total_words_variable_array.shape
     print(total_words_variable_array.shape)
-    # return total_words_transformed
+    return total_words_variable_array
+

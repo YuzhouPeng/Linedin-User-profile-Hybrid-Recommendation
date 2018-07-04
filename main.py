@@ -92,7 +92,7 @@ def normalizing_data():
 
 if __name__ == '__main__':
     # datapreprocession()
-    normalizing_data()
+    # normalizing_data()
     for i in range(6):
         print('------job title is:------')
         print(globalparameter.jobtitle_path_list[i])
