@@ -2,6 +2,7 @@ import pandas as pd
 import numpy as np
 import bag_of_words
 import globalparameter, csv, itertools,generate_train_test_set,n_grams
+from sklearn.metrics import recall_score
 from sklearn import preprocessing
 import matplotlib.pyplot as plt
 from numpy import genfromtxt
@@ -13,7 +14,7 @@ from sklearn.metrics import precision_recall_curve
 from sklearn.metrics import precision_score
 import matplotlib.pyplot as plt
 
-def svm_classification(folderpath,jobtitle_path_list,ratio):
+def svm_classification(folderpath,jobtitle_path_list,ratio,sum_index):
     user_profile = pd.DataFrame(pd.read_csv(folderpath+'/test1.csv'))
 
     X = user_profile[['normalized_work_year_past1', 'normalized_work_year_past2',
@@ -30,7 +31,12 @@ def svm_classification(folderpath,jobtitle_path_list,ratio):
     # generate matrix of 2-gram
     matrix = n_grams.extractall_information_n_gram(folderpath + '/' + 'output_pos_for_dummy.csv',
                                                    folderpath + '/' + 'output_neg_for_dummy.csv',
-                                                   globalparameter.extract_column_list, 2)
+                                                   globalparameter.extract_column_list, 3)
+
+    # generate matrix of 3-gram
+    # matrix = n_grams.extractall_information_n_gram(folderpath + '/' + 'output_pos_for_dummy.csv',
+    #                                                folderpath + '/' + 'output_neg_for_dummy.csv',
+    #                                                globalparameter.extract_column_list, 3)
 
     X_train = generate_train_test_set.generate_X_train(matrix, X, ratio, globalparameter.train_pos_start_loc,
                                                          globalparameter.train_pos_end_loc,
@@ -63,13 +69,19 @@ def svm_classification(folderpath,jobtitle_path_list,ratio):
     # prepro = svm_classifier.predict_proba(X_test_std)
     acc = svm_classifier.score(X_test_std, Y_test)
     precision = precision_score(Y_test,prediction,labels=[0,1],pos_label=1)
+    recall = recall_score(Y_test, prediction,labels=[0, 1], pos_label=1)
+
     # print('prediction is : {}'.format(prediction))
     print('-------')
     print('SVM linear svc classification')
     # print('prepro is : {}'.format(prepro))
     print('acc is predict proba is {}'.format(acc))
     print('precision is {}'.format(precision))
+    print('recall is {}'.format(recall))
 
+    globalparameter.alg_accuracy[sum_index+2] = globalparameter.alg_accuracy[sum_index+2] + acc
+    globalparameter.alg_precision[sum_index+2] = globalparameter.alg_precision[sum_index+2] + precision
+    globalparameter.alg_recall[sum_index+2] = globalparameter.alg_precision[sum_index+2] + recall
 
     sc = StandardScaler()
     sc.fit(X_train)
@@ -86,6 +98,7 @@ def svm_classification(folderpath,jobtitle_path_list,ratio):
     # prepro = svm_classifier.predict_proba(X_test_std)
     acc = svm_classifier.score(X_test_std, Y_test)
     precision = precision_score(Y_test,prediction,labels=[0,1],pos_label=1)
+    recall = recall_score(Y_test, prediction,labels=[0, 1], pos_label=1)
 
     # print('prediction is : {}'.format(prediction))
     print('-------')
@@ -93,8 +106,11 @@ def svm_classification(folderpath,jobtitle_path_list,ratio):
     # print('prepro is : {}'.format(prepro))
     print('acc is predict proba is {}'.format(acc))
     print('precision is {}'.format(precision))
+    print('recall is {}'.format(recall))
 
-
+    globalparameter.alg_accuracy[sum_index+3] = globalparameter.alg_accuracy[sum_index+3] + acc
+    globalparameter.alg_precision[sum_index+3] = globalparameter.alg_precision[sum_index+3] + precision
+    globalparameter.alg_recall[sum_index+3] = globalparameter.alg_precision[sum_index+3] + recall
 
     # X_train = pd.concat(
     #     [X.iloc[0:int(globalparameter.extract_number * ratio)], X.iloc[int(globalparameter.extract_number):int(
@@ -132,6 +148,7 @@ def svm_classification(folderpath,jobtitle_path_list,ratio):
     # prepro = svm_classifier.predict_proba(X_test_std)
     acc = svm_classifier.score(X_test_std, Y_test)
     precision = precision_score(Y_test,prediction,labels=[0,1],pos_label=1)
+    recall = recall_score(Y_test, prediction,labels=[0, 1], pos_label=1)
 
     # print('prediction is : {}'.format(prediction))
     print('-------')
@@ -139,7 +156,11 @@ def svm_classification(folderpath,jobtitle_path_list,ratio):
     # print('prepro is : {}'.format(prepro))
     print('acc is predict proba is {}'.format(acc))
     print('precision is {}'.format(precision))
+    print('recall is {}'.format(recall))
 
+    globalparameter.alg_accuracy[sum_index+4] = globalparameter.alg_accuracy[sum_index+4] + acc
+    globalparameter.alg_precision[sum_index+4] = globalparameter.alg_precision[sum_index+4] + precision
+    globalparameter.alg_recall[sum_index+4] = globalparameter.alg_precision[sum_index+4] + recall
     # # plot the diagram
     # precision, recall, _ = precision_recall_curve(Y_test, Y_score)
     #

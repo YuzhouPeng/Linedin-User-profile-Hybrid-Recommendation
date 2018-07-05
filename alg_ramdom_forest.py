@@ -6,6 +6,7 @@ from sklearn import preprocessing
 import matplotlib.pyplot as plt
 from numpy import genfromtxt
 from sklearn.ensemble import RandomForestClassifier
+from sklearn.metrics import recall_score
 from sklearn import linear_model, datasets
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import StandardScaler
@@ -13,7 +14,7 @@ from sklearn.metrics import precision_score
 from sklearn.metrics import precision_recall_curve
 import matplotlib.pyplot as plt
 
-def random_forest(folderpath,jobtitle_path_list,ratio):
+def random_forest(folderpath,jobtitle_path_list,ratio,sum_index):
     user_profile = pd.DataFrame(pd.read_csv(folderpath+'/test1.csv'))
 
     X = user_profile[['normalized_work_year_past1', 'normalized_work_year_past2',
@@ -45,6 +46,11 @@ def random_forest(folderpath,jobtitle_path_list,ratio):
                                                    folderpath + '/' + 'output_neg_for_dummy.csv',
                                                    globalparameter.extract_column_list, 2)
 
+    # generate matrix of 3-gram
+    # matrix = n_grams.extractall_information_n_gram(folderpath + '/' + 'output_pos_for_dummy.csv',
+    #                                                folderpath + '/' + 'output_neg_for_dummy.csv',
+    #                                                globalparameter.extract_column_list, 3)
+
     X_train = generate_train_test_set.generate_X_train(matrix, X, ratio, globalparameter.train_pos_start_loc,
                                                          globalparameter.train_pos_end_loc,
                                                          globalparameter.train_neg_start_loc,
@@ -70,12 +76,19 @@ def random_forest(folderpath,jobtitle_path_list,ratio):
     prepro = decision_tree_classifier.predict_proba(X_test_std)
     acc = decision_tree_classifier.score(X_test_std, Y_test)
     precision = precision_score(Y_test,prediction,labels=[0,1],pos_label=1)
+    recall = recall_score(Y_test, prediction,labels=[0, 1], pos_label=1)
+
     # print('prediction is : {}'.format(prediction))
     print('-------')
     print('random forest')
     # print('prepro is : {}'.format(prepro))
     print('acc is predict proba is {}'.format(acc))
     print('precision is: {}'.format(precision))
+    print('recall is {}'.format(recall))
+
+    globalparameter.alg_accuracy[sum_index+7] = globalparameter.alg_accuracy[sum_index+7] + acc
+    globalparameter.alg_precision[sum_index+7] = globalparameter.alg_precision[sum_index+7] + precision
+    globalparameter.alg_recall[sum_index+7] = globalparameter.alg_precision[sum_index+7] + recall
     # print('average precision and recall is {}'.format(avg_precesion))
 
     #plot the diagram

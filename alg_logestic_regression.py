@@ -4,6 +4,7 @@ import numpy as np
 from sklearn import preprocessing
 import matplotlib.pyplot as plt
 import generate_train_test_set
+from sklearn.metrics import recall_score
 from numpy import genfromtxt
 from sklearn.linear_model import LogisticRegression
 from sklearn import linear_model, datasets
@@ -17,7 +18,7 @@ import bag_of_words
 import matplotlib.pyplot as plt
 
 
-def logestic_regression(folderpath, jobtitle_path_list, ratio):
+def logestic_regression(folderpath, jobtitle_path_list, ratio, sum_index):
     user_profile = pd.DataFrame(pd.read_csv(folderpath + '/test1.csv'))
 
     X = user_profile[['normalized_work_year_past1', 'normalized_work_year_past2',
@@ -46,6 +47,11 @@ def logestic_regression(folderpath, jobtitle_path_list, ratio):
     matrix = n_grams.extractall_information_n_gram(folderpath + '/' + 'output_pos_for_dummy.csv',
                                                    folderpath + '/' + 'output_neg_for_dummy.csv',
                                                    globalparameter.extract_column_list, 2)
+
+    # generate matrix of 3-gram
+    # matrix = n_grams.extractall_information_n_gram(folderpath + '/' + 'output_pos_for_dummy.csv',
+    #                                                folderpath + '/' + 'output_neg_for_dummy.csv',
+    #                                                globalparameter.extract_column_list, 3)
 
     X_train = generate_train_test_set.generate_X_train(matrix, X, ratio, globalparameter.train_pos_start_loc,
                                                        globalparameter.train_pos_end_loc,
@@ -77,6 +83,7 @@ def logestic_regression(folderpath, jobtitle_path_list, ratio):
     prepro = logreg.predict_proba(X_test_std)
     acc = logreg.score(X_test, Y_test)
     precision = precision_score(Y_test, Y_pred, labels=[0, 1], pos_label=1)
+    recall = recall_score(Y_test, Y_pred,labels=[0, 1], pos_label=1)
     tn, fp, fn, tp = confusion_matrix(Y_test, Y_pred).ravel()
     test_precision, test_recall, test_fscore, test_support = precision_recall_fscore_support(Y_test, Y_pred)
     train_precision, train_recall, train_fscore, train_support = precision_recall_fscore_support(Y_test_train,
@@ -87,10 +94,16 @@ def logestic_regression(folderpath, jobtitle_path_list, ratio):
     print('Logestic regression')
     print('test_values are: {} {} {} {}'.format(test_precision, test_recall, test_fscore, test_support))
     print('train_values are: {} {} {} {}'.format(train_precision, train_recall, train_fscore, train_support))
-    print('confusing matrix is : tn:{} fp:{} fn:{} tp:{}'.format(tn, fp, fn, tp))
+    # print('confusing matrix is : tn:{} fp:{} fn:{} tp:{}'.format(tn, fp, fn, tp))
     # print('prepro is : {}'.format(prepro))
     print('acc is predict proba is {}'.format(acc))
     print('precision is: {}'.format(precision))
+    print('recall is {}'.format(recall))
+
+    globalparameter.alg_accuracy[sum_index+0] = globalparameter.alg_accuracy[sum_index+0] + acc
+    globalparameter.alg_precision[sum_index+0] = globalparameter.alg_precision[sum_index+0] + precision
+    globalparameter.alg_recall[sum_index+0] = globalparameter.alg_precision[sum_index+0] + recall
+
 
     Y_train = pd.concat(
         [Y.iloc[0:int(globalparameter.extract_number * ratio)], Y.iloc[int(globalparameter.extract_number):int(
@@ -123,6 +136,7 @@ def logestic_regression(folderpath, jobtitle_path_list, ratio):
     acc = logreg.score(X_test, Y_test)
     acc_score = accuracy_score(Y_test, Y_pred)
     precision = precision_score(Y_test, Y_pred, labels=[0, 1], pos_label=1)
+    recall = recall_score(Y_test, Y_pred,labels=[0, 1], pos_label=1)
 
     # print('prediction is : {}'.format(prediction))
     print('-------')
@@ -130,7 +144,11 @@ def logestic_regression(folderpath, jobtitle_path_list, ratio):
     # print('prepro is : {}'.format(prepro))
     print('acc is predict proba is {}'.format(acc))
     print('precision is: {}'.format(precision))
+    print('recall is {}'.format(recall))
 
+    globalparameter.alg_accuracy[sum_index+1] = globalparameter.alg_accuracy[sum_index+1] + acc
+    globalparameter.alg_precision[sum_index+1] = globalparameter.alg_precision[sum_index+1] + precision
+    globalparameter.alg_recall[sum_index+1] = globalparameter.alg_precision[sum_index+1] + recall
     # # plot the diagram
     # precision, recall, _ = precision_recall_curve(Y_test, Y_score)
     #

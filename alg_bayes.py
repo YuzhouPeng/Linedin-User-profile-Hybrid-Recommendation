@@ -2,7 +2,7 @@ import pandas as pd
 import numpy as np
 import bag_of_words
 import globalparameter, csv, itertools,generate_train_test_set,n_grams
-from sklearn import preprocessing
+from sklearn.metrics import recall_score
 import matplotlib.pyplot as plt
 plt.rc("font", size=14)
 from sklearn.naive_bayes import GaussianNB
@@ -13,7 +13,7 @@ from sklearn.metrics import precision_score
 from sklearn.metrics import precision_recall_curve
 import matplotlib.pyplot as plt
 
-def naive_bayes(folderpath,jobtitle_path_list,ratio):
+def naive_bayes(folderpath,jobtitle_path_list,ratio,sum_index):
     user_profile = pd.DataFrame(pd.read_csv(folderpath+'/test1.csv'))
 
     X = user_profile[['normalized_work_year_past1', 'normalized_work_year_past2',
@@ -45,6 +45,11 @@ def naive_bayes(folderpath,jobtitle_path_list,ratio):
                                                    folderpath + '/' + 'output_neg_for_dummy.csv',
                                                    globalparameter.extract_column_list, 2)
 
+    # generate matrix of 3-gram
+    # matrix = n_grams.extractall_information_n_gram(folderpath + '/' + 'output_pos_for_dummy.csv',
+    #                                                folderpath + '/' + 'output_neg_for_dummy.csv',
+    #                                                globalparameter.extract_column_list, 3)
+
     X_train = generate_train_test_set.generate_X_train(matrix, X, ratio, globalparameter.train_pos_start_loc,
                                                          globalparameter.train_pos_end_loc,
                                                          globalparameter.train_neg_start_loc,
@@ -71,6 +76,8 @@ def naive_bayes(folderpath,jobtitle_path_list,ratio):
     acc = naive_bayes_classifier.score(X_test_std, Y_test)
     # avg_precesion = average_precision_score(Y_test,Y_score)
     precision = precision_score(Y_test,prediction,labels=[0,1],pos_label=1)
+    recall = recall_score(Y_test, prediction,labels=[0, 1], pos_label=1)
+
     # print('prediction is : {}'.format(prediction))
     print('-------')
     print('naive bayes')
@@ -78,6 +85,12 @@ def naive_bayes(folderpath,jobtitle_path_list,ratio):
     print('acc is predict proba is {}'.format(acc))
     # print('average precision and recall is {}'.format(avg_precesion))
     print('precision is: {}'.format(precision))
+    print('recall is {}'.format(recall))
+
+    globalparameter.alg_accuracy[sum_index+5] = globalparameter.alg_accuracy[sum_index+5] + acc
+    globalparameter.alg_precision[sum_index+5] = globalparameter.alg_precision[sum_index+5] + precision
+    globalparameter.alg_recall[sum_index+5] = globalparameter.alg_precision[sum_index+5] + recall
+
     #plot the diagram
     # precision, recall, _ = precision_recall_curve(Y_test,Y_score)
     #
