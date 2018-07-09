@@ -1,7 +1,8 @@
 from nltk import ngrams
 from nltk.corpus import stopwords
-import collections, globalparameter
+import collections, globalparameter, time
 import pandas as pd
+from sklearn.decomposition import TruncatedSVD
 
 def flatten(l):
     for el in l:
@@ -84,13 +85,14 @@ def extractall_information_n_gram(datapath, non_datapath, column_index_list, gra
     # print(user_company_data_for_dummy)
     total_words_variable_array = pd.get_dummies(pd.DataFrame(bigram_list), drop_first=True)
 
-    # # reduce dimention using svd
+    # reduce dimention using svd
     # svd = TruncatedSVD(50)
     # total_words_transformed = svd.fit_transform(total_words_variable_array)
-
-    column_names = ['column_' + str(i) for i in range(50)]
-    total_words_transformed = pd.DataFrame(total_words_variable_array,columns=column_names)
+    #
+    # column_names = ['column_' + str(i) for i in range(50)]
+    # total_words_transformed = pd.DataFrame(total_words_transformed,columns=column_names)
     shape_of_words = total_words_variable_array.shape
+    # print(total_words_variable_array.shape)
     print(total_words_variable_array.shape)
     return total_words_variable_array
 

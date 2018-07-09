@@ -1,7 +1,7 @@
 import pandas as pd
 import numpy as np
 import bag_of_words
-import globalparameter, csv, itertools,generate_train_test_set,n_grams
+import globalparameter, csv, itertools,generate_train_test_set,n_grams,time
 from sklearn.metrics import recall_score
 from sklearn import preprocessing
 import matplotlib.pyplot as plt
@@ -29,14 +29,14 @@ def svm_classification(folderpath,jobtitle_path_list,ratio,sum_index):
     #                                              globalparameter.extract_column_list)
 
     # generate matrix of 2-gram
+    # matrix = n_grams.extractall_information_n_gram(folderpath + '/' + 'output_pos_for_dummy.csv',
+    #                                                folderpath + '/' + 'output_neg_for_dummy.csv',
+    #                                                globalparameter.extract_column_list, 2)
+
+    # generate matrix of 3-gram
     matrix = n_grams.extractall_information_n_gram(folderpath + '/' + 'output_pos_for_dummy.csv',
                                                    folderpath + '/' + 'output_neg_for_dummy.csv',
                                                    globalparameter.extract_column_list, 3)
-
-    # generate matrix of 3-gram
-    # matrix = n_grams.extractall_information_n_gram(folderpath + '/' + 'output_pos_for_dummy.csv',
-    #                                                folderpath + '/' + 'output_neg_for_dummy.csv',
-    #                                                globalparameter.extract_column_list, 3)
 
     X_train = generate_train_test_set.generate_X_train(matrix, X, ratio, globalparameter.train_pos_start_loc,
                                                          globalparameter.train_pos_end_loc,
@@ -60,7 +60,11 @@ def svm_classification(folderpath,jobtitle_path_list,ratio,sum_index):
 
     # train SVM
     svm_classifier = svm.LinearSVC()
+    start_time = time.time()
     svm_classifier.fit(X_train, Y_train)
+    end_time = time.time()
+    time_interval = end_time-start_time
+    print('time_intervial is: {}'.format(time_interval))
     Y_score = svm_classifier.decision_function(X_test_std)
 
     # predict
@@ -81,7 +85,9 @@ def svm_classification(folderpath,jobtitle_path_list,ratio,sum_index):
 
     globalparameter.alg_accuracy[sum_index+2] = globalparameter.alg_accuracy[sum_index+2] + acc
     globalparameter.alg_precision[sum_index+2] = globalparameter.alg_precision[sum_index+2] + precision
-    globalparameter.alg_recall[sum_index+2] = globalparameter.alg_precision[sum_index+2] + recall
+    globalparameter.alg_recall[sum_index+2] = globalparameter.alg_recall[sum_index+2] + recall
+    globalparameter.time[sum_index+2] = globalparameter.time[sum_index+2] + time_interval
+
 
     sc = StandardScaler()
     sc.fit(X_train)
@@ -90,7 +96,11 @@ def svm_classification(folderpath,jobtitle_path_list,ratio,sum_index):
 
     # train logestic regression
     svm_classifier = svm.NuSVC()
+    start_time = time.time()
     svm_classifier.fit(X_train, Y_train)
+    end_time = time.time()
+    time_interval = end_time-start_time
+    print('time_intervial is: {}'.format(time_interval))
 
     # predict
     prediction = svm_classifier.predict((X_test_std))
@@ -110,7 +120,9 @@ def svm_classification(folderpath,jobtitle_path_list,ratio,sum_index):
 
     globalparameter.alg_accuracy[sum_index+3] = globalparameter.alg_accuracy[sum_index+3] + acc
     globalparameter.alg_precision[sum_index+3] = globalparameter.alg_precision[sum_index+3] + precision
-    globalparameter.alg_recall[sum_index+3] = globalparameter.alg_precision[sum_index+3] + recall
+    globalparameter.alg_recall[sum_index+3] = globalparameter.alg_recall[sum_index+3] + recall
+    globalparameter.time[sum_index+3] = globalparameter.time[sum_index+3] + time_interval
+
 
     # X_train = pd.concat(
     #     [X.iloc[0:int(globalparameter.extract_number * ratio)], X.iloc[int(globalparameter.extract_number):int(
@@ -140,7 +152,11 @@ def svm_classification(folderpath,jobtitle_path_list,ratio,sum_index):
 
     # train logestic regression
     svm_classifier = svm.SVC()
+    start_time = time.time()
     svm_classifier.fit(X_train, Y_train)
+    end_time = time.time()
+    time_interval = end_time-start_time
+    print('time_intervial is: {}'.format(time_interval))
 
     # predict
     prediction = svm_classifier.predict((X_test_std))
@@ -160,7 +176,9 @@ def svm_classification(folderpath,jobtitle_path_list,ratio,sum_index):
 
     globalparameter.alg_accuracy[sum_index+4] = globalparameter.alg_accuracy[sum_index+4] + acc
     globalparameter.alg_precision[sum_index+4] = globalparameter.alg_precision[sum_index+4] + precision
-    globalparameter.alg_recall[sum_index+4] = globalparameter.alg_precision[sum_index+4] + recall
+    globalparameter.alg_recall[sum_index+4] = globalparameter.alg_recall[sum_index+4] + recall
+    globalparameter.time[sum_index+4] = globalparameter.time[sum_index+4] + time_interval
+
     # # plot the diagram
     # precision, recall, _ = precision_recall_curve(Y_test, Y_score)
     #

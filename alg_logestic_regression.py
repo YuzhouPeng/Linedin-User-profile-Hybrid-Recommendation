@@ -1,5 +1,5 @@
 import pandas as pd
-import globalparameter, n_grams, csv, itertools
+import globalparameter, n_grams, csv, itertools, time
 import numpy as np
 from sklearn import preprocessing
 import matplotlib.pyplot as plt
@@ -44,14 +44,14 @@ def logestic_regression(folderpath, jobtitle_path_list, ratio, sum_index):
     #                                              globalparameter.extract_column_list)
 
     # generate matrix of 2-gram
-    matrix = n_grams.extractall_information_n_gram(folderpath + '/' + 'output_pos_for_dummy.csv',
-                                                   folderpath + '/' + 'output_neg_for_dummy.csv',
-                                                   globalparameter.extract_column_list, 2)
-
-    # generate matrix of 3-gram
     # matrix = n_grams.extractall_information_n_gram(folderpath + '/' + 'output_pos_for_dummy.csv',
     #                                                folderpath + '/' + 'output_neg_for_dummy.csv',
-    #                                                globalparameter.extract_column_list, 3)
+    #                                                globalparameter.extract_column_list, 2)
+
+    # generate matrix of 3-gram
+    matrix = n_grams.extractall_information_n_gram(folderpath + '/' + 'output_pos_for_dummy.csv',
+                                                   folderpath + '/' + 'output_neg_for_dummy.csv',
+                                                   globalparameter.extract_column_list, 3)
 
     X_train = generate_train_test_set.generate_X_train(matrix, X, ratio, globalparameter.train_pos_start_loc,
                                                        globalparameter.train_pos_end_loc,
@@ -74,7 +74,12 @@ def logestic_regression(folderpath, jobtitle_path_list, ratio, sum_index):
 
     # train logestic regression
     logreg = linear_model.LogisticRegression()
+    start_time = time.time()
     logreg.fit(X_train, Y_train)
+    end_time = time.time()
+    time_interval = end_time-start_time
+    print('time_intervial is: {}'.format(time_interval))
+
     # predict
     Y_pred = logreg.predict((X_test))
     Y_pred_train = logreg.predict(X_train)
@@ -102,7 +107,8 @@ def logestic_regression(folderpath, jobtitle_path_list, ratio, sum_index):
 
     globalparameter.alg_accuracy[sum_index+0] = globalparameter.alg_accuracy[sum_index+0] + acc
     globalparameter.alg_precision[sum_index+0] = globalparameter.alg_precision[sum_index+0] + precision
-    globalparameter.alg_recall[sum_index+0] = globalparameter.alg_precision[sum_index+0] + recall
+    globalparameter.alg_recall[sum_index+0] = globalparameter.alg_recall[sum_index+0] + recall
+    globalparameter.time[sum_index+0] = globalparameter.time[sum_index+0] + time_interval
 
 
     Y_train = pd.concat(
@@ -127,7 +133,11 @@ def logestic_regression(folderpath, jobtitle_path_list, ratio, sum_index):
 
     # train logestic regression
     logreg = linear_model.LogisticRegressionCV()
+    start_time = time.time()
     logreg.fit(X_train, Y_train)
+    end_time = time.time()
+    time_interval = end_time-start_time
+    print('time_intervial is: {}'.format(time_interval))
 
     # predict
     Y_pred = logreg.predict((X_test))
@@ -148,7 +158,9 @@ def logestic_regression(folderpath, jobtitle_path_list, ratio, sum_index):
 
     globalparameter.alg_accuracy[sum_index+1] = globalparameter.alg_accuracy[sum_index+1] + acc
     globalparameter.alg_precision[sum_index+1] = globalparameter.alg_precision[sum_index+1] + precision
-    globalparameter.alg_recall[sum_index+1] = globalparameter.alg_precision[sum_index+1] + recall
+    globalparameter.alg_recall[sum_index+1] = globalparameter.alg_recall[sum_index+1] + recall
+    globalparameter.time[sum_index+1] = globalparameter.time[sum_index+1] + time_interval
+
     # # plot the diagram
     # precision, recall, _ = precision_recall_curve(Y_test, Y_score)
     #

@@ -1,7 +1,7 @@
 import pandas as pd
 import bag_of_words
 import numpy as np
-import globalparameter, csv, itertools, generate_train_test_set,n_grams
+import globalparameter, csv, itertools, generate_train_test_set,n_grams,time
 from sklearn import preprocessing
 import matplotlib.pyplot as plt
 from numpy import genfromtxt
@@ -42,14 +42,14 @@ def random_forest(folderpath,jobtitle_path_list,ratio,sum_index):
     #                                              globalparameter.extract_column_list)
 
     # generate matrix of 2-gram
-    matrix = n_grams.extractall_information_n_gram(folderpath + '/' + 'output_pos_for_dummy.csv',
-                                                   folderpath + '/' + 'output_neg_for_dummy.csv',
-                                                   globalparameter.extract_column_list, 2)
-
-    # generate matrix of 3-gram
     # matrix = n_grams.extractall_information_n_gram(folderpath + '/' + 'output_pos_for_dummy.csv',
     #                                                folderpath + '/' + 'output_neg_for_dummy.csv',
-    #                                                globalparameter.extract_column_list, 3)
+    #                                                globalparameter.extract_column_list, 2)
+
+    # generate matrix of 3-gram
+    matrix = n_grams.extractall_information_n_gram(folderpath + '/' + 'output_pos_for_dummy.csv',
+                                                   folderpath + '/' + 'output_neg_for_dummy.csv',
+                                                   globalparameter.extract_column_list, 3)
 
     X_train = generate_train_test_set.generate_X_train(matrix, X, ratio, globalparameter.train_pos_start_loc,
                                                          globalparameter.train_pos_end_loc,
@@ -67,7 +67,11 @@ def random_forest(folderpath,jobtitle_path_list,ratio,sum_index):
 
     # train logestic regression
     decision_tree_classifier = RandomForestClassifier()
+    start_time = time.time()
     decision_tree_classifier.fit(X_train, Y_train)
+    end_time = time.time()
+    time_interval = end_time-start_time
+    print('time_intervial is: {}'.format(time_interval))
     # Y_score = decision_tree_classifier.decision_function(X_test_std)
 
     # predict
@@ -88,7 +92,9 @@ def random_forest(folderpath,jobtitle_path_list,ratio,sum_index):
 
     globalparameter.alg_accuracy[sum_index+7] = globalparameter.alg_accuracy[sum_index+7] + acc
     globalparameter.alg_precision[sum_index+7] = globalparameter.alg_precision[sum_index+7] + precision
-    globalparameter.alg_recall[sum_index+7] = globalparameter.alg_precision[sum_index+7] + recall
+    globalparameter.alg_recall[sum_index+7] = globalparameter.alg_recall[sum_index+7] + recall
+    globalparameter.time[sum_index+7] = globalparameter.time[sum_index+7] + time_interval
+
     # print('average precision and recall is {}'.format(avg_precesion))
 
     #plot the diagram

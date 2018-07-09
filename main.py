@@ -92,7 +92,7 @@ def normalizing_data():
                                                          globalparameter.folderpath[i])
 
 if __name__ == '__main__':
-    datapreprocession()
+    # datapreprocession()
     for i in range(5):
         normalizing_data()
         j = 0
@@ -114,15 +114,16 @@ if __name__ == '__main__':
         #     int(globalparameter.extract_number * 0.5), globalparameter.extract_number,
         #     globalparameter.extract_number + int((globalparameter.total_number - globalparameter.extract_number) * 0.5),globalparameter.extract_column_list)
         print(1)
-    for i in range(len(globalparameter.alg_precision)):
+    for i in range(48):
         globalparameter.alg_precision[i] = (globalparameter.alg_precision[i])/5
         globalparameter.alg_recall[i] = (globalparameter.alg_recall[i])/5
         globalparameter.alg_accuracy[i] = (globalparameter.alg_accuracy[i])/5
+        globalparameter.time[i] = (globalparameter.time[i])/5
 
     print('Precision value list: {}'.format(globalparameter.alg_precision))
     print('Recall value list: {}'.format(globalparameter.alg_recall))
     print('Accuracy value list: {}'.format(globalparameter.alg_accuracy))
-    result_list = pd.DataFrame({'precision':globalparameter.alg_precision,'recall':globalparameter.alg_recall,'accuracy':globalparameter.alg_accuracy})
+    result_list = pd.DataFrame({'precision':globalparameter.alg_precision,'recall':globalparameter.alg_recall,'accuracy':globalparameter.alg_accuracy,'time':globalparameter.time})
     result_list.to_csv('/Users/pengyuzhou/Google Drive/Linkedin_datafile/all_result_list.csv')
     print()
     # for i in range(1,10,1):

@@ -65,3 +65,4 @@ test_neg_end_loc = total_number
 alg_precision = [0]*48
 alg_recall = [0]*48
 alg_accuracy = [0]*48
+time = [0]*48
