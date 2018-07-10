@@ -72,10 +72,10 @@ def extractall_information(datapath, non_datapath,column_index_list):
     total_words_transformed = svd.fit_transform(total_words_variable_array)
     column_names = ['column_' + str(i) for i in range(50)]
     total_words_transformed = pd.DataFrame(total_words_transformed,columns=column_names)
-    print(total_words_transformed.shape)
+    # print(total_words_transformed.shape)
+    print(total_words_variable_array.shape)
 
-
-    return total_words_transformed
+    return total_words_variable_array
 
 def bag_of_words_generate_X_train(dummy_matrix, X, ratio, pos_start_index, pos_end_index, neg_start_index, neg_end_index):
     # user_profile = pd.DataFrame(pd.read_csv(folderpath + '/test1.csv'))

@@ -53,6 +53,12 @@ raw_data_path = '/Users/pengyuzhou/Google Drive/Linkedin_datafile/LinkedIn_data_
 # skill language:[65,66]
 extract_column_list = [9,10,11,15,16,17,21,22,23,27,28,29,33,34,35,39,40,41,46,47,49,51,52,54,56,57,59,61,62,64,65,66]
 
+extract_work_experience_list = [9,10,11,15,16,17,21,22,23,27,28,29,33,34,35,39,40,41]
+
+extract_education_background_list = [46,47,49,51,52,54,56,57,59,61,62,64]
+
+extract_skills_list = [65,66]
+
 train_pos_start_loc = 0
 train_neg_start_loc = extract_number
 train_pos_end_loc = int(extract_number * ratio)
