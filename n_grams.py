@@ -93,6 +93,6 @@ def extractall_information_n_gram(datapath, non_datapath, column_index_list, gra
     total_words_transformed = pd.DataFrame(total_words_transformed,columns=column_names)
     shape_of_words = total_words_variable_array.shape
     # print(total_words_variable_array.shape)
-    print(total_words_variable_array.shape)
-    return total_words_variable_array
+    print(total_words_transformed.shape)
+    return total_words_transformed
 

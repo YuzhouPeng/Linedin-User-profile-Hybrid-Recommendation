@@ -93,7 +93,7 @@ def normalizing_data():
 
 if __name__ == '__main__':
     # datapreprocession()
-    for i in range(5):
+    for k in range(3):
         normalizing_data()
         j = 0
         for i in range(6):
@@ -115,10 +115,10 @@ if __name__ == '__main__':
         #     globalparameter.extract_number + int((globalparameter.total_number - globalparameter.extract_number) * 0.5),globalparameter.extract_column_list)
         print(1)
     for i in range(48):
-        globalparameter.alg_precision[i] = (globalparameter.alg_precision[i])/5
-        globalparameter.alg_recall[i] = (globalparameter.alg_recall[i])/5
-        globalparameter.alg_accuracy[i] = (globalparameter.alg_accuracy[i])/5
-        globalparameter.time[i] = (globalparameter.time[i])/5
+        globalparameter.alg_precision[i] = (globalparameter.alg_precision[i])/3
+        globalparameter.alg_recall[i] = (globalparameter.alg_recall[i])/3
+        globalparameter.alg_accuracy[i] = (globalparameter.alg_accuracy[i])/3
+        globalparameter.time[i] = (globalparameter.time[i])/3
 
     print('Precision value list: {}'.format(globalparameter.alg_precision))
     print('Recall value list: {}'.format(globalparameter.alg_recall))
