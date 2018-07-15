@@ -92,7 +92,7 @@ def normalizing_data():
                                                          globalparameter.folderpath[i])
 
 if __name__ == '__main__':
-    # datapreprocession()
+    datapreprocession()
     for k in range(3):
         normalizing_data()
         j = 0
