@@ -7,59 +7,6 @@ import time
 import pandas as pd
 
 
-def contentbased(positivesamplevalue):
-    globalparameter.extract_number = positivesamplevalue
-    workexperiecetimes.calculate_work_exp_times(globalparameter.path, globalparameter.name_for_search_exp_times,
-                                                globalparameter.job_title_name, globalparameter.job_title_data_path,
-                                                globalparameter.output_file_header_job_title,
-                                                globalparameter.extract_number)
-    workexperiecetimes.calculate_work_exp_times(globalparameter.path, globalparameter.name_for_search_exp_times,
-                                                globalparameter.job_title_name, globalparameter.non_job_title_data_path,
-                                                globalparameter.output_file_header_non_job_title,
-                                                (globalparameter.total_number - globalparameter.extract_number))
-    calculatedegreeworkyear.calculate_highest_degree(globalparameter.path, globalparameter.job_title_name,
-                                                     globalparameter.job_title_data_path,
-                                                     (globalparameter.extract_number))
-    calculatedegreeworkyear.calculate_work_year(globalparameter.path, globalparameter.job_title_name,
-                                                globalparameter.job_title_data_path,
-                                                globalparameter.extract_number)
-    non_calculatedegreeworkyear.non_calculate_highest_degree(globalparameter.path, globalparameter.job_title_name,
-                                                             globalparameter.non_job_title_data_path,
-                                                             (globalparameter.extract_number))
-    non_calculatedegreeworkyear.non_calculate_work_year(globalparameter.path, globalparameter.job_title_name,
-                                                        globalparameter.non_job_title_data_path,
-                                                        (globalparameter.extract_number))
-
-    time.sleep(1)
-    calculatecosinesimilarity.content_based_doc_generator(globalparameter.extract_number)
-    calculatecosinesimilarity.calculatecosinesililarity()
-    generateweightingfile.generateweighting()
-    datanormalize.normalize_weighting_highest_degree(globalparameter.path + '/test.csv')
-    diagramgenerator.calculateprecisionandrecall(globalparameter.extract_number)
-
-
-def function(index):
-    contentbased(index)
-    diagramgenerator.generatediagram(globalparameter.cosine_similarity_column_precision,
-                                     globalparameter.cosine_similarity_column_recall,
-                                     globalparameter.name_for_search_cosine_similarity, index, 1)
-    diagramgenerator.generatediagram(globalparameter.work_year_column_precision,
-                                     globalparameter.work_year_column_recall,
-                                     globalparameter.name_for_search_work_year, index, 2)
-    diagramgenerator.generatediagram(globalparameter.highest_degree_column_precision,
-                                     globalparameter.highest_degree_column_recall,
-                                     globalparameter.name_for_search_highest_degree, index, 3)
-    diagramgenerator.generatediagram(globalparameter.exp_time_column_precision,
-                                     globalparameter.exp_time_column_recall,
-                                     globalparameter.name_for_search_exp_times, index, 4)
-    globalparameter.cosine_similarity_column_precision = []
-    globalparameter.cosine_similarity_column_recall = []
-    globalparameter.work_year_column_precision = []
-    globalparameter.work_year_column_recall = []
-    globalparameter.highest_degree_column_precision = []
-    globalparameter.highest_degree_column_recall = []
-    globalparameter.exp_time_column_precision = []
-    globalparameter.exp_time_column_recall = []
 
 
 def datapreprocession():
@@ -93,15 +40,17 @@ def normalizing_data():
 
 if __name__ == '__main__':
     datapreprocession()
-    for k in range(3):
+    for k in range(5):
         normalizing_data()
         j = 0
         for i in range(6):
             print('------job title is:------')
             print(globalparameter.jobtitle_path_list[i])
             # print('baseline precision value of job title is: ')
-            # calculate_baseline.baseline_full_text(globalparameter.jobtitle_list[i])
-            # calculate_baseline.baseline_work_exp(globalparameter.jobtitle_list[i])
+            #     calculate_baseline.baseline_full_text(globalparameter.jobtitle_list[i],globalparameter.folderpath[i] + '/' + 'output_pos_for_dummy.csv',
+            #                                                globalparameter.folderpath[i] + '/' + 'output_neg_for_dummy.csv')
+            #     calculate_baseline.baseline_work_exp(globalparameter.jobtitle_list[i],globalparameter.folderpath[i] + '/' + 'output_pos_for_dummy.csv',
+            #                                                globalparameter.folderpath[i] + '/' + 'output_neg_for_dummy.csv')
             alg_logestic_regression.logestic_regression(globalparameter.folderpath[i],
                                                         globalparameter.jobtitle_path_list[i], 0.5, j)
             alg_svm.svm_classification(globalparameter.folderpath[i], globalparameter.jobtitle_path_list[i], 0.5,j)
@@ -115,10 +64,10 @@ if __name__ == '__main__':
         #     globalparameter.extract_number + int((globalparameter.total_number - globalparameter.extract_number) * 0.5),globalparameter.extract_column_list)
         print(1)
     for i in range(48):
-        globalparameter.alg_precision[i] = (globalparameter.alg_precision[i])/3
-        globalparameter.alg_recall[i] = (globalparameter.alg_recall[i])/3
-        globalparameter.alg_accuracy[i] = (globalparameter.alg_accuracy[i])/3
-        globalparameter.time[i] = (globalparameter.time[i])/3
+        globalparameter.alg_precision[i] = (globalparameter.alg_precision[i])/5
+        globalparameter.alg_recall[i] = (globalparameter.alg_recall[i])/5
+        globalparameter.alg_accuracy[i] = (globalparameter.alg_accuracy[i])/5
+        globalparameter.time[i] = (globalparameter.time[i])/5
 
     print('Precision value list: {}'.format(globalparameter.alg_precision))
     print('Recall value list: {}'.format(globalparameter.alg_recall))
@@ -126,6 +75,4 @@ if __name__ == '__main__':
     result_list = pd.DataFrame({'precision':globalparameter.alg_precision,'recall':globalparameter.alg_recall,'accuracy':globalparameter.alg_accuracy,'time':globalparameter.time})
     result_list.to_csv('/Users/pengyuzhou/Google Drive/Linkedin_datafile/all_result_list.csv')
     print()
-    # for i in range(1,10,1):
-    #     function(i)
-    # print(1)
+
