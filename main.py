@@ -41,7 +41,7 @@ def normalizing_data():
 if __name__ == '__main__':
     # datapreprocession()
     for k in range(5):
-        normalizing_data()
+        # normalizing_data()
         j = 0
         for i in range(6):
             print('------job title is:------')
