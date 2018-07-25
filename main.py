@@ -38,7 +38,7 @@ def normalizing_data():
                                                          globalparameter.folderpath[i])
 
 
-if __name__ == '__main__':
+def contentbased_old():
     # datapreprocession()
     for k in range(5):
         # normalizing_data()
@@ -78,3 +78,7 @@ if __name__ == '__main__':
                                 'accuracy': globalparameter.alg_accuracy, 'time': globalparameter.time})
     result_list.to_csv('/Users/pengyuzhou/Google Drive/Linkedin_datafile/all_result_list.csv')
     print()
+
+if __name__ == '__main__':
+    # contentbased_old()
+
