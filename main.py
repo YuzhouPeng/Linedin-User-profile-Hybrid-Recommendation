@@ -2,7 +2,7 @@ import datanormalize, generateweightingfile, \
     datafilter, calculate_data_job_now, alg_logestic_regression, alg_svm, \
     alg_bayes, alg_decision_tree, alg_ramdom_forest, extract_multivalue_feature, generate_train_test_set, \
     calculate_baseline, bag_of_words
-import globalparameter, csv, linkedindata
+import globalparameter, csv, linkedindata,
 import time
 import pandas as pd
 
@@ -82,6 +82,9 @@ def contentbased_old():
 
 if __name__ == '__main__':
     # contentbased_old()
+
+    # OO-based method
+    # initiate data
     linkedIndata_list = []
     with open('/Users/pengyuzhou/Google Drive/Linkedin_datafile/data_v3.csv', 'r') as f:
         reader = csv.reader(f)
@@ -89,5 +92,13 @@ if __name__ == '__main__':
             parameter_list = [row[index] for index in range(112)]
             linkedIndata_list.append(
                 linkedindata.LinkedInData(*parameter_list))
+    # extract year by regular expression
+    test_list = calculate_data_job_now.calculate_work_year_oo(linkedIndata_list)
+    length_of_test_set = len(test_list[0])
+    length_of_linkedindata = len(linkedIndata_list)
+    for i in range(len(test_list[0])):
+        linkedIndata_list[i].getworkdurationvalue(*[test_list[k][i] for k in range(10)])
+    # data filter
+    # iterations for calculate average precision
 
     print(1)

@@ -1,4 +1,4 @@
-import globalparameter, csv, re
+import globalparameter, csv, re, linkedindata
 import random
 import itertools
 import pandas as pd
@@ -166,3 +166,31 @@ def calculate_work_year_except_newest(folderpath, job_title_data_path, jobtitlen
             i = i + 1
     csvfile.close()
 
+
+def calculate_work_year_oo(classlist):
+    total_work_duration_list = []
+    work_duration_per_user_total_list = []
+    for i in range(len(classlist)):
+        total_work_duration_list.append(classlist[i].past_work_duration_value())
+    for i in range(10):
+        work_duration_per_user_list = []
+        past_work_year = [k[i] for k in total_work_duration_list]
+        regex_year = re.compile('((\d+)\s+years?)')
+        regex_month = re.compile('((\d+)\smonths?)')
+        for i in range(len(past_work_year)):
+            m_year = regex_year.findall(past_work_year[i])
+            m_month = regex_month.findall(past_work_year[i])
+            if not m_year:
+                str_year_num = 0
+            else:
+                str_year_num = int(m_year[0][1])
+            if not m_month:
+                str_month_num = 0
+            else:
+                str_month_num = int(m_month[0][1])
+            work_duration_per_user_total = float(str_year_num) + (
+                    float(str_month_num) / 12.00)
+            work_duration_per_user_list.append(work_duration_per_user_total)
+        work_duration_per_user_total_list.append(work_duration_per_user_list)
+        print(1)
+    return work_duration_per_user_total_list
