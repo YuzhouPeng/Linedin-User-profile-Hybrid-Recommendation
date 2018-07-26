@@ -2,7 +2,7 @@ import datanormalize, generateweightingfile, \
     datafilter, calculate_data_job_now, alg_logestic_regression, alg_svm, \
     alg_bayes, alg_decision_tree, alg_ramdom_forest, extract_multivalue_feature, generate_train_test_set, \
     calculate_baseline, bag_of_words
-import globalparameter
+import globalparameter, csv, linkedindata
 import time
 import pandas as pd
 
@@ -79,6 +79,15 @@ def contentbased_old():
     result_list.to_csv('/Users/pengyuzhou/Google Drive/Linkedin_datafile/all_result_list.csv')
     print()
 
+
 if __name__ == '__main__':
     # contentbased_old()
+    linkedIndata_list = []
+    with open('/Users/pengyuzhou/Google Drive/Linkedin_datafile/data_v3.csv', 'r') as f:
+        reader = csv.reader(f)
+        for row in reader:
+            parameter_list = [row[index] for index in range(112)]
+            linkedIndata_list.append(
+                linkedindata.LinkedInData(*parameter_list))
 
+    print(1)
