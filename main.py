@@ -2,7 +2,7 @@ import datanormalize, generateweightingfile, \
     datafilter, calculate_data_job_now, alg_logestic_regression, alg_svm, \
     alg_bayes, alg_decision_tree, alg_ramdom_forest, extract_multivalue_feature, generate_train_test_set, \
     calculate_baseline, bag_of_words
-import globalparameter, csv, linkedindata,
+import globalparameter, csv, linkedindata,random
 import time
 import pandas as pd
 
@@ -99,6 +99,15 @@ if __name__ == '__main__':
     for i in range(len(test_list[0])):
         linkedIndata_list[i].getworkdurationvalue(*[test_list[k][i] for k in range(10)])
     # data filter
+    relevant_user_list = datafilter.filter_data_with_job_title_oo(linkedIndata_list, globalparameter.jobtitle_list[0],
+                                                                  1)
+    non_relevant_user_list = datafilter.filter_data_with_job_title_oo(linkedIndata_list,
+                                                                      globalparameter.jobtitle_list[0], 2)
+    length_relevant_user = len(relevant_user_list)
+    length_non_relevant_user = len(non_relevant_user_list)
     # iterations for calculate average precision
+    # for i in range(5):
+    pos_list = random.sample(relevant_user_list,500)
+    neg_list = random.sample(non_relevant_user_list,500)
 
     print(1)

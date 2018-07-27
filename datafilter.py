@@ -55,3 +55,15 @@ def filter_alluser_with_newest_jobtitle(rawdatapath, folderpath,outputjobtitlepa
             i = i + 1
 
     csvfile.close()
+
+def filter_data_with_job_title_oo(classlist,jobtitle_name,index):
+    result_list = []
+    if index == 1:
+        for i in range(len(classlist)):
+            if jobtitle_name in classlist[i].title:
+                result_list.append(classlist[i])
+    if index == 2:
+        for i in range(len(classlist)):
+            if jobtitle_name not in classlist[i].title:
+                result_list.append(classlist[i])
+    return result_list
