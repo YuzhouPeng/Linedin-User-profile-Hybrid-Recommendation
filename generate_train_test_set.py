@@ -68,3 +68,8 @@ def generate_X_test(dummy_matrix, X, ratio, pos_start_index, pos_end_index, neg_
     #      workcompany_dummy_array5, workcompany_dummy_array6], axis=1, join_axes=[X_test.index])
     shape2 = new_X_test.shape
     return new_X_test
+
+
+def generate_train_test_oo(pos_data, neg_data, pos_train_start, pos_train_end, pos_test_start, pos_test_end,
+                           neg_train_start, neg_train_end, neg_test_start, neg_test_end):
+    return

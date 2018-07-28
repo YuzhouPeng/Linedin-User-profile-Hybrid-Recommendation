@@ -87,6 +87,7 @@ if __name__ == '__main__':
     # initiate data
     linkedIndata_list = []
     with open('/Users/pengyuzhou/Google Drive/Linkedin_datafile/data_v3.csv', 'r') as f:
+        next(f)
         reader = csv.reader(f)
         for row in reader:
             parameter_list = [row[index] for index in range(112)]
@@ -109,5 +110,7 @@ if __name__ == '__main__':
     # for i in range(5):
     pos_list = random.sample(relevant_user_list,500)
     neg_list = random.sample(non_relevant_user_list,500)
+    test = relevant_user_list[300].return_value()
+
 
     print(1)

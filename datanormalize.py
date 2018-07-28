@@ -1,4 +1,5 @@
 from sklearn import preprocessing
+from sklearn.preprocessing import normalize
 import pandas as pd
 import globalparameter
 
@@ -75,3 +76,20 @@ def normalize_weighting_highest_degree(input_file_path, folderpath):
     # # x_scaled.to_csv('/Users/pengyuzhou/Desktop/software_engineer_work_year_normalize.csv')
     #
     # pd.DataFrame({'id': id, ['normalized_id', 'normalized_highest_degree']: x_scaled})
+
+def normalizingdata_oo(pos_data,neg_data,index):
+    normalizingdata_list = []
+    for i in range(len(pos_data)):
+        normalizingdata_list.append(pos_data[i].past_work_duration_value())
+    for i in range(len(neg_data)):
+        normalizingdata_list.append(neg_data[i].past_work_duration_value())
+    new_normalizingdata_list = normalize(normalizingdata_list,axis=0)
+    print(1)
+    if index == 1:
+        for i in range(500):
+            pos_data[i].getworkdurationvalue(*[new_normalizingdata_list[k][i] for k in range(10)])
+        return pos_data
+    if index == 2:
+        for i in range(500):
+            neg_data[i].getworkdurationvalue(*[new_normalizingdata_list[j][500+i] for j in range(10)])
+        return neg_data
