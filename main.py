@@ -2,7 +2,7 @@ import datanormalize, generateweightingfile, \
     datafilter, calculate_data_job_now, alg_logestic_regression, alg_svm, \
     alg_bayes, alg_decision_tree, alg_ramdom_forest, extract_multivalue_feature, generate_train_test_set, \
     calculate_baseline, bag_of_words
-import globalparameter, csv, linkedindata,random
+import globalparameter, csv, linkedindata, random
 import time
 import pandas as pd
 
@@ -106,11 +106,64 @@ if __name__ == '__main__':
                                                                       globalparameter.jobtitle_list[0], 2)
     length_relevant_user = len(relevant_user_list)
     length_non_relevant_user = len(non_relevant_user_list)
-    # iterations for calculate average precision
-    # for i in range(5):
-    pos_list = random.sample(relevant_user_list,500)
-    neg_list = random.sample(non_relevant_user_list,500)
-    test = relevant_user_list[300].return_value()
+    work_experience_effective_value_list = [0] * 11
+    work_experience_total_work_year = 0.0
+    edu_background_effect_value_list = [0] * 8
+    skill_number = 0
 
+    for i in range(len(linkedIndata_list)):
+        if linkedIndata_list[i].title:
+            work_experience_effective_value_list[0] = work_experience_effective_value_list[0] + 1
+        if linkedIndata_list[i].past_job_title1:
+            work_experience_effective_value_list[1] = work_experience_effective_value_list[1] + 1
+        if linkedIndata_list[i].past_job_title2:
+            work_experience_effective_value_list[2] = work_experience_effective_value_list[2] + 1
+        if linkedIndata_list[i].past_job_title3:
+            work_experience_effective_value_list[3] = work_experience_effective_value_list[3] + 1
+        if linkedIndata_list[i].past_job_title4:
+            work_experience_effective_value_list[4] = work_experience_effective_value_list[4] + 1
+        if linkedIndata_list[i].past_job_title5:
+            work_experience_effective_value_list[5] = work_experience_effective_value_list[5] + 1
+        if linkedIndata_list[i].past_job_title6:
+            work_experience_effective_value_list[6] = work_experience_effective_value_list[6] + 1
+        if linkedIndata_list[i].past_job_title7:
+            work_experience_effective_value_list[7] = work_experience_effective_value_list[7] + 1
+        if linkedIndata_list[i].past_job_title8:
+            work_experience_effective_value_list[8] = work_experience_effective_value_list[8] + 1
+        if linkedIndata_list[i].past_job_title9:
+            work_experience_effective_value_list[9] = work_experience_effective_value_list[9] + 1
+        if linkedIndata_list[i].past_job_title10:
+            work_experience_effective_value_list[10] = work_experience_effective_value_list[10] + 1
+        work_experience_total_work_year = work_experience_total_work_year + linkedIndata_list[i].past_job_duration1 + \
+                                          linkedIndata_list[i].past_job_duration2 + linkedIndata_list[
+                                              i].past_job_duration3 + linkedIndata_list[i].past_job_duration4 + \
+                                          linkedIndata_list[i].past_job_duration5 + linkedIndata_list[
+                                              i].past_job_duration6 + linkedIndata_list[i].past_job_duration7 + \
+                                          linkedIndata_list[i].past_job_duration8 + linkedIndata_list[
+                                              i].past_job_duration9 + linkedIndata_list[i].past_job_duration10
+        if linkedIndata_list[i].highestLevel_universityName:
+            edu_background_effect_value_list[0] = edu_background_effect_value_list[0] + 1
+        if linkedIndata_list[i].otherLevel_universityName1:
+            edu_background_effect_value_list[1] = edu_background_effect_value_list[1] + 1
+        if linkedIndata_list[i].otherLevel_universityName2:
+            edu_background_effect_value_list[2] = edu_background_effect_value_list[2] + 1
+        if linkedIndata_list[i].otherLevel_universityName3:
+            edu_background_effect_value_list[3] = edu_background_effect_value_list[3] + 1
+        if linkedIndata_list[i].otherLevel_universityName4:
+            edu_background_effect_value_list[4] = edu_background_effect_value_list[4] + 1
+        if linkedIndata_list[i].otherLevel_universityName5:
+            edu_background_effect_value_list[5] = edu_background_effect_value_list[5] + 1
+        if linkedIndata_list[i].otherLevel_universityName6:
+            edu_background_effect_value_list[6] = edu_background_effect_value_list[6] + 1
+        if linkedIndata_list[i].otherLevel_universityName7:
+            edu_background_effect_value_list[7] = edu_background_effect_value_list[7] + 1
+        skill_list = linkedIndata_list[i].skills.split(',')
+        skill_number = skill_number+ len(skill_list)
+
+
+    # iterations for calculate average precision
+    pos_list = random.sample(relevant_user_list, 500)
+    neg_list = random.sample(non_relevant_user_list, 500)
+    test = relevant_user_list[300].return_value()
 
     print(1)
