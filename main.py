@@ -111,19 +111,19 @@ if __name__ == '__main__':
     # add code for word embedding
     pos_list = random.sample(relevant_user_list, 500)
     neg_list = random.sample(non_relevant_user_list, 500)
-    result = []
-    result_list = []
-    test = relevant_user_list[300].return_value()
-    true_positive = 0
-    filename = '/Users/pengyuzhou/Downloads/GoogleNews-vectors-negative300.bin'
-    model = KeyedVectors.load_word2vec_format(filename, binary=True)
-    for i in range(len(pos_list)):
-        user_prfile_list_positive = [pos_list[i].past_job_title1.split() + pos_list[i].past_job_org_summary1.split()]
-        user_prfile_list_negative = [pos_list[i].org_summary.split()]
-        result = model.most_similar(positive=user_prfile_list_positive,negative=user_prfile_list_negative, topn=6)
-        for k in range(len(result)):
-            result_list.append(result[k][0])
-        if pos_list[i].title in result_list:
-            true_positive = true_positive+1
-    print(true_positive)
+    # result = []
+    # result_list = []
+    # test = relevant_user_list[300].return_value()
+    # true_positive = 0
+    # filename = '/Users/pengyuzhou/Downloads/GoogleNews-vectors-negative300.bin'
+    # model = KeyedVectors.load_word2vec_format(filename, binary=True)
+    # for i in range(len(pos_list)):
+    #     user_prfile_list_positive = [pos_list[i].past_job_title1.split() + pos_list[i].past_job_org_summary1.split()]
+    #     user_prfile_list_negative = [pos_list[i].org_summary.split()]
+    #     result = model.most_similar(positive=user_prfile_list_positive,negative=user_prfile_list_negative, topn=6)
+    #     for k in range(len(result)):
+    #         result_list.append(result[k][0])
+    #     if pos_list[i].title in result_list:
+    #         true_positive = true_positive+1
+    # print(true_positive)
 print(1)
