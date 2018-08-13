@@ -5,6 +5,7 @@ import datanormalize, generateweightingfile, \
 import globalparameter, csv, linkedindata, random
 import time
 import pandas as pd
+from gensim.models import KeyedVectors
 
 
 def datapreprocession():
@@ -106,64 +107,23 @@ if __name__ == '__main__':
                                                                       globalparameter.jobtitle_list[0], 2)
     length_relevant_user = len(relevant_user_list)
     length_non_relevant_user = len(non_relevant_user_list)
-    work_experience_effective_value_list = [0] * 11
-    work_experience_total_work_year = 0.0
-    edu_background_effect_value_list = [0] * 8
-    skill_number = 0
-
-    for i in range(len(linkedIndata_list)):
-        if linkedIndata_list[i].title:
-            work_experience_effective_value_list[0] = work_experience_effective_value_list[0] + 1
-        if linkedIndata_list[i].past_job_title1:
-            work_experience_effective_value_list[1] = work_experience_effective_value_list[1] + 1
-        if linkedIndata_list[i].past_job_title2:
-            work_experience_effective_value_list[2] = work_experience_effective_value_list[2] + 1
-        if linkedIndata_list[i].past_job_title3:
-            work_experience_effective_value_list[3] = work_experience_effective_value_list[3] + 1
-        if linkedIndata_list[i].past_job_title4:
-            work_experience_effective_value_list[4] = work_experience_effective_value_list[4] + 1
-        if linkedIndata_list[i].past_job_title5:
-            work_experience_effective_value_list[5] = work_experience_effective_value_list[5] + 1
-        if linkedIndata_list[i].past_job_title6:
-            work_experience_effective_value_list[6] = work_experience_effective_value_list[6] + 1
-        if linkedIndata_list[i].past_job_title7:
-            work_experience_effective_value_list[7] = work_experience_effective_value_list[7] + 1
-        if linkedIndata_list[i].past_job_title8:
-            work_experience_effective_value_list[8] = work_experience_effective_value_list[8] + 1
-        if linkedIndata_list[i].past_job_title9:
-            work_experience_effective_value_list[9] = work_experience_effective_value_list[9] + 1
-        if linkedIndata_list[i].past_job_title10:
-            work_experience_effective_value_list[10] = work_experience_effective_value_list[10] + 1
-        work_experience_total_work_year = work_experience_total_work_year + linkedIndata_list[i].past_job_duration1 + \
-                                          linkedIndata_list[i].past_job_duration2 + linkedIndata_list[
-                                              i].past_job_duration3 + linkedIndata_list[i].past_job_duration4 + \
-                                          linkedIndata_list[i].past_job_duration5 + linkedIndata_list[
-                                              i].past_job_duration6 + linkedIndata_list[i].past_job_duration7 + \
-                                          linkedIndata_list[i].past_job_duration8 + linkedIndata_list[
-                                              i].past_job_duration9 + linkedIndata_list[i].past_job_duration10
-        if linkedIndata_list[i].highestLevel_universityName:
-            edu_background_effect_value_list[0] = edu_background_effect_value_list[0] + 1
-        if linkedIndata_list[i].otherLevel_universityName1:
-            edu_background_effect_value_list[1] = edu_background_effect_value_list[1] + 1
-        if linkedIndata_list[i].otherLevel_universityName2:
-            edu_background_effect_value_list[2] = edu_background_effect_value_list[2] + 1
-        if linkedIndata_list[i].otherLevel_universityName3:
-            edu_background_effect_value_list[3] = edu_background_effect_value_list[3] + 1
-        if linkedIndata_list[i].otherLevel_universityName4:
-            edu_background_effect_value_list[4] = edu_background_effect_value_list[4] + 1
-        if linkedIndata_list[i].otherLevel_universityName5:
-            edu_background_effect_value_list[5] = edu_background_effect_value_list[5] + 1
-        if linkedIndata_list[i].otherLevel_universityName6:
-            edu_background_effect_value_list[6] = edu_background_effect_value_list[6] + 1
-        if linkedIndata_list[i].otherLevel_universityName7:
-            edu_background_effect_value_list[7] = edu_background_effect_value_list[7] + 1
-        skill_list = linkedIndata_list[i].skills.split(',')
-        skill_number = skill_number+ len(skill_list)
-
-
     # iterations for calculate average precision
+    # add code for word embedding
     pos_list = random.sample(relevant_user_list, 500)
     neg_list = random.sample(non_relevant_user_list, 500)
+    result = []
+    result_list = []
     test = relevant_user_list[300].return_value()
-
-    print(1)
+    true_positive = 0
+    filename = '/Users/pengyuzhou/Downloads/GoogleNews-vectors-negative300.bin'
+    model = KeyedVectors.load_word2vec_format(filename, binary=True)
+    for i in range(len(pos_list)):
+        user_prfile_list_positive = [pos_list[i].past_job_title1.split() + pos_list[i].past_job_org_summary1.split()]
+        user_prfile_list_negative = [pos_list[i].org_summary.split()]
+        result = model.most_similar(positive=user_prfile_list_positive,negative=user_prfile_list_negative, topn=6)
+        for k in range(len(result)):
+            result_list.append(result[k][0])
+        if pos_list[i].title in result_list:
+            true_positive = true_positive+1
+    print(true_positive)
+print(1)
