@@ -7,11 +7,26 @@ from sklearn.metrics import precision_score
 def baseline_full_text(name,folderpath_pos,folderpath_neg):
     pos_list = []
     neg_list = []
+    pos_list1 = []
+    neg_list1 = []
+    pos_length = 0
     with open(folderpath_pos) as f:
         reader = csv.reader(f)
         for row in reader:
-            new_row = ' '.join(row[6:66])
-            if name in new_row:
+            pos_length = pos_length+1
+            new_row = row[0]
+            new_row_work_exp = ' '.join(row[9:44])
+            new_row_education = ' '.join(row[45:64])
+            new_row_skills = row[65]
+            # judge = 0
+            # if name in new_row_work_exp:
+            #     judge = judge+1
+            # if name in new_row_education:
+            #     judge = judge+1
+            # if name in new_row_skills:
+            #     judge = judge+1
+
+            if name in new_row_work_exp and name in new_row_education and name in new_row_skills:
                 pos_list.append(1)
             else:
                 pos_list.append(0)
@@ -20,7 +35,17 @@ def baseline_full_text(name,folderpath_pos,folderpath_neg):
         reader = csv.reader(f)
         for row in reader:
             new_row = ' '.join(row)
-            if name in new_row:
+            new_row_work_exp = ' '.join(row[9:44])
+            new_row_education = ' '.join(row[45:64])
+            new_row_skills = row[65]
+            judge = 0
+            if name in new_row_work_exp:
+                judge = judge+1
+            if name in new_row_education:
+                judge = judge+1
+            if name in new_row_skills:
+                judge = judge+1
+            if name in new_row_work_exp and name in new_row_education and name in new_row_skills:
                 neg_list.append(1)
             else:
                 neg_list.append(0)
@@ -52,8 +77,17 @@ def baseline_work_exp(name,folderpath_pos,folderpath_neg):
     with open(folderpath_pos) as f:
         reader = csv.reader(f)
         for row in reader:
-            new_row = ' '.join(row[9:44])
-            if name in new_row:
+            new_row_work_exp = ' '.join(row[9:44])
+            new_row_education = ' '.join(row[45:64])
+            new_row_skills = row[65]
+            judge = 0
+            if name in new_row_work_exp:
+                judge = judge+1
+
+            if name in new_row_skills:
+                judge = judge+1
+
+            if name in new_row_work_exp and name in new_row_skills:
                 pos_list.append(1)
             else:
                 pos_list.append(0)
@@ -61,8 +95,16 @@ def baseline_work_exp(name,folderpath_pos,folderpath_neg):
     with open(folderpath_neg) as f:
         reader = csv.reader(f)
         for row in reader:
-            new_row = ' '.join(row[5:44])
-            if name in new_row:
+            new_row_work_exp = ' '.join(row[9:44])
+            new_row_education = ' '.join(row[45:64])
+            new_row_skills = row[65]
+            judge = 0
+            if name in new_row_work_exp:
+                judge = judge+1
+
+            if name in new_row_skills:
+                judge = judge+1
+            if name in new_row_work_exp and name in new_row_skills:
                 neg_list.append(1)
             else:
                 neg_list.append(0)
@@ -84,4 +126,4 @@ def baseline_work_exp(name,folderpath_pos,folderpath_neg):
     #             bool_list.append(0)
 
     score = precision_score(bool_list+zero_list, pos_list+neg_list)
-    print('baseline_precision_full_text_of '+name+' : {}'.format(score))
+    print('baseline_precision_work_exp_skills_of '+name+' : {}'.format(score))
