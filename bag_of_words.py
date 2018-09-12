@@ -2,6 +2,8 @@ import pandas as pd
 import globalparameter, extract_multivalue_feature
 import collections, string
 from sklearn.decomposition import TruncatedSVD
+
+
 def flatten(l):
     for el in l:
         if isinstance(el, collections.Iterable) and not isinstance(el, (str, bytes)):
@@ -9,11 +11,12 @@ def flatten(l):
         else:
             yield el
 
-def extractall_information(datapath, non_datapath,column_index_list):
+
+def extractall_information(datapath, non_datapath, column_index_list):
     # extract columns:[3-5,9-11,15-17,21-23,27-29,33-35,39-41]
-    #education:[45-65 length5][46-47,49,51-52,54,56-57,59,61-62,64]
-    #skill language:[65,66]
-    #-1
+    # education:[45-65 length5][46-47,49,51-52,54,56-57,59,61-62,64]
+    # skill language:[65,66]
+    # -1
     # can not extract column: [7,13,19,25,31,37,43]
     # work year column: []
     # year column: [49,54,59,64]
@@ -65,19 +68,22 @@ def extractall_information(datapath, non_datapath,column_index_list):
     #     new_user_total_words_info_data1.append([x for x in user_total_words_info_data1[i] if x != 'nan'])
 
     # print(user_company_data_for_dummy)
-    total_words_variable_array = pd.get_dummies(pd.DataFrame(user_total_words_info_data1.all_data.values.tolist()), drop_first=True)
+    total_words_variable_array = pd.get_dummies(pd.DataFrame(user_total_words_info_data1.all_data.values.tolist()),
+                                                drop_first=True)
 
     # reduce dimention using svd
     svd = TruncatedSVD(50)
     total_words_transformed = svd.fit_transform(total_words_variable_array)
     column_names = ['column_' + str(i) for i in range(50)]
-    total_words_transformed = pd.DataFrame(total_words_transformed,columns=column_names)
+    total_words_transformed = pd.DataFrame(total_words_transformed, columns=column_names)
     # print(total_words_transformed.shape)
     print(total_words_transformed.shape)
 
     return total_words_transformed
 
-def bag_of_words_generate_X_train(dummy_matrix, X, ratio, pos_start_index, pos_end_index, neg_start_index, neg_end_index):
+
+def bag_of_words_generate_X_train(dummy_matrix, X, ratio, pos_start_index, pos_end_index, neg_start_index,
+                                  neg_end_index):
     # user_profile = pd.DataFrame(pd.read_csv(folderpath + '/test1.csv'))
 
     # X = user_profile[['normalized_highest_degree', 'normalized_work_year_past1', 'normalized_work_year_past2',
@@ -111,7 +117,8 @@ def bag_of_words_generate_X_train(dummy_matrix, X, ratio, pos_start_index, pos_e
     return new_X_train
 
 
-def bag_of_words_generate_X_test(dummy_matrix, X, ratio, pos_start_index, pos_end_index, neg_start_index, neg_end_index):
+def bag_of_words_generate_X_test(dummy_matrix, X, ratio, pos_start_index, pos_end_index, neg_start_index,
+                                 neg_end_index):
     # user_profile = pd.DataFrame(pd.read_csv(folderpath + '/test1.csv'))
 
     # X = user_profile[['normalized_highest_degree', 'normalized_work_year_past1', 'normalized_work_year_past2',
@@ -144,3 +151,30 @@ def bag_of_words_generate_X_test(dummy_matrix, X, ratio, pos_start_index, pos_en
     return new_X_test
 
 
+def extract_information_oo(classlist):
+    list_data = []
+    for i in range(len(classlist)):
+        # adding work experience information of users
+        user_title_data_list = classlist[i].past_job_title1.split(',') + classlist[i].past_job_title2.split(',') + \
+                               classlist[
+                                   i].past_job_title3.split(',') + classlist[i].past_job_title4.split(',') + classlist[
+                                   i].past_job_title5.split(',') + classlist[
+                                   i].past_job_title6.split(',')
+        new_user_title_data_list = ' '.join(user_title_data_list)
+
+        # adding education background of users
+        # adding skill information of users
+        test1 = classlist[i].skills
+        # data cleaning of the skills
+        userskill_data_list = classlist[i].skills.split(',')
+        new_final_user_skill_data_list = ' '.join(userskill_data_list)
+        final_user_skill_data_list1 = new_final_user_skill_data_list.split(' ')
+        final_work_experience_data_list = new_user_title_data_list.split(' ')
+        # final user data list
+        final_user_data_list = final_user_skill_data_list1+final_work_experience_data_list
+        # #remove all numerical number
+        for i in range(len(final_user_data_list)):
+            final_user_data_list[i] = ''.join([x for x in final_user_data_list[i] if not x.isdigit()])
+        list_data.append(final_user_data_list)
+
+    return list_data

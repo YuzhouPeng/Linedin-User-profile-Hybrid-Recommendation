@@ -64,6 +64,7 @@ def extractall_information_n_gram(datapath, non_datapath, column_index_list, gra
     bigram_list = []
     stopset = set(stopwords.words('english'))
     # generate n-grams without stopwords
+    # remove stopwords
     for i in range(len(user_total_words_info_data1)):
         n_grams = ngrams(user_total_words_info_data1[i],gram_number)
         new_n_gram = []
@@ -96,3 +97,38 @@ def extractall_information_n_gram(datapath, non_datapath, column_index_list, gra
     print(total_words_transformed.shape)
     return total_words_transformed
 
+def extract_information_n_grams_oo(classlist, gram_number):
+    final_user_ngram_list = []
+
+    for i in range(len(classlist)):
+        # adding work experience information of users
+        user_title_data_list = classlist[i].past_job_title1.split(',') + classlist[i].past_job_title2.split(',') + \
+                               classlist[
+                                   i].past_job_title3.split(',') + classlist[i].past_job_title4.split(',') + classlist[
+                                   i].past_job_title5.split(',') + classlist[
+                                   i].past_job_title6.split(',')
+        new_user_title_data_list = ' '.join(user_title_data_list)
+
+        # adding education background of users
+        # adding skill information of users
+        test1 = classlist[i].skills
+        # data cleaning of the skills
+        userskill_data_list = classlist[i].skills.split(',')
+        new_final_user_skill_data_list = ' '.join(userskill_data_list)
+        final_user_skill_data_list1 = new_final_user_skill_data_list.split(' ')
+        final_work_experience_data_list = new_user_title_data_list.split(' ')
+        # final user data list
+        final_user_data_list = final_user_skill_data_list1+final_work_experience_data_list
+        new_n_gram = []
+
+        stopset = set(stopwords.words('english'))
+        # #remove all numerical number
+        for i in range(len(final_user_data_list)):
+            final_user_data_list[i] = ''.join([x for x in final_user_data_list[i] if not x.isdigit()])
+        user_ngram_list = ngrams(final_user_data_list,gram_number)
+        for gram in user_ngram_list:
+            remove_stopword_gram = [x for x in list(gram) if x not in stopset]
+            new_n_gram.append(' '.join(remove_stopword_gram))
+        final_user_ngram_list.append(new_n_gram)
+
+    return final_user_ngram_list
