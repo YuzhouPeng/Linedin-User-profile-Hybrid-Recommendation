@@ -157,10 +157,12 @@ def n_grams_oo(pos_list,neg_list):
     print(1)
 
 if __name__ == '__main__':
+    # main function
+
     # contentbased_old()
 
-    # OO-based method
-    # initiate data
+    # Object Oriented(OO) based method
+    # initiate LinkedIn user data
     linkedIndata_list = []
     job_iter_index = 0
     with open('/Users/pengyuzhou/Google Drive/Linkedin_datafile/data_v3.csv', 'r') as f:
@@ -176,6 +178,10 @@ if __name__ == '__main__':
     length_of_linkedindata = len(linkedIndata_list)
     for i in range(len(test_list[0])):
         linkedIndata_list[i].getworkdurationvalue(*[test_list[k][i] for k in range(10)])
+
+
+    # iterate 6 selected job title in globalparameter.py
+
     for job_iter_index in range(6):
         print('Began to read job title: ' + globalparameter.jobtitle_list[job_iter_index])
 
@@ -186,15 +192,22 @@ if __name__ == '__main__':
                                                                           globalparameter.jobtitle_list[job_iter_index], 2)
         length_relevant_user = len(relevant_user_list)
         length_non_relevant_user = len(non_relevant_user_list)
+
+        # calculate values of evaluation metrics for 5 times
+
         for iterate in range(5):
             # iterations for calculate average precision
             pos_list = random.sample(relevant_user_list, 500)
             neg_list = random.sample(non_relevant_user_list, 500)
 
             # test feature representation of bag-of-words
+
             bag_of_words_oo(pos_list,neg_list)
+
             # test feature representation of n-grams
+
             # n_grams_oo(pos_list,neg_list)
+
             print('end this iteration')
         print('switch to next job title')
 
@@ -209,7 +222,7 @@ if __name__ == '__main__':
     print('Accuracy value list: {}'.format(globalparameter.alg_accuracy))
     result_list = pd.DataFrame({'precision': globalparameter.alg_precision, 'recall': globalparameter.alg_recall,
                                 'accuracy': globalparameter.alg_accuracy, 'f1_score': globalparameter.alg_f1_score})
-    result_list.to_csv('/Users/pengyuzhou/Downloads/word2vec_average_sentence_result/all_result_list_oo'+'.csv')
+    result_list.to_csv('/Users/pengyuzhou/Downloads/word2vec_average_sentence_result/result_list_oo'+'.csv')
         # load the Stanford GloVe model
         # filename = '/Users/pengyuzhou/Downloads/glove.6B/glove.6B.100d.txt.word2vec'
         # model = KeyedVectors.load_word2vec_format(filename, binary=False)
