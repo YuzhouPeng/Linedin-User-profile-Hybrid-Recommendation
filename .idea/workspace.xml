@@ -3,7 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="cff3d767-eecd-484c-a2c2-fbb4c954890e" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change beforePath="$PROJECT_DIR$/README.md" afterPath="$PROJECT_DIR$/README.md" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -455,13 +454,6 @@
       <option name="presentableId" value="Default" />
       <updated>1523995666889</updated>
     </task>
-    <task id="LOCAL-00018" summary="add code">
-      <created>1527020187683</created>
-      <option name="number" value="00018" />
-      <option name="presentableId" value="LOCAL-00018" />
-      <option name="project" value="LOCAL" />
-      <updated>1527020187683</updated>
-    </task>
     <task id="LOCAL-00019" summary="add code">
       <created>1527087273480</created>
       <option name="number" value="00019" />
@@ -798,7 +790,14 @@
       <option name="project" value="LOCAL" />
       <updated>1541107226759</updated>
     </task>
-    <option name="localTasksCounter" value="67" />
+    <task id="LOCAL-00067" summary="update readme">
+      <created>1541107631269</created>
+      <option name="number" value="00067" />
+      <option name="presentableId" value="LOCAL-00067" />
+      <option name="project" value="LOCAL" />
+      <updated>1541107631269</updated>
+    </task>
+    <option name="localTasksCounter" value="68" />
     <servers />
   </component>
   <component name="ToolWindowManager">
