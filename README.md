@@ -1,5 +1,11 @@
-# Content-based-User-profile-Recommendation-of-LinkedIn-Profile
-This project is for content-based recommedation for user profile, we used natural language procession approach(n-gram) and different machine learning algorithms to find the best approach for expert recommendaion of LinkedIn user profiles.
+# Content-Based-Talent-Recommendation-of-LinkedIn-Profile
+
+# Aim
+This project is for content-based recommedation for talents, we used different combinations of different technologies such as feature representation approachs(N-Grams, Word Embedding) and different learning algorithms(SVM, Logistic regression) to find the best approach for expert recommendaion of LinkedIn user profiles.
+
+# Data Analysis of LinkedIn Profile
+
+# Feature representation lists:
 
 N-gram models used:
 
