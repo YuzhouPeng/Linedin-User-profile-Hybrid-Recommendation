@@ -222,7 +222,7 @@ if __name__ == '__main__':
     print('Accuracy value list: {}'.format(globalparameter.alg_accuracy))
     result_list = pd.DataFrame({'precision': globalparameter.alg_precision, 'recall': globalparameter.alg_recall,
                                 'accuracy': globalparameter.alg_accuracy, 'f1_score': globalparameter.alg_f1_score})
-    result_list.to_csv('/Users/pengyuzhou/Downloads/word2vec_average_sentence_result/result_list_oo'+'.csv')
+    result_list.to_csv('/Users/pengyuzhou/Downloads/word2vec_average_sentence_result/rresult_list_oo'+'.csv')
         # load the Stanford GloVe model
         # filename = '/Users/pengyuzhou/Downloads/glove.6B/glove.6B.100d.txt.word2vec'
         # model = KeyedVectors.load_word2vec_format(filename, binary=False)
