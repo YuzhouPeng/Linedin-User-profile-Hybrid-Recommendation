@@ -3,6 +3,10 @@
 # Aim
 This project is for content-based recommedation for talents, we used different combinations of different technologies such as feature representation approachs(N-Grams, Word Embedding) and different learning algorithms(SVM, Logistic regression) to find the best approach for expert recommendaion of LinkedIn user profiles.
 
+# Content-based Recommender System Design
+![recommender system framework](https://github.com/YuzhouPeng/images/blob/master/content-based%20recommender%20system%20design.png)
+
+
 # LinkedIn Profile Data Overview and Data Analysis
 
 Data overview:
@@ -53,6 +57,8 @@ In order to make the robustness and scalability of the system, we use the Object
 
 
 
+
+
 # Feature representation lists:
 
 N-gram models used:
@@ -68,6 +74,12 @@ Bigram
 Trigram
 
 ![Trigram model](https://github.com/YuzhouPeng/images/blob/master/trigram.png)
+
+Word2vec:
+![Word2vec](https://github.com/YuzhouPeng/images/blob/master/word2vec.png)
+
+Doc2vec:
+![Doc2vec](https://github.com/YuzhouPeng/images/blob/master/doc2vec.png)
 
 Machine learning algorithms used:
 
@@ -126,3 +138,6 @@ generateweightingfile.py: merge user data with normalized work year data.
 globalparameter.py: store the global parameter of the data, including the data path,train/test split ratio and other parameter.
 
 main.py: main function of the program.
+
+# Analysis Results:
+
