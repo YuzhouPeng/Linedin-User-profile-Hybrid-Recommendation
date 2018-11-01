@@ -8,15 +8,35 @@ This project is for content-based recommedation for talents, we used different c
 Data overview:
 ![Snippet of cleaned data set](https://github.com/YuzhouPeng/images/blob/master/cleaneduserdata.png)
 
+The LinkedIn user profile data is a 261.2 MB CSV file with 158096 LinkedIn user profile. 
+
+For every user profile, they have 67 attributes that can be categorized as following:
+1. User id
+2. Username
+3. Connections number of user
+4. Seven parts of work experience (current and past work experience, combined
+with job title, company name, company type, work duration, company location)
+5. Four parts of educational backgrounds (university name, degree of education,
+major, end date of education, education details) 6. Skills
+7. Languages
+
+
+
 # Feature representation lists:
 
 N-gram models used:
 
 Unigram(Bag-of-Words)
 
+![unigram model](https://github.com/YuzhouPeng/images/blob/master/unigram.png)
+
 Bigram
 
+![Bigram model](https://github.com/YuzhouPeng/images/blob/master/bigram.png)
+
 Trigram
+
+![Trigram model](https://github.com/YuzhouPeng/images/blob/master/trigram.png)
 
 Machine learning algorithms used:
 
