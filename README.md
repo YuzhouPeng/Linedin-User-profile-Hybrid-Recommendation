@@ -20,7 +20,20 @@ with job title, company name, company type, work duration, company location)
 major, end date of education, education details) 6. Skills
 7. Languages
 
+Top 15 job position:
+![Top 15 job position](https://github.com/YuzhouPeng/images/blob/master/top15%20job%20position.png)
 
+Number of the effective work experience:
+![Effective work experience value](https://github.com/YuzhouPeng/images/blob/master/number%20of%20effective%20value%20in%20work%20experience.png)
+
+Number of effective education:
+![Effective education value](https://github.com/YuzhouPeng/images/blob/master/num%20of%20value%20in%20edu.png)
+
+
+and the organization of the user profile is:
+![organization of the user profile is](https://github.com/YuzhouPeng/images/blob/master/organization%20of%20user%20profile%20class.png)
+
+In order to make the robustness and scalability of the system, we use the Objected-Oriented (OO based) programming in our system, and the organization is shown in the linkedindata_old.py.
 
 # Feature representation lists:
 
