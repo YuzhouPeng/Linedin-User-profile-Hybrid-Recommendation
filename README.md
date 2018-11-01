@@ -5,6 +5,9 @@ This project is for content-based recommedation for talents, we used different c
 
 # Data Analysis of LinkedIn Profile
 
+Data overview:
+![Snippet of cleaned data set](https://github.com/YuzhouPeng/images/blob/master/cleaneduserdata.png)
+
 # Feature representation lists:
 
 N-gram models used:
