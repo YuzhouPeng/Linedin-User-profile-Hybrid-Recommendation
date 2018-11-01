@@ -17,23 +17,36 @@ For every user profile, they have 67 attributes that can be categorized as follo
 4. Seven parts of work experience (current and past work experience, combined
 with job title, company name, company type, work duration, company location)
 5. Four parts of educational backgrounds (university name, degree of education,
-major, end date of education, education details) 6. Skills
+major, end date of education, education details) 
+6. Skills
 7. Languages
 
-Top 15 job position:
-![Top 15 job position](https://github.com/YuzhouPeng/images/blob/master/top15%20job%20position.png)
-
-Number of the effective work experience:
-![Effective work experience value](https://github.com/YuzhouPeng/images/blob/master/number%20of%20effective%20value%20in%20work%20experience.png)
-
-Number of effective education:
-![Effective education value](https://github.com/YuzhouPeng/images/blob/master/num%20of%20value%20in%20edu.png)
-
-
-and the organization of the user profile is:
+In order to make the robustness and scalability of the system, we use the Objected-Oriented (OO based) programming in our system, and the organization is shown in the linkedindata_old.py and the organization of the user profile is:
 ![organization of the user profile is](https://github.com/YuzhouPeng/images/blob/master/organization%20of%20user%20profile%20class.png)
 
-In order to make the robustness and scalability of the system, we use the Objected-Oriented (OO based) programming in our system, and the organization is shown in the linkedindata_old.py.
+Top 15 job position of all user profile:
+![Top 15 job position](https://github.com/YuzhouPeng/images/blob/master/top15%20job%20position.png)
+
+Based on the statistic data, there are mainly three kinds of job position: technical position (engineer), management position(manager) and academic position(professor).
+
+Thus, based on the data, we will mainly select job positions from those areas.
+
+Average number of the effective work experience per user:
+![Effective work experience value](https://github.com/YuzhouPeng/images/blob/master/number%20of%20effective%20value%20in%20work%20experience.png)
+Based on the statistic data, nearly 82% of the user have at least 1 past job experience. And more than 48% of users have 2 job experience. 
+
+Average number of effective education per user:
+![Effective education value](https://github.com/YuzhouPeng/images/blob/master/num%20of%20value%20in%20edu.png)
+Based on the statistic data, nearly 89% of the user have at least 1 education background. more than %56 of users have more than 2 education background.
+
+Average number of the skills per user is: 19.72
+
+Summary of the user data and selecting of user profile attributes:
+
+Thus, based on the statistic data of the job position, education background and skills. We decided
+
+
+
 
 # Feature representation lists:
 
