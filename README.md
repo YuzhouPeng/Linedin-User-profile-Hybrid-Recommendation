@@ -23,6 +23,9 @@ major, end date of education, education details)
 
 Data analysis:
 
+Connections number of user: the number shows the connections of other LinkedIn users for every user.
+
+
 Top 15 job position of all user profile:
 ![Top 15 job position](https://github.com/YuzhouPeng/images/blob/master/top15%20job%20position.png)
 
@@ -42,7 +45,7 @@ Average number of the skills per user is: 19.72
 
 Summary of the user data and selecting of user profile attributes:
 
-Thus, based on the statistic data of the job position, education background and skills. We decided
+Thus, based on the statistic data of the job position, education background and skills. We decided to use six past work experience, four parts of education (except university name, end date of education), skills, language.
 
 # Coding sytle
 In order to make the robustness and scalability of the system, we use the Objected-Oriented (OO based) programming in our system, and the organization is shown in the linkedindata_old.py and the organization of the user profile is:

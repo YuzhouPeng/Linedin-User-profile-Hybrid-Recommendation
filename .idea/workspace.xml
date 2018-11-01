@@ -73,8 +73,8 @@
         <entry file="file://$PROJECT_DIR$/README.md">
           <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
             <state split_layout="SPLIT">
-              <first_editor relative-caret-position="290">
-                <caret line="23" column="14" lean-forward="false" selection-start-line="23" selection-start-column="14" selection-end-line="23" selection-end-column="14" />
+              <first_editor relative-caret-position="-61">
+                <caret line="47" column="222" lean-forward="false" selection-start-line="47" selection-start-column="222" selection-end-line="47" selection-end-column="222" />
                 <folding />
               </first_editor>
               <second_editor />
@@ -455,13 +455,6 @@
       <option name="presentableId" value="Default" />
       <updated>1523995666889</updated>
     </task>
-    <task id="LOCAL-00016" summary="add code">
-      <created>1526505615146</created>
-      <option name="number" value="00016" />
-      <option name="presentableId" value="LOCAL-00016" />
-      <option name="project" value="LOCAL" />
-      <updated>1526505615146</updated>
-    </task>
     <task id="LOCAL-00017" summary="add code">
       <created>1526924691864</created>
       <option name="number" value="00017" />
@@ -798,7 +791,14 @@
       <option name="project" value="LOCAL" />
       <updated>1541105594857</updated>
     </task>
-    <option name="localTasksCounter" value="65" />
+    <task id="LOCAL-00065" summary="update readme">
+      <created>1541105737090</created>
+      <option name="number" value="00065" />
+      <option name="presentableId" value="LOCAL-00065" />
+      <option name="project" value="LOCAL" />
+      <updated>1541105737090</updated>
+    </task>
+    <option name="localTasksCounter" value="66" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -1164,8 +1164,8 @@
     <entry file="file://$PROJECT_DIR$/README.md">
       <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
         <state split_layout="SPLIT">
-          <first_editor relative-caret-position="290">
-            <caret line="23" column="14" lean-forward="false" selection-start-line="23" selection-start-column="14" selection-end-line="23" selection-end-column="14" />
+          <first_editor relative-caret-position="-61">
+            <caret line="47" column="222" lean-forward="false" selection-start-line="47" selection-start-column="222" selection-end-line="47" selection-end-column="222" />
             <folding />
           </first_editor>
           <second_editor />
