@@ -3,7 +3,7 @@
 # Aim
 This project is for content-based recommedation for talents, we used different combinations of different technologies such as feature representation approachs(N-Grams, Word Embedding) and different learning algorithms(SVM, Logistic regression) to find the best approach for expert recommendaion of LinkedIn user profiles.
 
-# Data Analysis of LinkedIn Profile
+# LinkedIn Profile Data Overview and Data Analysis
 
 Data overview:
 ![Snippet of cleaned data set](https://github.com/YuzhouPeng/images/blob/master/cleaneduserdata.png)
@@ -21,8 +21,7 @@ major, end date of education, education details)
 6. Skills
 7. Languages
 
-In order to make the robustness and scalability of the system, we use the Objected-Oriented (OO based) programming in our system, and the organization is shown in the linkedindata_old.py and the organization of the user profile is:
-![organization of the user profile is](https://github.com/YuzhouPeng/images/blob/master/organization%20of%20user%20profile%20class.png)
+Data analysis:
 
 Top 15 job position of all user profile:
 ![Top 15 job position](https://github.com/YuzhouPeng/images/blob/master/top15%20job%20position.png)
@@ -45,6 +44,9 @@ Summary of the user data and selecting of user profile attributes:
 
 Thus, based on the statistic data of the job position, education background and skills. We decided
 
+# Coding sytle
+In order to make the robustness and scalability of the system, we use the Objected-Oriented (OO based) programming in our system, and the organization is shown in the linkedindata_old.py and the organization of the user profile is:
+![organization of the user profile is](https://github.com/YuzhouPeng/images/blob/master/organization%20of%20user%20profile%20class.png)
 
 
 
