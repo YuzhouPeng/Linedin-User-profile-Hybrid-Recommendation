@@ -139,5 +139,35 @@ globalparameter.py: store the global parameter of the data, including the data p
 
 main.py: main function of the program.
 
-# Analysis Results:
+
+# High Dimension of User Profile Vector Space and Solution
+
+Some feature representation methods(like N-grams) will produce huge user profile vector space, which will cause longer training time of recommendation system.
+
+The Dimension value of user profile using Bigram is:
+![Dimension of bigram](https://github.com/YuzhouPeng/images/blob/master/Dimension%20value%20of%20generated%20feature%20vectors%20by%20Bigram%20.png)
+
+Thus, we decided to use Singular Value Decomposition (SVD) for reducing the dimension to 50:
+
+![Dimension after using SVD](https://github.com/YuzhouPeng/images/blob/master/Dimension%20value%20of%20generated%20feature%20vectors%20by%20Bigram.png)
+
+Comparision of training time:
+
+![Comparision of training time](https://github.com/YuzhouPeng/images/blob/master/Training%20time%20of%20different%20learning%20algorithms%20with%20original%20data%20and%20reduced%20dimension%20data.png)
+
+
+
+
+# Recommendation Results:
+
+We use precision and recall to evaluate results. The following is the evaluate results:
+
+Average precision & recall of using all user profile data and N-gram model(work experience, education background, skill&language)
+![precision1](https://github.com/YuzhouPeng/images/blob/master/Average%20precision%20for%20all%20job%20positions%20of%20using%20all%20data.png)
+
+Average precision of using all user profile data and word embedding model(work experience, education background, skill&language)
+![precision2](https://github.com/YuzhouPeng/images/blob/master/Word%20embedding%20approaches%20with%20highest%20precision%20for%20every%20job%20position.png)
+
+Average precision of using all user profile data and word embedding model(work experience, education background, skill&language)
+![precision3](https://github.com/YuzhouPeng/images/blob/master/Document%20embedding%20approaches%20with%20highest%20precision%20for%20every%20job%20position.png)
 
