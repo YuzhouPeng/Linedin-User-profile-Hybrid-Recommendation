@@ -168,6 +168,6 @@ Average precision & recall of using all user profile data and N-gram model(work 
 Average precision of using all user profile data and word embedding model(work experience, education background, skill&language)
 ![precision2](https://github.com/YuzhouPeng/images/blob/master/Word%20embedding%20approaches%20with%20highest%20precision%20for%20every%20job%20position.png)
 
-Average precision of using all user profile data and word embedding model(work experience, education background, skill&language)
+Average precision of using all user profile data and document embedding model(work experience, education background, skill&language)
 ![precision3](https://github.com/YuzhouPeng/images/blob/master/Document%20embedding%20approaches%20with%20highest%20precision%20for%20every%20job%20position.png)
 
