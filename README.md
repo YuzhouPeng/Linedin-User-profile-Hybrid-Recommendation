@@ -171,3 +171,4 @@ Average precision of using all user profile data and word embedding model(work e
 Average precision of using all user profile data and document embedding model(work experience, education background, skill&language)
 ![precision3](https://github.com/YuzhouPeng/images/blob/master/Document%20embedding%20approaches%20with%20highest%20precision%20for%20every%20job%20position.png)
 
+Here are part of results for recommenadtion result. For Further detailed information, please send me the message.
