@@ -1,4 +1,4 @@
-# Content-Based-Talent-Recommendation-of-LinkedIn-Profile
+# Hybrid-Talent-Recommendation-of-LinkedIn
 
 # Aim
 This project is for content-based recommedation for talents, we used different combinations of different technologies such as feature representation approachs(N-Grams, Word Embedding) and different learning algorithms(SVM, Logistic regression) to find the best approach for expert recommendaion of LinkedIn user profiles.
