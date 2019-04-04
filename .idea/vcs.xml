@@ -2,5 +2,8 @@
 <project version="4">
   <component name="VcsDirectoryMappings">
     <mapping directory="$PROJECT_DIR$" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/Collaborative-Filtering-User-Profile-Recommendation" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/Word2vec_word_embedding_recommender_system" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/librec" vcs="Git" />
   </component>
 </project>
